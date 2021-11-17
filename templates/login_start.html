@@ -1,0 +1,48 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <nav class="nav" style="display: none">
+  <a class="nav-link arrow" id="back" href="#"><img src="{% static 'images/arrow_back.svg' %}" alt=""></a>
+</nav>
+
+
+    <div align="center" style="margin-top: 4%">
+        <h4 class="bold blue">bag24</h4>
+        <h2 class="middle" style="color: black">Keeplt клиент</h2>
+    </div>
+
+    <div class="center">
+        <div class="divform">
+            <div align="center">
+                <h2 id="title" class="middle f-32" style="color: black">Телефон</h2>
+                <p id="subtext" class="semi f-16 grey">Пришлем на него смс с кодом</p>
+            </div>
+            <div align="left">
+                <label class="form-label semi f-16 grey">Номер телефона</label>
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control text-input">
+                </div>
+            </div>
+            <div align="center">
+                <button class="btn btn-next bold">
+                    Дальше
+                </button>
+            </div>
+        </div>
+    </div>
+    <a class="center blue mt-4" id="repeat" style="display: none" href="#">Отправить код повторно</a>
+    <div class="center">
+        <a href="#"  class="btn btn-down bold">
+            Регистрация / вход по логину
+        </a>
+    </div>
+{% endblock %}
+
+
+
+{% block script %}
+    <script src="{% static 'js/login.js' %}"></script>
+{% endblock %}
