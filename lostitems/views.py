@@ -11,3 +11,9 @@ def logoutUser(request):
 
 def registrationUser(request):
     pass
+
+def fillProfile(request):
+    return render(request, 'fill_profile.html')
+
+def mainMenu(request):
+    return render(request, 'main_menu.html')

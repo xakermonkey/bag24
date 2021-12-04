@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Exo+2&family=Inter:wght@400;600;700&family=Open+Sans&display=swap"
           rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dropzone.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/dore.light.bluenavy.css' %}" rel="stylesheet">
 
     <title>{% block title %}Document{% endblock %}</title>
 
@@ -29,6 +31,7 @@
         crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
 {% block script %}
 {% endblock %}
 </html>

@@ -1,5 +1,21 @@
-body {
+body, .btn {
     font-family: Inter;
+}
+.nav {
+    justify-content: space-between;
+}
+.nav-link {
+}
+.nav-left {
+    display: flex;
+    align-items: center;
+    padding: 1% 0 0 1%
+}
+.nav-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1% 1% 0 0
 }
 
 .bold {
@@ -25,6 +41,9 @@ body {
 .grey {
     color: #8b8b8b
 }
+.black {
+    color: #0C0C0D
+}
 
 .center {
     display: flex;
@@ -42,7 +61,15 @@ a {
     border-radius: 1rem;
     box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
     padding: 48px;
-    margin-top: 10%;
+    margin-top: 5%;
+}
+.divform_error {
+    background: #F9D2D2;
+    width: 22%;
+    border-radius: 1rem;
+    /*box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);*/
+    padding: 23px;
+    margin-top: 2%;
 }
 
 
@@ -65,6 +92,15 @@ a {
     margin-top: 12%;
     font-size: 14px;
 }
+.btn-address {
+    width: 100%;
+    padding: 3%;
+    border-radius: 12px;
+    background-color: #DFDFE1;
+    color: #0C0C0D;
+    margin-top: 2%;
+    font-size: 14px;
+}
 
 .btn-next:hover {
     color: white;
@@ -73,9 +109,15 @@ a {
 .btn-down:hover {
     color: black;
 }
+.btn-address:hover {
+    color: black;
+}
 
 .f-16 {
     font-size: 1rem;
+}
+.f-18 {
+    font-size: 1.125rem;
 }
 
 .f-32 {
@@ -109,3 +151,253 @@ input[type=number]::-webkit-outer-spin-button {
     top: 32px;
     border-radius: 300px;
 }
+
+
+.btngroup {
+    display: flex;
+    justify-content: space-around;
+    padding: 4px;
+    width: 625px;
+    height: 64px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+
+.btngroup button {
+    width: 100%;
+    font-size: 17px;
+}
+
+.btngroup .selected {
+    background-color: #3333FF;
+    border-radius: 12px;
+    color: white
+}
+
+/*Заполнить профиль Личные данные*/
+.divprof {
+    width: 30%;
+    margin: auto;
+}
+.divprof .text-input-big {
+   background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 5%;
+    width: 100%;
+}
+.divprof .text-input {
+   background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 3%;
+    width: 100%;
+}
+.divprof .number-input {
+   background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 14%;
+    width: 100%;
+}
+.btn-save {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    width: 57%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin: auto;
+    margin-top: 22%;
+}
+
+.divprof .form-label {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.div-my-addresses {
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    margin-top: 7%;
+}
+
+.btn-group-item {
+    display: flex;
+    justify-content: space-around;
+    padding: 4px;
+    width: 28%;
+    height: 64px;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+}
+.div-my-item {
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    width: 32%;
+    padding: 1.7%;
+    margin-right: 1rem;
+    margin-top: 1rem;
+}
+.div-my-item .row {
+    --bs-gutter-x: 0;
+}
+.modal-code {
+}
+.get-code {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin: auto;
+    margin-top: 5%;
+}
+.modal-code .text-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 3%;
+    width: 100%;
+}
+.center .form-label {
+    margin-bottom: 0;
+}
+
+.div-input {
+    background: rgba(35, 35, 42, .08);
+    border-radius: 12px;
+    padding: 2.3% 4.6% 2.3% 4.6%;
+    width: 100%;
+}
+.div-input .form-check-input {
+    background-color: #23232a14;
+}
+
+.div-input .form-check-input:checked {
+    background-color: #3333FF;
+}
+
+.btn-next {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    width: 20%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    margin: auto;
+    margin-top: 1rem;
+}
+
+
+/*=============   Выбор способа доставки*/
+.div-delivery-method-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 3.4%;
+}
+.div-delivery-method{
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23.4%;
+    padding: 3.1% 0;
+}
+.div-delivery-method label {
+    margin-bottom: 16px;
+}
+.div-delivery-method img {
+    margin-bottom: 16px;
+}
+.div-delivery-method .btn {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+/*=================================================================*/
+
+
+/*==================================================    Выбор компании доставки*/
+.div-choice-delivery-company {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+}
+/*=================================================================*/
+
+
+    /*==================================================    Прайсы подсчет*/
+.div-transport-company {
+    background: #FFFFFF;
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+}
+.div-price {
+    background: #FFFFFF;
+    box-shadow: 0 16px 32px -16px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    padding: 1.7% 1.7%;
+}
+.div-price-item {
+        margin-bottom: 4.2%;
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.div-price-item .in-item {
+    display: flex;
+    flex-direction: column
+}
+.form-switch .form-check-input {
+    width: 3em;
+    height: 1.5em;
+    margin-left: 0;
+    margin-top: 0;
+    border: none;
+    background-color: #23232A14;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%2323232A14'/%3e%3c/svg%3e");
+}
+.form-switch .form-check-input:checked {
+    background-color: #23232A14;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%233333FF'/%3e%3c/svg%3e");
+}
+.line {
+border: 1px solid rgba(35, 35, 42, 0.08);
+        margin-bottom: 4.2%;
+}
+.div-price .btn {
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    background-color: #33f;
+    color: white;
+    box-sizing: border-box;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+/*=================================================================*/
+
+
