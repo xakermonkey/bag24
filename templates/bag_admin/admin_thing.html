@@ -1,0 +1,663 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Панель администратора | Вещи в камере{% endblock %}
+
+
+{% block content %}
+    <style type="text/css">
+        .dark-gray {
+            color: #0C0C0D7A
+        }
+
+        .nav-middle {
+            font-size: 32px;
+            font-weight: 600;
+            font-family: "Inter";
+            line-height: 48px;
+            padding: 1% 0 0 0;
+        }
+
+        .nav-middle a:hover {
+            color: #0C0C0D
+        }
+
+        .nav-middle a.active {
+            color: #0C0C0D;
+            border-bottom: 4px solid #0C0C0D;
+        }
+
+        .slesh-space {
+            margin-left: 32px;
+            margin-right: 32px;
+        }
+
+        .thing-main {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+            padding-top: 5%;
+            padding-left: 3%;
+        }
+
+        .thing {
+            background: #FFFFFF;
+            width: 48%;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: row;
+            padding: 2%;
+            margin-right: 1%;
+            margin-bottom: 1%;
+        }
+
+        .thing-photo {
+            width: 14%;
+            height: 25%;
+            margin-right: 3%;
+        }
+
+        .date-time {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 7%;
+        }
+
+        .date, .time {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .date {
+            width: 60%;
+        }
+
+        .time {
+            width: 40%;
+        }
+
+        .thing-left {
+            width: 45%;
+            border-right: 1px solid #23232A14;
+        }
+
+        .thing-right {
+            width: 45%;
+            margin-left: 5%;
+        }
+
+        .thing-info {
+            display: flex;
+            margin-bottom: 5%;
+        }
+
+        .thing .label {
+            font-size: 16px;
+            color: #0C0C0D7A;
+            font-family: Inter;
+        }
+
+        .thing .value {
+            font-size: 18px;
+            color: #0C0C0D;
+            font-family: Inter;
+        }
+
+        .thing-icon {
+            font-size: 32px;
+            margin-right: 7%;
+        }
+
+        .title {
+            font-size: 22px;
+            color: #0C0C0D;
+            font-family: Inter;
+        }
+        .div-title {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3.5%;
+        }
+
+
+    </style>
+
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"
+                                                                     style="width: 60px; "></a>
+        </div>
+        <div class="nav-middle">
+            <a class="dark-gray " href="{% url 'panel' %}">Сотрудники</a>
+            <img class="slesh-space" src="{% static 'images/slesh.svg' %}" alt="">
+            <a class="dark-gray active" href="">Вещи в камере</a>
+            <img class="slesh-space" src="{% static 'images/slesh.svg' %}" alt="">
+            <a class="dark-gray" href="{% url 'kh' %}">Камеры хранения</a>
+        </div>
+        <div class="nav-right">
+            <label class="semi f-18 black">Владислав Старун</label>
+            <a class="" href="#" style="color: #3333FF">Выход</a>
+        </div>
+    </nav>
+
+
+    <div class="thing-main">
+        <div class="thing">
+            <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
+            <div class="thing-left">
+                <div class="div-title">
+                    <div class="title">Вещь найдена</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Найдено сотрудником</div>
+                        <div class="value">Александра Сергеевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Место обнаружения</div>
+                        <div class="value">Шереметьево. Терминал F</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                    <div class="thing-info-info">
+                        <div class="label">Акт осмотра</div>
+                        <div class="value">Имеется</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-file-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Класс вещи</div>
+                        <div class="value">Одежда</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-exclamation-circle-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Вид вещи</div>
+                        <div class="value">Шапка</div>
+                    </div>
+                </div>
+            </div>
+            <div class="thing-right">
+                <div class="div-title">
+                    <div class="title">Вещь сдана</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thin-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Принято сотрудником</div>
+                        <div class="value">Валентина Валерьевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Камера</div>
+                        <div class="value">Название камеры</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Описание</div>
+                        <div class="value">Серая шапка</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="thing">
+            <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
+            <div class="thing-left">
+                <div class="div-title">
+                    <div class="title">Вещь найдена</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Найдено сотрудником</div>
+                        <div class="value">Александра Сергеевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Место обнаружения</div>
+                        <div class="value">Шереметьево. Терминал F</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                    <div class="thing-info-info">
+                        <div class="label">Акт осмотра</div>
+                        <div class="value">Имеется</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-file-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Класс вещи</div>
+                        <div class="value">Одежда</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-info-circle-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Вид вещи</div>
+                        <div class="value">Шапка</div>
+                    </div>
+                </div>
+            </div>
+            <div class="thing-right">
+                <div class="div-title">
+                    <div class="title">Вещь сдана</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thin-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Принято сотрудником</div>
+                        <div class="value">Валентина Валерьевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Камера</div>
+                        <div class="value">Название камеры</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Описание</div>
+                        <div class="value">Серая шапка</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="thing">
+            <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
+            <div class="thing-left">
+                <div class="div-title">
+                    <div class="title">Вещь найдена</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Найдено сотрудником</div>
+                        <div class="value">Александра Сергеевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Место обнаружения</div>
+                        <div class="value">Шереметьево. Терминал F</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                    <div class="thing-info-info">
+                        <div class="label">Акт осмотра</div>
+                        <div class="value">Имеется</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-file-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Класс вещи</div>
+                        <div class="value">Одежда</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-info-circle-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Вид вещи</div>
+                        <div class="value">Шапка</div>
+                    </div>
+                </div>
+            </div>
+            <div class="thing-right">
+                <div class="div-title">
+                    <div class="title">Вещь сдана</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thin-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Принято сотрудником</div>
+                        <div class="value">Валентина Валерьевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Камера</div>
+                        <div class="value">Название камеры</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Описание</div>
+                        <div class="value">Серая шапка</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="thing">
+            <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
+            <div class="thing-left">
+                <div class="div-title">
+                    <div class="title">Вещь найдена</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Найдено сотрудником</div>
+                        <div class="value">Александра Сергеевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Место обнаружения</div>
+                        <div class="value">Шереметьево. Терминал F</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                    <div class="thing-info-info">
+                        <div class="label">Акт осмотра</div>
+                        <div class="value">Имеется</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-file-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Класс вещи</div>
+                        <div class="value">Одежда</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-info-circle-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Вид вещи</div>
+                        <div class="value">Шапка</div>
+                    </div>
+                </div>
+            </div>
+            <div class="thing-right">
+                <div class="div-title">
+                    <div class="title">Вещь сдана</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thin-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Принято сотрудником</div>
+                        <div class="value">Валентина Валерьевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Камера</div>
+                        <div class="value">Название камеры</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Описание</div>
+                        <div class="value">Серая шапка</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="thing">
+            <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
+            <div class="thing-left">
+                <div class="div-title">
+                    <div class="title">Вещь найдена</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Найдено сотрудником</div>
+                        <div class="value">Александра Сергеевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Место обнаружения</div>
+                        <div class="value">Шереметьево. Терминал F</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                    <div class="thing-info-info">
+                        <div class="label">Акт осмотра</div>
+                        <div class="value">Имеется</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-file-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Класс вещи</div>
+                        <div class="value">Одежда</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-info-circle-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Вид вещи</div>
+                        <div class="value">Шапка</div>
+                    </div>
+                </div>
+            </div>
+            <div class="thing-right">
+                <div class="div-title">
+                    <div class="title">Вещь сдана</div>
+                </div>
+                <div class="date-time">
+                    <div class="date">
+                        <div class="thin-icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                        <div class="date-info">
+                            <div class="label">Дата</div>
+                            <div class="value">10 декабря 2021</div>
+                        </div>
+                    </div>
+                    <div class="time">
+                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div class="time-info">
+                            <div class="label">Время</div>
+                            <div class="value">19:00</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Принято сотрудником</div>
+                        <div class="value">Валентина Валерьевна</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Камера</div>
+                        <div class="value">Название камеры</div>
+                    </div>
+                </div>
+                <div class="thing-info">
+                    <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
+                    <div class="thing-info-info">
+                        <div class="label">Описание</div>
+                        <div class="value">Серая шапка</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+{% block script %}
+
+{% endblock %}

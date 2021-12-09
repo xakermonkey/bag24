@@ -19,7 +19,8 @@ from django.conf.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('lostitems.urls'))
+    path('', include('lostitems.urls')),
+    path('bag_admin/', include('bag_admin.urls'))
     # path('api/', include('lostitems.urls'))
 ]
 #

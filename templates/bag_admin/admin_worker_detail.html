@@ -1,0 +1,553 @@
+{% extends "index.html" %}
+{% load static %}
+{% block title %}Панель адинистратора | Сотрудник{% endblock %}
+
+
+{% block content %}
+    <style type="text/css">
+        .dark-gray {
+            color: #0C0C0D7A
+        }
+
+        .nav-middle {
+            font-size: 32px;
+            font-weight: 600;
+            font-family: "Inter";
+            line-height: 48px;
+            padding: 1% 0 0 0;
+        }
+
+        .nav-middle a:hover {
+            color: #0C0C0D
+        }
+
+        .nav-middle a.active {
+            color: #0C0C0D;
+            border-bottom: 4px solid #0C0C0D;
+        }
+
+        .slesh-space {
+            margin-left: 32px;
+            margin-right: 32px;
+        }
+
+        .worker-main {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            margin-top: 5%;
+
+        }
+
+        .worker-left {
+            width: 25%;
+            margin-left: 5%;
+        }
+
+        .btn-back {
+            background: rgba(35, 35, 42, 0.08);
+            border-radius: 16px;
+            padding: 8px 12px;
+            width: 30%;
+            margin-bottom: 6%;
+        }
+
+        .btn-back .btn {
+            color: #0C0C0D7A;
+            font-size: 18px;
+            font-family: Inter;
+        }
+
+        .worker-profile {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 6%;
+        }
+
+        .worker-name-label {
+            color: #0C0C0D7A;
+            font-size: 18px;
+            font-family: Inter;
+        }
+
+        .profile {
+            font-size: 64px
+        }
+
+        .worker-name {
+            margin-left: 3%;
+        }
+
+        .worker-name-value {
+            color: #0C0C0D;
+            font-size: 32px;
+            font-weight: 600;
+            font-family: Inter;
+        }
+
+        .worker-info-list {
+            width: 90%;
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+        }
+
+        .worker-info {
+            display: flex;
+            flex-direction: row;
+            padding: 16px;
+            align-items: center;
+        }
+
+        .worker-info-label {
+            color: #0C0C0D7A;
+            font-size: 16px;
+            font-family: Inter;
+        }
+
+        .worker-info-icon {
+            margin-right: 4%;
+        }
+
+        .worker-info-value {
+            color: #0C0C0D;
+            font-size: 18px;
+            font-family: Inter;
+        }
+
+        .size {
+            width: 32px;
+            height: 39px;
+            font-size: 32px;
+        }
+
+        .btn-change {
+            color: #0C0C0D;
+            font-size: 14px;
+            font-family: Inter;
+            font-weight: 700;
+            width: 90%;
+            margin-top: 6%;
+            background: #DFDFE1;
+            display: flex;
+            box-shadow: inset 0px 8px 32px rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+        }
+
+        .btn-change:hover {
+            color: #0C0C0D;
+        }
+
+        .worker-right {
+            width: 75%;
+            margin-right: 2.5%;
+        }
+
+        .workerbtngroup {
+            width: 35%;
+            margin-bottom: 3%;
+        }
+
+        .block-items {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .item {
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            width: 30%;
+            padding: 24px;
+            margin-right: 2.5%;
+            margin-bottom: 2.5%;
+        }
+
+        .gallery {
+            margin-bottom: 6%;
+        }
+        .photo {
+            margin-right: 5%;
+        }
+
+        .date-time {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 6%;
+        }
+        .date, .time {
+            display: flex;
+            flex-direction: row;
+        }
+        .date{
+            width: 60%;
+        }
+        .time {
+            width: 40%;
+        }
+
+        .item .label {
+            font-size: 16px;
+            color: #0C0C0D7A;
+            font-family: Inter;
+
+        }
+        .item-line {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 5%;
+        }
+        .item .value {
+            font-size: 18px;
+            color: #0C0C0D;
+            font-family: Inter;
+        }
+        .item .icon {
+            font-size: 32px;
+            margin-right: 5%;
+        }
+
+        .no-search {
+            width: 100%;
+            height: 840px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .no-search .icon {
+            font-size: 20px;
+        }
+
+        .no-search .title {
+            color: #0C0C0D;
+            font-size: 32px;
+            font-weight: 600;
+            font-family: Inter;
+        }
+
+        .no-search .subtext {
+            color: #0C0C0D7A;
+            font-size: 16px;
+            font-family: Inter;
+        }
+
+    </style>
+
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"
+                                                                     style="width: 60px; "></a>
+        </div>
+        <div class="nav-middle">
+            <a class="dark-gray " href="{% url 'panel' %}">Сотрудники</a>
+            <img class="slesh-space" src="{% static 'images/slesh.svg' %}" alt="">
+            <a class="dark-gray" href="">Вещи в камере</a>
+            <img class="slesh-space" src="{% static 'images/slesh.svg' %}" alt="">
+            <a class="dark-gray active" href="">Камеры хранения</a>
+        </div>
+        <div class="nav-right">
+            <label class="semi f-18 black">Владислав Старун</label>
+            <a class="" href="#" style="color: #3333FF">Выход</a>
+        </div>
+    </nav>
+
+    <div class="worker-main">
+        <div class="worker-left">
+            <div class="btn-back">
+                <i class="bi bi-caret-left-fill"></i> <a href="" class="btn">Назад</a>
+            </div>
+            <div class="worker-profile">
+                <div class="icon"><i class="profile bi bi-person-circle"></i></div>
+                <div class="worker-name">
+                    <div class="worker-name-label">Имя сотрудника</div>
+                    <div class="worker-name-value">Мягков Алексей</div>
+                </div>
+            </div>
+            <div class="worker-info-list">
+                <div class="worker-info">
+                    <div class="worker-info-icon"><i class="size bi bi-telephone-fill"></i></div>
+                    <div class="worker-info-info">
+                        <div class="worker-info-label">Контактный телефон</div>
+                        <div class="worker-info-value">8 999 999 99 99</div>
+                    </div>
+                </div>
+                <div class="worker-info">
+                    <div class="worker-info-icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
+                    <div class="worker-info-info">
+                        <div class="worker-info-label">Аэропорт</div>
+                        <div class="worker-info-value">Шереметьево</div>
+                    </div>
+                </div>
+                <div class="worker-info">
+                    <div class="worker-info-icon"><i class="size bi bi-phone-fill"></i></div>
+                    <div class="worker-info-info">
+                        <div class="worker-info-label">Доступ к приложению</div>
+                        <div class="worker-info-value">Имеется</div>
+                    </div>
+                </div>
+                <div class="worker-info">
+                    <div class="worker-info-icon"><i class="size bi bi-bag-fill"></i></div>
+                    <div class="worker-info-info">
+                        <div class="worker-info-label">Найденных вещей</div>
+                        <div class="worker-info-value">4</div>
+                    </div>
+                </div>
+            </div>
+            <a href="" class="btn-change">Изменить данные отрудника</a>
+        </div>
+        <div class="worker-right">
+            <div class="btngroup workerbtngroup">
+                <button data-value="#send" class="btn selected">Передано в камеру</button>
+                <button data-value="#notsend" class="btn">Не передано в камеру</button>
+            </div>
+            <div class="block-items">
+{#                <div class="no-search">#}
+{#                    <i class="icon bi bi-inboxes-fill"></i>#}
+{#                    <div class="title">Пусто</div>#}
+{#                    <div class="subtext">У сотрудников пока нет найденых вещей</div>#}
+{#                </div>#}
+                <div class="item">
+                    <div class="gallery">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                    </div>
+                    <div class="date-time">
+                        <div class="date">
+                            <div class="icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                            <div class="date-info">
+                                <div class="label">Дата</div>
+                                <div class="value">10 декабря 2021</div>
+                            </div>
+                        </div>
+                        <div class="time">
+                            <div class="icon"><i class="bi bi-clock-fill"></i></div>
+                            <div class="time-info">
+                                <div class="label">Время</div>
+                                <div class="value">19:00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Место</div>
+                            <div class="value">Шереметьево, терминал F</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Акт осмотра</div>
+                            <div class="value">Имеется</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/comment.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Описание</div>
+                            <div class="value">Серая вязанная шапка, с краным телефоном и чемоданом</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="gallery">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                    </div>
+                    <div class="date-time">
+                        <div class="date">
+                            <div class="icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                            <div class="date-info">
+                                <div class="label">Дата</div>
+                                <div class="value">10 декабря 2021</div>
+                            </div>
+                        </div>
+                        <div class="time">
+                            <div class="icon"><i class="bi bi-clock-fill"></i></div>
+                            <div class="time-info">
+                                <div class="label">Время</div>
+                                <div class="value">19:00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Место</div>
+                            <div class="value">Шереметьево, терминал F</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Акт осмотра</div>
+                            <div class="value">Имеется</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/comment.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Описание</div>
+                            <div class="value">Серая вязанная шапка, с краным телефоном и чемоданом</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="gallery">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                    </div>
+                    <div class="date-time">
+                        <div class="date">
+                            <div class="icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                            <div class="date-info">
+                                <div class="label">Дата</div>
+                                <div class="value">10 декабря 2021</div>
+                            </div>
+                        </div>
+                        <div class="time">
+                            <div class="icon"><i class="bi bi-clock-fill"></i></div>
+                            <div class="time-info">
+                                <div class="label">Время</div>
+                                <div class="value">19:00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Место</div>
+                            <div class="value">Шереметьево, терминал F</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Акт осмотра</div>
+                            <div class="value">Имеется</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/comment.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Описание</div>
+                            <div class="value">Серая вязанная шапка, с краным телефоном и чемоданом</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="gallery">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                    </div>
+                    <div class="date-time">
+                        <div class="date">
+                            <div class="icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                            <div class="date-info">
+                                <div class="label">Дата</div>
+                                <div class="value">10 декабря 2021</div>
+                            </div>
+                        </div>
+                        <div class="time">
+                            <div class="icon"><i class="bi bi-clock-fill"></i></div>
+                            <div class="time-info">
+                                <div class="label">Время</div>
+                                <div class="value">19:00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Место</div>
+                            <div class="value">Шереметьево, терминал F</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Акт осмотра</div>
+                            <div class="value">Имеется</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/comment.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Описание</div>
+                            <div class="value">Серая вязанная шапка, с краным телефоном и чемоданом</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="gallery">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                        <img src="{% static 'images/photo.png' %}" alt="" class="photo">
+                    </div>
+                    <div class="date-time">
+                        <div class="date">
+                            <div class="icon"><img class="size" src="{% static "images/date.svg" %}" alt=""></div>
+                            <div class="date-info">
+                                <div class="label">Дата</div>
+                                <div class="value">10 декабря 2021</div>
+                            </div>
+                        </div>
+                        <div class="time">
+                            <div class="icon"><i class="bi bi-clock-fill"></i></div>
+                            <div class="time-info">
+                                <div class="label">Время</div>
+                                <div class="value">19:00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Место</div>
+                            <div class="value">Шереметьево, терминал F</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/act.png" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Акт осмотра</div>
+                            <div class="value">Имеется</div>
+                        </div>
+                    </div>
+                    <div class="item-line">
+                        <div class="icon"><img class="size" src="{% static "images/comment.svg" %}" alt=""></div>
+                        <div class="item-line-info">
+                            <div class="label">Описание</div>
+                            <div class="value">Серая вязанная шапка, с краным телефоном и чемоданом</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}
