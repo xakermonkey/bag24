@@ -1,0 +1,377 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+    Keepit | История постамата
+{% endblock %}
+
+
+{% block content %}
+    <style type="text/css">
+
+
+        .nav-history {
+            justify-content: flex-start;
+        }
+
+        .dark-gray {
+            color: #0C0C0D7A
+        }
+
+        .nav-middle-history {
+            display: flex;
+            width: 50%;
+            font-size: 32px;
+            font-weight: 600;
+            font-family: "Inter";
+            line-height: 48px;
+            padding: 1% 0 0 0;
+        }
+
+        .nav-middle-history a {
+            margin-left: 2%;
+        }
+
+        .nav-middle-history a:hover {
+            color: #0C0C0D
+        }
+
+        .nav-middle-history a.active {
+            color: #0C0C0D;
+        }
+
+        .keepit-detail-main {
+            display: flex;
+            width: 100%;
+            margin-left: 3%;
+            margin-top: 3%;
+        }
+
+        .keepit-detail-left {
+            width: 20%;
+        }
+
+        .keepit-detail-back {
+            background: rgba(35, 35, 42, 0.08);
+            border-radius: 16px;
+            font-size: 18px;
+            color: #0C0C0D7A;
+            padding: 16px 24px;
+        }
+
+        .keepit-left-arrow {
+            font-size: 20px;
+            color: #0C0C0D;
+        }
+
+        .keepit-detail-profile {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-top: 10%;
+        }
+
+        .keepit-detail-profile-label {
+            color: #0C0C0D7A;
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+        }
+
+        .keepit-detail-profile-value {
+            color: #0C0C0D;
+            font-size: 18px;
+            font-family: Inter;
+            font-weight: 400;
+        }
+
+        .keepit-arrow-upper {
+            font-size: 40px;
+            color: #0C0C0D;
+            margin-right: 5%;
+        }
+
+        .keepit-detail-post {
+            background: #FFFFFF;
+            margin-top: 5%;
+            width: 100%;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .isOnline {
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+            color: #0C9B00;
+            margin-bottom: 20px;
+        }
+
+        .cells-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .keepit-detail-post-upper {
+            border-bottom: 1px solid rgba(35, 35, 42, 0.08);
+        }
+
+        .cel-label {
+            color: #0C0C0D7A;
+            font-weight: 400;
+            font-size: 16px;
+            font-family: Inter;
+        }
+
+        .cel-value {
+            font-size: 32px;
+            font-family: Inter;
+            font-weight: 600;
+            color: #0C0C0D;
+        }
+
+        .list-info {
+            margin-top: 20px;
+        }
+
+        .label {
+            font-size: 16px;
+            font-weight: 400;
+            font-family: Inter;
+            color: #0C0C0D7A;
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: 400;
+            font-family: Inter;
+            color: #0C0C0D;
+        }
+
+        .keepit-detail-div-history {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 5%;
+            background: #DFDFE1;
+            box-shadow: inset 0px 8px 32px rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+
+            height: 56px;
+        }
+
+        .keepit-detail-history {
+            color: #0C0C0D;
+            font-weight: 700;
+            font-family: Inter;
+            font-size: 14px;
+        }
+
+        .printer {
+            font-size: 20px;
+            margin-left: 3%;
+            margin-top: 1%;
+        }
+
+        .keepit-history-right {
+            width: 75%;
+            padding: 0 2%;
+        }
+
+        .keepit-table-head {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-around;
+            margin-bottom: 3%;
+            font-size: 18px;
+            color: #0C0C0D7A;
+            font-weight: 400;
+            font-family: Inter;
+        }
+
+        .keepit-table-row {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 2%;
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            padding: 1% 0 ;
+            font-size: 18px;
+            color: #0C0C0D;
+            font-weight: 400;
+            font-family: Inter;
+
+        }
+
+        .keepit-cel-id {
+            color: #0C0C0D7A;
+            font-size: 16px;
+        }
+
+        .open {
+            color: #0C9B00;
+        }
+
+        .close {
+            color: #9B0000;
+        }
+
+        .keepit-table-cell {
+            display: flex;
+            justify-content: center;
+            width: 25%;
+        }
+
+
+
+    </style>
+
+
+    <nav class="nav nav-history">
+        <div class="nav-left" style="width: 25%">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+        </div>
+        <div class="nav-middle-history">
+            <a class="dark-gray active" href="">История транзакций</a>
+            <a class="dark-gray" href="">История очистки</a>
+        </div>
+    </nav>
+
+
+
+    <div class="keepit-detail-main">
+        <div class="keepit-detail-left">
+            <a href="" class="keepit-detail-back"><i class="keepit-left-arrow bi bi-caret-left-fill"></i> Назад</a>
+            <div class="keepit-detail-profile">
+                <div class="keepit-arrow-upper"><i class="bi bi-caret-up-fill"></i></div>
+                <div class="keepit-detail-profile-info">
+                    <div class="keepit-detail-profile-label">Имя сотрудника</div>
+                    <div class="keepit-detail-profile-value">Мягков Алексей</div>
+                </div>
+            </div>
+            <div class="keepit-detail-post">
+                <div class="keepit-detail-post-upper">
+                    <div class="isOnline">Онлайн</div>
+                    <div class="cells-info">
+                        <div class="cel">
+                            <div class="cel-label">Ячеек всего</div>
+                            <div class="cel-value">24</div>
+                        </div>
+                        <div class="cel">
+                            <div class="cel-label">Ячеек занято</div>
+                            <div class="cel-value">4</div>
+                        </div>
+                        <div class="cel">
+                            <div class="cel-label">Свободно</div>
+                            <div class="cel-value">20</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="keepit-detail-down">
+                    <div class="list-info">
+                        <div class="label">ID терминала</div>
+                        <div class="value">762 345</div>
+                    </div>
+                    <div class="list-info">
+                        <div class="label">Токен авторизации</div>
+                        <div class="value">3259873259732532597838325</div>
+                    </div>
+                    <div class="list-info">
+                        <div class="label">IP для подключению к облаку</div>
+                        <div class="value">127.0.0.1</div>
+                    </div>
+                </div>
+            </div>
+            <div class="keepit-detail-div-history">
+                <a href="" class="keepit-detail-history">Сохранить как</a>
+            </div>
+            <div class="keepit-detail-div-history">
+                <a href="" class="keepit-detail-history">Распечатать</a>
+                <i class="printer bi bi-printer-fill"></i>
+            </div>
+        </div>
+        <div class="keepit-history-right">
+            <div class="keepit-table-head">
+                <div class="col-name">Дата / время <i class="bi bi-caret-down-fill"></i></div>
+                <div class="col-name">Статус <i class="bi bi-caret-down-fill"></i></div>
+                <div class="col-name">Оператор <i class="bi bi-caret-down-fill"></i></div>
+                <div class="col-name">UID <i class="bi bi-caret-down-fill"></i></div>
+                <div class="col-name">Ячейка <i class="bi bi-caret-down-fill"></i></div>
+            </div>
+            <div class="keepit-table-body">
+                <div class="keepit-table-row">
+                    <div class="keepit-table-cell">11.11.2021 16:10</div>
+                    <div class="keepit-table-cell open">Свободно</div>
+                    <div class="keepit-table-cell">Мягков Алексей</div>
+                    <div class="keepit-table-cell">799563</div>
+                    <div class="keepit-table-cell">
+                        <div class="keepit-table-cel">
+                            <div class="keepit-cel-name">B3</div>
+                            <div class="keepit-cel-id">ID 34534</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="keepit-table-row">
+                    <div class="keepit-table-cell">11.11.2021 16:10</div>
+                    <div class="keepit-table-cell close ">Занято</div>
+                    <div class="keepit-table-cell">Мягков Алексей</div>
+                    <div class="keepit-table-cell">799563</div>
+                    <div class="keepit-table-cell">
+                        <div class="keepit-table-cel">
+                            <div class="keepit-cel-name">B3</div>
+                            <div class="keepit-cel-id">ID 34534</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="keepit-table-row">
+                    <div class="keepit-table-cell">11.11.2021 16:10</div>
+                    <div class="keepit-table-cell open">Свободно</div>
+                    <div class="keepit-table-cell">Мягков Алексей</div>
+                    <div class="keepit-table-cell">799563</div>
+                    <div class="keepit-table-cell">
+                        <div class="keepit-table-cel">
+                            <div class="keepit-cel-name">B3</div>
+                            <div class="keepit-cel-id">ID 34534</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="keepit-table-row">
+                    <div class="keepit-table-cell">11.11.2021 16:10</div>
+                    <div class="keepit-table-cell open">Свободно</div>
+                    <div class="keepit-table-cell">Мягков Алексей</div>
+                    <div class="keepit-table-cell">799563</div>
+                    <div class="keepit-table-cell">
+                        <div class="keepit-table-cel">
+                            <div class="keepit-cel-name">B3</div>
+                            <div class="keepit-cel-id">ID 34534</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block script %}
+
+{% endblock %}

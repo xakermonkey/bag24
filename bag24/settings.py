@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lostitems',
-    'bag_admin'
+    'bag_admin',
+    'keepit_admin'
 ]
 
 MIDDLEWARE = [

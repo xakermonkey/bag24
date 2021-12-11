@@ -1,0 +1,436 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+    Keepit панель
+{% endblock %}
+
+
+{% block content %}
+    <style type="text/css">
+
+        .nav-title {
+            color: #0C0C0D7A;
+            font-size: 32px;
+            font-weight: 600;
+            font-family: Inter;
+        }
+
+        .keepit-panel {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            margin-top: 5%;
+
+        }
+
+
+        .worker-left {
+            width: 25%;
+            margin-left: 3%;
+        }
+
+
+
+        .worker-profile {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 6%;
+        }
+
+        .worker-name-label {
+            color: #0C0C0D7A;
+            font-size: 18px;
+            font-family: Inter;
+        }
+
+        .profile {
+            font-size: 64px
+        }
+
+        .worker-name {
+            margin-left: 3%;
+        }
+
+        .worker-name-value {
+            color: #0C0C0D;
+            font-size: 32px;
+            font-weight: 600;
+            font-family: Inter;
+        }
+
+        .worker-info-list {
+            width: 90%;
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+        }
+
+        .worker-info {
+            display: flex;
+            flex-direction: row;
+            padding: 16px;
+            align-items: center;
+        }
+
+        .worker-info-label {
+            color: #0C0C0D7A;
+            font-size: 16px;
+            font-family: Inter;
+        }
+
+        .worker-info-icon {
+            margin-right: 4%;
+        }
+
+        .worker-info-value {
+            color: #0C0C0D;
+            font-size: 18px;
+            font-family: Inter;
+        }
+
+        .size {
+            width: 32px;
+            height: 39px;
+            font-size: 32px;
+        }
+
+        .btn-change {
+            color: #0C0C0D;
+            font-size: 14px;
+            font-family: Inter;
+            font-weight: 700;
+            width: 90%;
+            margin-top: 6%;
+            background: #DFDFE1;
+            display: flex;
+            box-shadow: inset 0px 8px 32px rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+        }
+
+        .btn-change:hover {
+            color: #0C0C0D;
+        }
+
+        .keepit-panel-right{
+            width: 100%;
+        }
+
+        .panel-title {
+            font-size: 32px;
+            font-family: Inter;
+            font-weight: 600;
+            color: #0C0C0D;
+        }
+        .post-list {
+            display: flex;
+            width: 100%;
+            flex-direction: row;
+            margin-top: 2%;
+            flex-wrap: wrap;
+        }
+
+        .postamat {
+            width: 30%;
+            background-color: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px #00000014;
+            padding: 16px;
+            margin-right: 3%;
+            margin-bottom: 3%;
+            border-radius: 12px;
+
+        }
+
+        .upper-info{
+            border-bottom: 1px solid rgba(35, 35, 42, 0.08);
+        }
+
+        .isOnline {
+            font-size: 16px;
+            color: #0C9B00;
+            font-family: Inter;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .Offline {
+            color: #9B0000;
+        }
+
+        .post-name {
+            margin-bottom: 20px;
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: 400;
+            font-family: Inter;
+            color: #0C0C0D;
+        }
+        .label {
+            font-size: 16px;
+            font-weight: 400;
+            font-family: Inter;
+            color: #0C0C0D7A;
+        }
+
+        .info-cells{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .down-info-info{
+            margin-top: 20px;
+        }
+
+    </style>
+
+
+    <nav class="nav">
+        <div class="nav-left" style="width: 25%">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <div class="nav-title" id="" href="#" style="margin-left: 5%">Keepit панель</div>
+        </div>
+
+    </nav>
+
+
+    <div class="keepit-panel">
+        <div class="worker-left">
+            <div class="worker-profile">
+                <div class="icon"><i class="profile bi bi-person-circle"></i></div>
+                <div class="worker-name">
+                    <div class="worker-name-label">Ваше имя</div>
+                    <div class="worker-name-value">Мягков Алексей</div>
+                </div>
+            </div>
+            <div class="worker-info-list">
+                <div class="worker-info">
+                    <div class="worker-info-icon"><i class="size bi bi-telephone-fill"></i></div>
+                    <div class="worker-info-info">
+                        <div class="worker-info-label">Контактный телефон</div>
+                        <div class="worker-info-value">8 999 999 99 99</div>
+                    </div>
+                </div>
+                <div class="worker-info">
+                    <div class="worker-info-icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
+                    <div class="worker-info-info">
+                        <div class="worker-info-label">Аэропорт</div>
+                        <div class="worker-info-value">Шереметьево</div>
+                    </div>
+                </div>
+            </div>
+            <a href="" class="btn-change">Выйти из профиля</a>
+        </div>
+        <div class="keepit-panel-right">
+            <div class="panel-title">Постаматы</div>
+            <div class="post-list">
+                <div class="postamat">
+                    <div class="upper-info">
+                        <div class="isOnline">Онлайн</div>
+                        <div class="post-name">
+                            <div class="label">Наименование терминала</div>
+                            <div class="value">Шереметьево. Терминал F. Пастомат №1</div>
+                        </div>
+                        <div class="info-cells">
+                            <div class="cels">
+                                <div class="label">Ячек всего</div>
+                                <div class="value">24</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек занято</div>
+                                <div class="value">4</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек свободно</div>
+                                <div class="value">20</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="down-info">
+                        <div class="down-info-info">
+                            <div class="label">ID терминала</div>
+                            <div class="value">761 793</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">Токены авторизации</div>
+                            <div class="value">392358235368763283256832324325</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">IP для подключения к облаку</div>
+                            <div class="value">127.0.0.1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="postamat">
+                    <div class="upper-info">
+                        <div class="isOnline Offline">Оффлайн</div>
+                        <div class="post-name">
+                            <div class="label">Наименование терминала</div>
+                            <div class="value">Шереметьево. Терминал F. Пастомат №1</div>
+                        </div>
+                        <div class="info-cells">
+                            <div class="cels">
+                                <div class="label">Ячек всего</div>
+                                <div class="value">24</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек занято</div>
+                                <div class="value">4</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек свободно</div>
+                                <div class="value">20</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="down-info">
+                        <div class="down-info-info">
+                            <div class="label">ID терминала</div>
+                            <div class="value">761 793</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">Токены авторизации</div>
+                            <div class="value">392358235368763283256832324325</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">IP для подключения к облаку</div>
+                            <div class="value">127.0.0.1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="postamat">
+                    <div class="upper-info">
+                        <div class="isOnline">Онлайн</div>
+                        <div class="post-name">
+                            <div class="label">Наименование терминала</div>
+                            <div class="value">Шереметьево. Терминал F. Пастомат №1</div>
+                        </div>
+                        <div class="info-cells">
+                            <div class="cels">
+                                <div class="label">Ячек всего</div>
+                                <div class="value">24</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек занято</div>
+                                <div class="value">4</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек свободно</div>
+                                <div class="value">20</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="down-info">
+                        <div class="down-info-info">
+                            <div class="label">ID терминала</div>
+                            <div class="value">761 793</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">Токены авторизации</div>
+                            <div class="value">392358235368763283256832324325</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">IP для подключения к облаку</div>
+                            <div class="value">127.0.0.1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="postamat">
+                    <div class="upper-info">
+                        <div class="isOnline">Онлайн</div>
+                        <div class="post-name">
+                            <div class="label">Наименование терминала</div>
+                            <div class="value">Шереметьево. Терминал F. Пастомат №1</div>
+                        </div>
+                        <div class="info-cells">
+                            <div class="cels">
+                                <div class="label">Ячек всего</div>
+                                <div class="value">24</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек занято</div>
+                                <div class="value">4</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек свободно</div>
+                                <div class="value">20</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="down-info">
+                        <div class="down-info-info">
+                            <div class="label">ID терминала</div>
+                            <div class="value">761 793</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">Токены авторизации</div>
+                            <div class="value">392358235368763283256832324325</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">IP для подключения к облаку</div>
+                            <div class="value">127.0.0.1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="postamat">
+                    <div class="upper-info">
+                        <div class="isOnline">Онлайн</div>
+                        <div class="post-name">
+                            <div class="label">Наименование терминала</div>
+                            <div class="value">Шереметьево. Терминал F. Пастомат №1</div>
+                        </div>
+                        <div class="info-cells">
+                            <div class="cels">
+                                <div class="label">Ячек всего</div>
+                                <div class="value">24</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек занято</div>
+                                <div class="value">4</div>
+                            </div>
+                            <div class="cels">
+                                <div class="label">Ячеек свободно</div>
+                                <div class="value">20</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="down-info">
+                        <div class="down-info-info">
+                            <div class="label">ID терминала</div>
+                            <div class="value">761 793</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">Токены авторизации</div>
+                            <div class="value">392358235368763283256832324325</div>
+                        </div>
+                        <div class="down-info-info">
+                            <div class="label">IP для подключения к облаку</div>
+                            <div class="value">127.0.0.1</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block script %}
+
+{% endblock %}

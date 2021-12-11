@@ -1,0 +1,361 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}
+    Keepit | Название постамата
+{% endblock %}
+
+
+{% block content %}
+    <style type="text/css">
+
+        .keepit-detail-main {
+            display: flex;
+            width: 100%;
+            margin-left: 3%;
+            margin-top: 3%;
+        }
+
+        .keepit-detail-left {
+            width: 20%;
+        }
+
+        .keepit-detail-back {
+            background: rgba(35, 35, 42, 0.08);
+            border-radius: 16px;
+            font-size: 18px;
+            color: #0C0C0D7A;
+            padding: 16px 24px;
+        }
+
+        .keepit-left-arrow {
+            font-size: 20px;
+            color: #0C0C0D;
+        }
+
+        .keepit-detail-profile {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            margin-top: 10%;
+        }
+
+        .keepit-detail-profile-label {
+            color: #0C0C0D7A;
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+        }
+
+        .keepit-detail-profile-value {
+            color: #0C0C0D;
+            font-size: 18px;
+            font-family: Inter;
+            font-weight: 400;
+        }
+
+        .keepit-arrow-upper {
+            font-size: 40px;
+            color: #0C0C0D;
+            margin-right: 5%;
+        }
+
+        .keepit-detail-post {
+            background: #FFFFFF;
+            margin-top: 5%;
+            width: 100%;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .isOnline {
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+            color: #0C9B00;
+            margin-bottom: 20px;
+        }
+
+        .cells-info {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .keepit-detail-post-upper {
+            border-bottom: 1px solid rgba(35, 35, 42, 0.08);
+        }
+
+        .cel-label {
+            color: #0C0C0D7A;
+            font-weight: 400;
+            font-size: 16px;
+            font-family: Inter;
+        }
+
+        .cel-value {
+            font-size: 32px;
+            font-family: Inter;
+            font-weight: 600;
+            color: #0C0C0D;
+        }
+
+        .list-info {
+            margin-top: 20px;
+        }
+
+        .label {
+            font-size: 16px;
+            font-weight: 400;
+            font-family: Inter;
+            color: #0C0C0D7A;
+        }
+
+        .value {
+            font-size: 18px;
+            font-weight: 400;
+            font-family: Inter;
+            color: #0C0C0D;
+        }
+
+        .keepit-detail-div-history {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            margin-top: 5%;
+            background: #DFDFE1;
+            box-shadow: inset 0px 8px 32px rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+
+            height: 56px;
+        }
+
+        .keepit-detail-history {
+            color: #0C0C0D;
+            font-weight: 700;
+            font-family: Inter;
+            font-size: 14px;
+        }
+
+        .keepit-detail-right {
+            width: 60%;
+            margin-left: 3%;
+        }
+
+        .keepit-detail-title {
+            font-size: 32px;
+            font-weight: 600;
+            font-family: Inter;
+            color: #0C0C0D;
+            margin-bottom: 2%;
+        }
+
+        .cells-list {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .cell-card {
+            width: 25%;
+            border-radius: 12px;
+            margin-right: 3%;
+            margin-bottom: 3%;
+            padding: 16px;
+        }
+
+        .online {
+            background: rgba(12, 155, 0, 0.08);
+
+        }
+
+        .offline {
+            background: rgba(155, 0, 0, 0.08);
+        }
+
+        .cell-top {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .cell-bottom {
+            margin-top: 40%;
+        }
+        .cell-name {
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+            color: #000000;
+            margin-right: 7px;
+        }
+        .cell-volume {
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+            color: #000000;
+            opacity: 0.5;
+        }
+
+        .cell-open {
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+        }
+
+        .open {
+            color: #0C9B00;
+        }
+
+        .cls {
+            color: #9B0000;
+        }
+
+
+
+    </style>
+
+
+    <nav class="nav">
+        <div class="nav-left" style="width: 25%">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+        </div>
+    </nav>
+
+
+
+    <div class="keepit-detail-main">
+        <div class="keepit-detail-left">
+            <a href="" class="keepit-detail-back"><i class="keepit-left-arrow bi bi-caret-left-fill"></i> Назад</a>
+            <div class="keepit-detail-profile">
+                <div class="keepit-arrow-upper"><i class="bi bi-caret-up-fill"></i></div>
+                <div class="keepit-detail-profile-info">
+                    <div class="keepit-detail-profile-label">Имя сотрудника</div>
+                    <div class="keepit-detail-profile-value">Мягков Алексей</div>
+                </div>
+            </div>
+            <div class="keepit-detail-post">
+                <div class="keepit-detail-post-upper">
+                    <div class="isOnline">Онлайн</div>
+                    <div class="cells-info">
+                        <div class="cel">
+                            <div class="cel-label">Ячеек всего</div>
+                            <div class="cel-value">24</div>
+                        </div>
+                        <div class="cel">
+                            <div class="cel-label">Ячеек занято</div>
+                            <div class="cel-value">4</div>
+                        </div>
+                        <div class="cel">
+                            <div class="cel-label">Свободно</div>
+                            <div class="cel-value">20</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="keepit-detail-down">
+                    <div class="list-info">
+                        <div class="label">ID терминала</div>
+                        <div class="value">762 345</div>
+                    </div>
+                    <div class="list-info">
+                        <div class="label">Токен авторизации</div>
+                        <div class="value">3259873259732532597838325</div>
+                    </div>
+                    <div class="list-info">
+                        <div class="label">IP для подключению к облаку</div>
+                        <div class="value">127.0.0.1</div>
+                    </div>
+                </div>
+            </div>
+            <div class="keepit-detail-div-history">
+                <a href="" class="keepit-detail-history">История транзакций</a>
+            </div>
+        </div>
+        <div class="keepit-detail-right">
+            <div class="keepit-detail-title">Ячейки</div>
+            <div class="cells-list">
+                <div class="cell-card online">
+                    <div class="cell-top">
+                        <div class="cell-name">B1</div>
+                        <div class="cell-volume"> на 16 литров</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open open">Свободно</div></div>
+                </div>
+                <div class="cell-card online">
+                    <div class="cell-top">
+                        <div class="cell-name">B2</div>
+                        <div class="cell-volume"> на 8 литров</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open open">Свободно</div></div>
+                </div>
+                <div class="cell-card online">
+                    <div class="cell-top">
+                        <div class="cell-name">B3</div>
+                        <div class="cell-volume">на 5 литров</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open open">Свободно</div></div>
+                </div>
+                <div class="cell-card online">
+                    <div class="cell-top">
+                        <div class="cell-name">C3</div>
+                        <div class="cell-volume">на 5 литров</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open open">Свободно</div></div>
+                </div>
+                <div class="cell-card online">
+                    <div class="cell-top">
+                        <div class="cell-name">F3</div>
+                        <div class="cell-volume">на 10 литров</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open open">Свободно</div></div>
+                </div>
+                <div class="cell-card online">
+                    <div class="cell-top">
+                        <div class="cell-name">R4</div>
+                        <div class="cell-volume">на 1 литр</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open open">Свободно</div></div>
+                </div>
+                <div class="cell-card online">
+                    <div class="cell-top">
+                        <div class="cell-name">F2</div>
+                        <div class="cell-volume">на 5 литров</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open open">Свободно</div></div>
+                </div>
+                <div class="cell-card offline">
+                    <div class="cell-top">
+                        <div class="cell-name">B4</div>
+                        <div class="cell-volume">на 12 литров</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open cls">Занято</div></div>
+                </div>
+                <div class="cell-card online">
+                    <div class="cell-top">
+                        <div class="cell-name">B6</div>
+                        <div class="cell-volume">на 10 литров</div>
+                    </div>
+                    <div class="cell-bottom"><div class="cell-open open">Свободно</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+
+
+{% block script %}
+
+{% endblock %}
