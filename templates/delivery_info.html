@@ -1,0 +1,115 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"
+                                                                                  style="width: 60px; "></a>
+        </div>
+        <div class="nav-right">
+            <label class="semi f-18 black">Владислав Старун</label>
+            <a class="" href="#" style="color: #3333FF">Настройки</a>
+        </div>
+    </nav>
+
+    <div align="center" style="margin-top: 0.94%">
+        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Доставка оформлена</h2>
+        <label class="semi f-16 grey">Заказ под номером #46734987 успешно сформирован</label>
+    </div>
+
+    <div style="display: flex;justify-content: center;margin-top: 3.75%">
+        <div style="margin-right: 1.67%;"><label class="semi f-18 black" style="margin-bottom: 4.17%">Информация о заказе</label>
+        <div class="div-order-info" style="">
+            <div class="line-condition">
+                <label class="semi f-18 black">Создано</label>
+                <label class="semi f-16 grey">16.11.2021</label>
+            </div>
+            <div class="line-condition">
+                <label class="semi f-18 black">Дата отправки</label>
+                <label class="semi f-16 grey">18.11.2021</label>
+            </div>
+            <div class="line-condition">
+                <label class="semi f-18 black">Дата прибытия</label>
+                <label class="semi f-16 grey">24.12.2022</label>
+            </div>
+            <div class="line-condition">
+                <label class="semi f-18 black">Транспортная компания</label>
+                <label class="semi f-16 grey">Почта России</label>
+            </div>
+            <div class="line-condition">
+                <label class="semi f-18 black">Трек номер</label>
+                <label class="semi f-16 grey">#498735749</label>
+            </div>
+            <div class="line-condition" style="flex-direction: column">
+                <label class="semi f-18 black">Адрес доставки</label>
+                <label class="semi f-16 grey">Москва, Духовской переулок, 17, подъезд 1, этаж 1, кв. 35. Код домофона: в1212в12в</label>
+            </div>
+            <div class="line-condition" style="flex-direction: column">
+                <label class="semi f-18 black">Комментарий курьеру</label>
+                <label class="semi f-16 grey">Сначала позвоните, чтобы я вышел на улицу</label>
+            </div>
+            <button class="btn bold">Отследить заказ на сайте компании</button>
+        </div></div>
+        <div>
+            <label class="semi f-18 black" style="margin-bottom: 4.17%">Состав заказа</label>
+        <div class="div-order-composition">
+            <div class="div-my-item" style="">
+                <div class="div-item" style="display: flex;flex-direction: column; margin-bottom: 3.91%">
+                    <label class="semi f-16 grey">Где оставили</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                </div>
+                <div style="display: flex">
+                    <div style="display: flex; flex-direction: column; margin-right: 9.25%;margin-bottom: 3.91%">
+                        <label class="semi f-16 grey">В ячейке</label>
+                        <label class="semi f-18 black">B12</label>
+                    </div>
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-16 grey">Когда оставили</label>
+                        <label class="semi f-18 black">15 ноября 2021</label>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column">
+                    <label class="semi f-16 grey">Где хранится сейчас</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                </div>
+            </div>
+        </div>
+        <div class="div-order-composition">
+            <div class="div-my-item" style="">
+                <div class="div-item" style="display: flex;flex-direction: column; margin-bottom: 3.91%">
+                    <label class="semi f-16 grey">Где оставили</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                </div>
+                <div style="display: flex">
+                    <div style="display: flex; flex-direction: column; margin-right: 9.25%;margin-bottom: 3.91%">
+                        <label class="semi f-16 grey">В ячейке</label>
+                        <label class="semi f-18 black">B12</label>
+                    </div>
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-16 grey">Когда оставили</label>
+                        <label class="semi f-18 black">15 ноября 2021</label>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column">
+                    <label class="semi f-16 grey">Где хранится сейчас</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                </div>
+            </div>
+        </div>
+{#            <div class="div-order-composition" style="display: flex">#}
+{##}
+{#            </div>#}
+        </div>
+
+    </div>
+{% endblock %}
+
+
+
+{% block script %}
+
+{% endblock %}

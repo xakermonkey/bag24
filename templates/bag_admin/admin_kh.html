@@ -1,0 +1,150 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Панель администратора | Камера хранения {% endblock %}
+
+{% block content %}
+    <style type="text/css">
+        .dark-gray {
+            color: #0C0C0D7A
+        }
+
+        .nav-middle {
+            font-size: 32px;
+            font-weight: 600;
+            font-family: "Inter";
+            line-height: 48px;
+            padding: 1% 0 0 0;
+        }
+
+        .nav-middle a:hover {
+            color: #0C0C0D
+        }
+
+        .nav-middle a.active {
+            color: #0C0C0D;
+            border-bottom: 4px solid #0C0C0D;
+        }
+
+        .slesh-space {
+            margin-left: 32px;
+            margin-right: 32px;
+        }
+
+        .kh-main {
+            width: 50%;
+            margin-top: 8%;
+            margin-left: 5%;
+        }
+
+        .new-kh {
+            width: 33%;
+            margin-bottom: 5%;
+        }
+
+        .item-kh {
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            padding: 24px;
+            margin-bottom: 5%;
+        }
+        .kh-info {
+            width: 25%;
+        }
+        .value {
+            color: #0C0C0D;
+            font-size: 18px;
+            font-family: Inter;
+            font-weight: 400;
+        }
+
+        .label {
+            color: #0C0C0D7A;
+            font-size: 16px;
+            font-weight: 400;
+            font-family: Inter;
+        }
+    </style>
+
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+            <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"
+                                                                     style="width: 60px; "></a>
+        </div>
+        <div class="nav-middle">
+            <a class="dark-gray " href="{% url 'panel' %}">Сотрудники</a>
+            <img class="slesh-space" src="{% static 'images/slesh.svg' %}" alt="">
+            <a class="dark-gray" href="{% url 'thing-cell' %}">Вещи в камере</a>
+            <img class="slesh-space" src="{% static 'images/slesh.svg' %}" alt="">
+            <a class="dark-gray active" href="">Камеры хранения</a>
+        </div>
+        <div class="nav-right">
+            <label class="semi f-18 black">Владислав Старун</label>
+            <a class="" href="#" style="color: #3333FF">Выход</a>
+        </div>
+    </nav>
+
+    <div class="kh-main">
+        <div class="new-kh">
+            <a href="" class="btn">Добавить камеру хранения</a>
+        </div>
+        <div class="list-kh">
+            <div class="item-kh">
+                <div class="kh-info">
+                    <div class="label">Аэропорт</div>
+                    <div class="value">Шереметьево</div>
+                </div>
+                <div class="kh-info">
+                    <div class="label">Терминал</div>
+                    <div class="value">F</div>
+                </div>
+                <div class="kh-info">
+                    <div class="label">Этаж</div>
+                    <div class="value">3</div>
+                </div>
+                <div class="kh-info">
+                    <div class="label">Статус</div>
+                    <div class="value">По умолчанию</div>
+                </div>
+            </div>
+            <div class="item-kh">
+                <div class="kh-info">
+                    <div class="label">Аэропорт</div>
+                    <div class="value">Шереметьево</div>
+                </div>
+                <div class="kh-info">
+                    <div class="label">Терминал</div>
+                    <div class="value">F</div>
+                </div>
+                <div class="kh-info">
+                    <div class="label">Этаж</div>
+                    <div class="value">3</div>
+                </div>
+            </div>
+            <div class="item-kh">
+                <div class="kh-info">
+                    <div class="label">Аэропорт</div>
+                    <div class="value">Шереметьево</div>
+                </div>
+                <div class="kh-info">
+                    <div class="label">Терминал</div>
+                    <div class="value">F</div>
+                </div>
+                <div class="kh-info">
+                    <div class="label">Этаж</div>
+                    <div class="value">3</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+{% endblock %}

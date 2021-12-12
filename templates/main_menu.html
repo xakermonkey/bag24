@@ -8,7 +8,7 @@
         <div class="nav-left">
             <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
             <a class="" id="" href="#" style="margin-left: 24%"><img src="{% static 'images/arrow_back.svg' %}"
-                                                                                  style="width: 60px; "></a>
+                                                                     style="width: 60px; "></a>
         </div>
         <div class="nav-right">
             <label class="semi f-18 black">Владислав Старун</label>
@@ -16,236 +16,471 @@
         </div>
     </nav>
 
-    <div class="btn-group-item" style="margin: auto; margin-bottom: 3.3%; margin-top: 4.8%">
-        <button data-value="#lk" class="btn selected">На хранении</button>
-        <button data-value="#doc" class="btn">Ожидает доставки</button>
-        <button data-value="#address" class="btn">Доставлено</button>
-    </div>
+    <div id="choice-type-order">
+        <div class="btn-group-item" style="margin: auto; margin-bottom: 3.3%; margin-top: 3.34%">
+            <button data-value="#in-storage" class="btn selected">На хранении</button>
+            <button data-value="#awaiting-delivery" class="btn">Ожидает доставки</button>
+            <button data-value="#delivered" class="btn">Доставлено</button>
+        </div>
 
-    <div align="center" style="">
-        <h2 class="middle" style="color: black;margin-bottom: 1rem;">Здравствуйте, Владислав.<br>
-            У вас на хранении находится 2 вещи</h2>
-        <label class="semi f-16 grey">Выберите необходимые для возврата вещи</label>
-    </div>
 
-    <div class="center" style="display: flex;flex-wrap: wrap;padding: 0 12%;justify-content: space-between;">
-        <div class="div-my-item" style="">
-            <div class="row">
-                <label class="semi f-16 grey">Где оставили</label>
-                <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+        {#    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#}
+        <div id="in-storage">
+            <div align="center" style="">
+                <h2 class="middle" style="color: black;margin-bottom: 1rem;">Здравствуйте, Владислав.<br>
+                    У вас на хранении находится 2 вещи</h2>
+                <label class="semi f-16 grey">Выберите необходимые для возврата вещи</label>
             </div>
-            <div style="display: flex;margin-top: 2%">
-                <div style="display: flex; flex-direction: column; margin-right: 7%">
-                    <label class="semi f-16 grey">В ячейке</label>
-                    <label class="semi f-18 black">B12</label>
-                </div>
-                <div style="display: flex; flex-direction: column">
-                    <label class="semi f-16 grey">Когда оставили</label>
-                    <label class="semi f-18 black">15 ноября 2021</label>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 2%">
-                <label class="semi f-16 grey">Где хранится сейчас</label>
-                <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
-            </div>
-            <div class="row" style="margin-top: 2%">
-                <div class="div-input">
-                    <div class=""
-                         style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+            <div class="center" style="display: flex;flex-wrap: wrap;padding: 0 12%;justify-content: center">
+                <div class="div-my-item" style="">
+                    <div class="row">
+                        <label class="semi f-16 grey">Где оставили</label>
+                        <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                    </div>
+                    <div style="display: flex;margin-top: 2%">
+                        <div style="display: flex; flex-direction: column; margin-right: 7%">
+                            <label class="semi f-16 grey">В ячейке</label>
+                            <label class="semi f-18 black">B12</label>
+                        </div>
                         <div style="display: flex; flex-direction: column">
-                            <label class="semi f-18 black">Вернуть эту вещь</label>
-                            <label class="semi f-16 grey">Не выбрано</label></div>
-                        <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1"
-                               style="background-image: none;width: 1.5rem;height: 1.5rem;border: none;border-radius: 50%;">
+                            <label class="semi f-16 grey">Когда оставили</label>
+                            <label class="semi f-18 black">15 ноября 2021</label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 2%">
+                        <label class="semi f-16 grey">Где хранится сейчас</label>
+                        <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                    </div>
+                    <div class="row" style="margin-top: 2%">
+                        <div class="div-input">
+                            <div class=""
+                                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                                <div style="display: flex; flex-direction: column">
+                                    <label class="semi f-18 black">Вернуть эту вещь</label>
+                                    <label class="semi f-16 grey">Не выбрано</label></div>
+                                <input class="form-check-input" type="checkbox" name="flexRadioDefault"
+                                       id="flexRadioDefault1"
+                                       style="background-image: none;width: 1.5rem;height: 1.5rem;border: none;border-radius: 50%;">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="div-my-item" style="">
-            <div class="row">
-                <label class="semi f-16 grey">Где оставили</label>
-                <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
-            </div>
-            <div style="display: flex;margin-top: 2%">
-                <div style="display: flex; flex-direction: column; margin-right: 7%">
-                    <label class="semi f-16 grey">В ячейке</label>
-                    <label class="semi f-18 black">B12</label>
-                </div>
-                <div style="display: flex; flex-direction: column">
-                    <label class="semi f-16 grey">Когда оставили</label>
-                    <label class="semi f-18 black">15 ноября 2021</label>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 2%">
-                <label class="semi f-16 grey">Где хранится сейчас</label>
-                <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
-            </div>
-            <div class="row" style="margin-top: 2%">
-                <div class="div-input">
-                    <div class=""
-                         style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                <div class="div-my-item" style="">
+                    <div class="row">
+                        <label class="semi f-16 grey">Где оставили</label>
+                        <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                    </div>
+                    <div style="display: flex;margin-top: 2%">
+                        <div style="display: flex; flex-direction: column; margin-right: 7%">
+                            <label class="semi f-16 grey">В ячейке</label>
+                            <label class="semi f-18 black">B12</label>
+                        </div>
                         <div style="display: flex; flex-direction: column">
-                            <label class="semi f-18 black">Вернуть эту вещь</label>
-                            <label class="semi f-16 grey">Не выбрано</label></div>
-                        <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1"
-                               style="background-image: none;width: 1.5rem;height: 1.5rem;border: none;border-radius: 50%;">
+                            <label class="semi f-16 grey">Когда оставили</label>
+                            <label class="semi f-18 black">15 ноября 2021</label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 2%">
+                        <label class="semi f-16 grey">Где хранится сейчас</label>
+                        <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                    </div>
+                    <div class="row" style="margin-top: 2%">
+                        <div class="div-input">
+                            <div class=""
+                                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                                <div style="display: flex; flex-direction: column">
+                                    <label class="semi f-18 black">Вернуть эту вещь</label>
+                                    <label class="semi f-16 grey">Не выбрано</label></div>
+                                <input class="form-check-input" type="checkbox" name="flexRadioDefault"
+                                       id="flexRadioDefault1"
+                                       style="background-image: none;width: 1.5rem;height: 1.5rem;border: none;border-radius: 50%;">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="div-my-item" style="">
-            <div class="row">
-                <label class="semi f-16 grey">Где оставили</label>
-                <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
-            </div>
-            <div style="display: flex;margin-top: 2%">
-                <div style="display: flex; flex-direction: column; margin-right: 7%">
-                    <label class="semi f-16 grey">В ячейке</label>
-                    <label class="semi f-18 black">B12</label>
-                </div>
-                <div style="display: flex; flex-direction: column">
-                    <label class="semi f-16 grey">Когда оставили</label>
-                    <label class="semi f-18 black">15 ноября 2021</label>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 2%">
-                <label class="semi f-16 grey">Где хранится сейчас</label>
-                <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
-            </div>
-            <div class="row" style="margin-top: 2%">
-                <div class="div-input">
-                    <div class=""
-                         style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                <div class="div-my-item" style="">
+                    <div class="row">
+                        <label class="semi f-16 grey">Где оставили</label>
+                        <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                    </div>
+                    <div style="display: flex;margin-top: 2%">
+                        <div style="display: flex; flex-direction: column; margin-right: 7%">
+                            <label class="semi f-16 grey">В ячейке</label>
+                            <label class="semi f-18 black">B12</label>
+                        </div>
                         <div style="display: flex; flex-direction: column">
-                            <label class="semi f-18 black">Вернуть эту вещь</label>
-                            <label class="semi f-16 grey">Не выбрано</label></div>
-                        <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1"
-                               style="background-image: none;width: 1.5rem;height: 1.5rem;border: none;border-radius: 50%;">
+                            <label class="semi f-16 grey">Когда оставили</label>
+                            <label class="semi f-18 black">15 ноября 2021</label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 2%">
+                        <label class="semi f-16 grey">Где хранится сейчас</label>
+                        <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                    </div>
+                    <div class="row" style="margin-top: 2%">
+                        <div class="div-input">
+                            <div class=""
+                                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                                <div style="display: flex; flex-direction: column">
+                                    <label class="semi f-18 black">Вернуть эту вещь</label>
+                                    <label class="semi f-16 grey">Не выбрано</label></div>
+                                <input class="form-check-input" type="checkbox" name="flexRadioDefault"
+                                       id="flexRadioDefault1"
+                                       style="background-image: none;width: 1.5rem;height: 1.5rem;border: none;border-radius: 50%;">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="div-my-item" style="">
-            <div class="row">
-                <label class="semi f-16 grey">Где оставили</label>
-                <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
-            </div>
-            <div style="display: flex;margin-top: 2%">
-                <div style="display: flex; flex-direction: column; margin-right: 7%">
-                    <label class="semi f-16 grey">В ячейке</label>
-                    <label class="semi f-18 black">B12</label>
-                </div>
-                <div style="display: flex; flex-direction: column">
-                    <label class="semi f-16 grey">Когда оставили</label>
-                    <label class="semi f-18 black">15 ноября 2021</label>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 2%">
-                <label class="semi f-16 grey">Где хранится сейчас</label>
-                <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
-            </div>
-            <div class="row" style="margin-top: 2%">
-                <div class="div-input">
-                    <div class=""
-                         style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                <div class="div-my-item" style="">
+                    <div class="row">
+                        <label class="semi f-16 grey">Где оставили</label>
+                        <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                    </div>
+                    <div style="display: flex;margin-top: 2%">
+                        <div style="display: flex; flex-direction: column; margin-right: 7%">
+                            <label class="semi f-16 grey">В ячейке</label>
+                            <label class="semi f-18 black">B12</label>
+                        </div>
                         <div style="display: flex; flex-direction: column">
-                            <label class="semi f-18 black">Вернуть эту вещь</label>
-                            <label class="semi f-16 grey">Не выбрано</label></div>
-                        <input class="form-check-input" type="checkbox" name="flexRadioDefault" id="flexRadioDefault1"
-                               style="background-image: none;width: 1.5rem;height: 1.5rem;border: none;border-radius: 50%;">
+                            <label class="semi f-16 grey">Когда оставили</label>
+                            <label class="semi f-18 black">15 ноября 2021</label>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 2%">
+                        <label class="semi f-16 grey">Где хранится сейчас</label>
+                        <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                    </div>
+                    <div class="row" style="margin-top: 2%">
+                        <div class="div-input">
+                            <div class=""
+                                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                                <div style="display: flex; flex-direction: column">
+                                    <label class="semi f-18 black">Вернуть эту вещь</label>
+                                    <label class="semi f-16 grey">Не выбрано</label></div>
+                                <input class="form-check-input" type="checkbox" name="flexRadioDefault"
+                                       id="flexRadioDefault1"
+                                       style="background-image: none;width: 1.5rem;height: 1.5rem;border: none;border-radius: 50%;">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <button id="go-arrange" class="btn btn-next bold">Перейти к возврату выбранных вещей</button>
         </div>
     </div>
-    <button id="" disabled class="btn btn-next bold">Перейти к возврату выбранных вещей</button>
 
-    </div>
-
-{#==================================================    Выбор способа доставки#}
-    <div align="center" style="">
-        <h2 class="middle" style="color: black;">Выберите способ,
-            <br>
-            которым хотите получить свои вещи</h2>
-    </div>
-    <div class="div-delivery-method-main">
-        <div class="div-delivery-method" style="margin-right: 2.5%">
-            <img src="{% static 'images/to-address.svg' %}" width="64px">
-            <label class="semi f-18 black">Доставить по адресу</label>
-            <button id="" class="btn bold">от 500₽</button>
+    {#==================================================    Выбор способа доставки JS  ========================#}
+    <div id="choose-delivery" style="display: none">
+        <div align="center" style="margin-top: 1.98%">
+            <h2 class="middle" style="color: black;">Выберите способ,
+                <br>
+                которым хотите получить свои вещи</h2>
         </div>
-        <div class="div-delivery-method">
-            <img src="{% static 'images/ls.svg' %}" width="64px">
-            <label class="semi f-18 black">Забрать из камеры хранения</label>
-            <button id="" class="btn bold">300₽</button>
+        <div class="div-delivery-method-main">
+            <div class="div-delivery-method" style="margin-right: 2.5%">
+                <img src="{% static 'images/to-address.svg' %}" width="64px">
+                <label class="semi f-18 black">Доставить по адресу</label>
+                <button id="deliver-address" class="btn bold">от 500₽</button>
+            </div>
+            <div class="div-delivery-method">
+                <img src="{% static 'images/ls.svg' %}" width="64px">
+                <label class="semi f-18 black">Забрать из камеры хранения</label>
+                <button id="" class="btn bold">300₽</button>
+            </div>
         </div>
     </div>
-{#    =================================================#}
 
-    {#==================================================    Выбор компании доставки#}
-    <div align="center" style="">
-        <h2 class="middle" style="color: black;">Оформить доставку вещей</h2>
-    </div>
 
-    <div style="display:flex;">
-        <div class="div-choice-delivery-company">
-            <label class="semi f-18 black">Транспортная компания</label>
-            <div style="display: flex;flex-direction: row;align-items: center">
-                <img src="{% static 'images/sdek.svg' %}" width="32" height="32">
-                <div style="display: flex;flex-direction: column;align-items: flex-start">
-                    <label class="semi f-18 black">СДЭК</label>
-                    <label class="semi f-16 grey">Дата доставки: 24 декабря</label>
-                </div>
-                <div>
-                <label class="semi f-16 grey">1 000 ₽</label>
-                <input class="form-check-input" type="radio" style="background-image: none;width: 1.5rem;height: 1.5rem;">
+    {#==================================================    Выбор способа доставки JS  ========================#}
+    <div id="arrange-delivery" style="display: none">
+        <div align="center" style="margin-top: 0.94%">
+            <h2 class="middle" style="color: black;">Оформить доставку вещей</h2>
+        </div>
+
+        <div style="display: flex;justify-content: center;margin-top: 2.5%">
+            <div style="display: flex;flex-direction: column;margin-right: 2.5%">
+                {#==================================================    Выбор компании доставки#}
+                <div class="div-choice-delivery-company">
+                    <label class="semi f-18 black">Транспортная компания</label>
+                    <div class="div-delivery-company">
+                        <div class="delivery-name">
+                            <img src="{% static 'images/sdek.svg' %}" width="32" height="32"
+                                 style="margin-right: 6.4%">
+                            <div>
+                                <label class="semi f-18 black">СДЭК</label>
+                                <label class="semi f-16 grey">Дата доставки: 24 декабря</label>
+                            </div>
+                        </div>
+                        <div class="delivery-price">
+                            <label class="semi f-16 grey" style="">1 000 ₽</label>
+                            <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                   id="flexRadioDefault1"
+                                   style="margin-left: 10.5%;">
+                        </div>
                     </div>
+                </div>
+
+                {#========= Комментарий курьеру#}
+
+                <div class="" style="margin-top: 5.04%">
+                    <label class="semi f-16 grey" style="margin-bottom: 1.58%">Комментарий курьеру</label>
+                    <input type="text" class="form-control input-comment-courier">
+                </div>
+                {#====================================#}
+
+                <div class="div-address">
+                    <label class="form-label semi f-16 grey">Мои адреса</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
+                               style="background-image: none;width: 1.5rem;height: 1.5rem;">
+                        <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 3.3%">
+                            Дом Основной
+                            <br>
+                            Москва, Духовской переулок 22а, подъезд 1, кв. 21. Код домофона: в1212в12в
+                            <br>
+                            <a class="" href="#" style="color: #3333FF">Редактировать</a>
+                            <a class="" href="#" style="color: #BF4040">Удалить</a>
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                               style="background-image: none;width: 1.5rem;height: 1.5rem;">
+                        <label class="form-check-label" for="flexRadioDefault2" style="margin-left: 3.3%">
+                            Работа
+                            <br>
+                            Москва, улица Барклая, 6с5
+                            <br>
+                            <a class="" href="#" style="color: #3333FF">Редактировать</a>
+                            <a class="" href="#" style="color: #BF4040">Удалить</a>
+                        </label>
+                    </div>
+                    <button type="button" class="btn btn-address bold" data-toggle="modal" data-target="#exampleModalRight">Добавить адрес в мой список</button>
+                </div>
+            </div>
+            {#================================================== Модальное добавление адреса#}
+            <div class="modal fade modal-right" id="exampleModalRight" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalRight" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="" style="display: flex;justify-content: space-between">
+                            <img type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                 style="margin-top: 6%; margin-left: 6%" src="{% static 'images/close_modal.svg' %}">
+                            <h2 class="middle" style="color: black;margin-top: 6%;margin-right:25%">Добавить новый адрес</h2>
+                        </div>
+                        <form>
+                            <div class="" style="padding-left: 6%; padding-right: 6%">
+                                <div class="modal-address" style="margin: 0">
+                                    <label class="form-label semi f-16 grey">Название адреса</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control text-input">
+                                    </div>
+                                    <label class="form-label semi f-16 grey">Адрес доставки</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control text-input">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="form-label semi f-16 grey">Подъезд</label>
+                                            <div class="input-group mb-3">
+                                                <input type="number" class="form-control number-input">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label semi f-16 grey">Этаж</label>
+                                            <div class="input-group mb-3">
+                                                <input type="number" class="form-control number-input">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label semi f-16 grey">Квартира</label>
+                                            <div class="input-group mb-3">
+                                                <input type="number" class="form-control number-input">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label semi f-16 grey">Код домофона</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control number-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="btn_doc" class="btn get-code bold">Сохранить адрес</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {#==============================================================================#}
+
+
+            {#==================================================    Прайсы подсчет#}
+            <div class="div-price">
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Время хранения</label>
+                    <h2 class="middle" style="color: black;">6 суток</h2>
+                </div>
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Стоимость хранения</label>
+                    <h2 class="middle" style="color: black;">1 200 ₽</h2>
+                </div>
+                <div class="div-price-item">
+                    <div class="in-item">
+                        <label class="semi f-16 grey">Доставка</label>
+                        <label class="semi f-18 black">Почта России</label>
+                    </div>
+                    <h2 class="middle" style="color: black;">500 ₽</h2>
+                </div>
+                <div class="line"></div>
+                <div class="div-price-item">
+                    <div class="in-item">
+                        <label class="semi f-18 black">Оплатить милями MILEONAIR</label>
+                        <label class="semi f-16 grey">3 600 миль</label>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="">
+                    </div>
+                </div>
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Итоговая стоимость</label>
+                    <h2 class="middle" style="color: black;">1 700 ₽</h2>
+                </div>
+                <a id="pay" href="{% url 'deliveryinfo' %}" class="btn bold">Оплатить</a>
             </div>
         </div>
-
-        {#==================================================    Прайсы подсчет#}
-        <div class="div-price">
-            <div class="div-price-item">
-                <label class="semi f-18 black">Время хранения</label>
-                <h2 class="middle" style="color: black;">6 суток</h2>
-            </div>
-            <div class="div-price-item">
-                <label class="semi f-18 black">Стоимость хранения</label>
-                <h2 class="middle" style="color: black;">1 200 ₽</h2>
-            </div>
-            <div class="div-price-item">
-                <div class="in-item">
-                    <label class="semi f-16 grey">Доставка</label>
-                    <label class="semi f-18 black">Почта России</label>
-                </div>
-                <h2 class="middle" style="color: black;">500 ₽</h2>
-            </div>
-            <div class="line"></div>
-            <div class="div-price-item">
-                <div class="in-item">
-                    <label class="semi f-18 black">Оплатить милями MILEONAIR</label>
-                    <label class="semi f-16 grey">3 600 миль</label>
-                </div>
-                <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="">
-                </div>
-            </div>
-            <div class="div-price-item">
-                <label class="semi f-18 black">Итоговая стоимость</label>
-                <h2 class="middle" style="color: black;">1 700 ₽</h2>
-            </div>
-                <button id="" class="btn bold">Оплатить</button>
-        </div>
-    {#    =================================================#}
-
     </div>
 
+
+
+    {#    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#}
+    <div id="awaiting-delivery" style="display: none;">
+        <div align="center" style="">
+            <h2 class="middle" style="color: black;">Здравствуйте, Владислав.<br>
+                Одна вещь ожидает доставки</h2>
+        </div>
+        <div class="center"
+             style="display: flex;flex-wrap: wrap;padding: 0 12%;justify-content: space-between;margin-top: 5.68%">
+            <div class="div-my-item" style="">
+                <div class="row">
+                    <label class="semi f-16 grey">Где оставили</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                </div>
+                <div style="display: flex;margin-top: 2%">
+                    <div style="display: flex; flex-direction: column; margin-right: 7%">
+                        <label class="semi f-16 grey">В ячейке</label>
+                        <label class="semi f-18 black">B12</label>
+                    </div>
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-16 grey">Когда оставили</label>
+                        <label class="semi f-18 black">15 ноября 2021</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2%">
+                    <label class="semi f-16 grey">Где хранится сейчас</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                </div>
+            </div>
+            <div class="div-my-item" style="">
+                <div class="row">
+                    <label class="semi f-16 grey">Где оставили</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                </div>
+                <div style="display: flex;margin-top: 2%">
+                    <div style="display: flex; flex-direction: column; margin-right: 7%">
+                        <label class="semi f-16 grey">В ячейке</label>
+                        <label class="semi f-18 black">B12</label>
+                    </div>
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-16 grey">Когда оставили</label>
+                        <label class="semi f-18 black">15 ноября 2021</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2%">
+                    <label class="semi f-16 grey">Где хранится сейчас</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                </div>
+            </div>
+            <div class="div-my-item" style="">
+                <div class="row">
+                    <label class="semi f-16 grey">Где оставили</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                </div>
+                <div style="display: flex;margin-top: 2%">
+                    <div style="display: flex; flex-direction: column; margin-right: 7%">
+                        <label class="semi f-16 grey">В ячейке</label>
+                        <label class="semi f-18 black">B12</label>
+                    </div>
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-16 grey">Когда оставили</label>
+                        <label class="semi f-18 black">15 ноября 2021</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2%">
+                    <label class="semi f-16 grey">Где хранится сейчас</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                </div>
+            </div>
+            <div class="div-my-item" style="">
+                <div class="row">
+                    <label class="semi f-16 grey">Где оставили</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                </div>
+                <div style="display: flex;margin-top: 2%">
+                    <div style="display: flex; flex-direction: column; margin-right: 7%">
+                        <label class="semi f-16 grey">В ячейке</label>
+                        <label class="semi f-18 black">B12</label>
+                    </div>
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-16 grey">Когда оставили</label>
+                        <label class="semi f-18 black">15 ноября 2021</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2%">
+                    <label class="semi f-16 grey">Где хранится сейчас</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {#    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#}
+    <div id="delivered" style="display: none;">
+        <div align="center" style="">
+            <h2 class="middle" style="color: black;">Здравствуйте, Владислав.<br>
+                У вас одна завершенная доставка</h2>
+        </div>
+        <div class="center"
+             style="display: flex;flex-wrap: wrap;padding: 0 12%;justify-content: center;margin-top: 5.68%">
+            <div class="div-my-item" style="">
+                <div class="row">
+                    <label class="semi f-16 grey">Где оставили</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
+                </div>
+                <div style="display: flex;margin-top: 2%">
+                    <div style="display: flex; flex-direction: column; margin-right: 7%">
+                        <label class="semi f-16 grey">В ячейке</label>
+                        <label class="semi f-18 black">B12</label>
+                    </div>
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-16 grey">Когда оставили</label>
+                        <label class="semi f-18 black">15 ноября 2021</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2%">
+                    <label class="semi f-16 grey">Где хранится сейчас</label>
+                    <label class="semi f-18 black">Шереметьево. Терминал F. Камера хранения</label>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 
 
 {% block script %}
     <script src="{% static 'js/document.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     <script>
     </script>
 {% endblock %}

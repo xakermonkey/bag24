@@ -10,4 +10,5 @@ urlpatterns = [
 
     path("fillprofile", fillProfile, name='fillprofile'),
     path("mainmenu", mainMenu, name='mainmenu'),
+    path("deliveryinfo", deliveryInfo, name='deliveryinfo'),
 ]

@@ -17,3 +17,6 @@ def fillProfile(request):
 
 def mainMenu(request):
     return render(request, 'main_menu.html')
+
+def deliveryInfo(request):
+    return render(request, 'delivery_info.html')
