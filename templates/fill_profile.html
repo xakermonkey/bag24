@@ -12,45 +12,90 @@
         </div>
     </nav>
 
-    <div class="card mb-4">
-        <div class="card-body">
-            <h5 class="mb-4">Right Modal</h5>
-            <button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                    data-backdrop="static" data-target="#exampleModalRight">Right Modal
-            </button>
-            <div class="modal fade modal-right" id="exampleModalRight" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalRight" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
+    <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #B3E5C4;display: flex;
+    justify-content: center;
+    align-items: center;bottom: 2.97%;
+    right: 1.67%;
+    margin: auto;">
+        <label class="semi f-18 black">Телефон успешно привязан</label>
+    </div>
 
-                        <div class="" style="display: flex;justify-content: space-between">
-                            <img type="button" class="close" data-dismiss="modal" aria-label="Close"
-                                 style="margin-top: 6%; margin-left: 6%" src="{% static 'images/close_modal.svg' %}">
-                            <h2 class="middle" style="color: black;margin-top: 6%;margin-right:25%">Привязать
-                                телефон</h2>
-                        </div>
-                        <div class="" style="padding-left: 6%; padding-right: 6%">
-                            <div class="center" style="flex-direction: column;align-items: center; margin-top: 3%">
-                                <label class="form-label semi f-16 grey">Укажите номер телефона, на который вы
-                                    оставляли</label>
-                                <label class="form-label semi f-16 grey">свои вещи в постамате KeepIt</label>
-                            </div>
-                            <form class="modal-code" style="margin-top: 11%">
-                                <label class="form-label semi f-16 grey">Номер телефона</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control text-input">
-                                </div>
-                                <button id="btn_doc" disabled class="btn get-code bold">Получить код</button>
-                            </form>
-                        </div>
+    {#==========================Модальное окно номера телефона=============================#}
+    <div class="modal fade modal-right" id="exampleModalRight" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalRight" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="" style="display: flex;justify-content: space-between">
+                    <img type="button" class="close" data-dismiss="modal" aria-label="Close"
+                         style="margin-top: 6%; margin-left: 6%" src="{% static 'images/close_modal.svg' %}">
+                    <h2 class="middle" style="color: black;margin-top: 6%;margin-right:25%">Привязать
+                        телефон</h2>
+                </div>
+                <div class="" style="padding-left: 6%; padding-right: 6%">
+                    <div class="center" style="flex-direction: column;align-items: center; margin-top: 3%">
+                        <label class="form-label semi f-16 grey">Укажите номер телефона, на который вы
+                            оставляли</label>
+                        <label class="form-label semi f-16 grey">свои вещи в постамате KeepIt</label>
                     </div>
+                    <form class="modal-code" style="margin-top: 11%">
+                        <label class="form-label semi f-16 grey">Номер телефона</label>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control text-input">
+                        </div>
+                        <button id="btn_doc" disabled class="btn get-code bold">Получить код</button>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    {#==========================================================================================#}
+
+    {#==========================Модальное окно MILEONAIR=============================#}
+    <div class="modal fade modal-right" id="exampleModalRight2" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalRight2" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div class="" style="display: flex;justify-content: space-between">
+                    <img type="button" class="close" data-dismiss="modal" aria-label="Close"
+                         style="margin-top: 6%; margin-left: 6%" src="{% static 'images/close_modal.svg' %}">
+                    <h2 class="middle" style="color: black;margin-top: 6%;margin-right:19%">Подключить MILEONAIR</h2>
+                </div>
+                <div class="" style="padding-left: 6%; padding-right: 6%">
+                    <div align="center" class="center"
+                         style="flex-direction: column;align-items: center; margin-top: 3%">
+                        <label class="form-label semi f-16 grey">Укажите номер телефона, на который вы
+                            регистрировались<br>
+                            в программе лояльности MILEONAIR</label>
+                    </div>
+                    <form class="modal-code" style="margin-top: 11%">
+                        <div>
+                            <label class="form-label semi f-16 grey">Номер телефона</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control text-input">
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 4.2%;">
+                            <label class="form-label semi f-16 grey" style="">Код из СМС</label>
+                            <div class="code-input-group input-group" style="">
+                                <input type="text" class="form-control" placeholder="250"
+                                       aria-describedby="basic-addon1">
+                                <span class="input-group-text" style="color:#D50029;">Неверный код</span>
+                            </div>
+                            <a class="" href="#" style="color: #3333FF">Отправить код повторно</a>
+                        </div>
+                        <button id="btn_doc" disabled class="btn get-code bold">Получить код</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#==========================================================================================#}
 
 
-    <div align="center" style="margin-top: 4%">
+
+    <div align="center" style="margin-top: 0.94%">
         <h2 class="middle" style="color: black;margin-bottom: 2.75rem;">Заполнить профиль</h2>
     </div>
 
@@ -61,7 +106,15 @@
     </div>
 
     <div id="lk" class="divprof" style="">
-        <input type="number" class="form-control text-input-big">
+        <div class="div-input">
+            <div class=""
+                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                <div style="display: flex; flex-direction: column">
+                    <label class="semi f-18 black">Номер телефона</label>
+                    <label class="semi f-16 grey">Не привязан</label></div>
+                <a data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight">Привязать</a>
+            </div>
+        </div>
         <label class="form-label semi f-16 grey">Логин</label>
         <div class="input-group mb-3">
             <input type="text" class="form-control text-input">
@@ -74,8 +127,15 @@
         <div class="input-group mb-3">
             <input type="email" class="form-control text-input">
         </div>
-        <input type="number" class="form-control text-input-big">
-
+        <div class="div-input">
+            <div class=""
+                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                <div style="display: flex; flex-direction: column">
+                    <label class="semi f-18 black">MILEONAIR</label>
+                    <label class="semi f-16 grey">Программа лояльности</label></div>
+                <a data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight2">Подключить</a>
+            </div>
+        </div>
         <button id="btn_lk" disabled class="btn btn-save bold">Сохранить изменения</button>
     </div>
     <div id="doc" style="display: none;">
@@ -119,9 +179,10 @@
         </div>
         <button id="btn_doc" disabled class="btn btn-save bold">Сохранить изменения</button>
     </div>
-    <div id="address" class="center" style="display: none">
-        <div style="display: flex; margin: auto; justify-content: center">
-            <div class="divprof" style="margin: 0">
+
+    <div id="address" class="" style="display: none">
+        <div style="display: flex; margin: auto; justify-content: center;align-items: flex-start">
+            <div class="div-add-addresses" style="margin-right: 2.5%;">
                 <label class="form-label semi f-16 grey">Название адреса</label>
                 <div class="input-group mb-3">
                     <input type="text" class="form-control text-input">
@@ -157,26 +218,18 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="center">
                     <a class="btn btn-address bold" href="#">Добавить адрес в мой список</a>
                 </div>
             </div>
-            <style>
-                .form-check-input:checked {
-                    background-color: #3333FF;
-                    border-color: #3333FF;
-                }
-
-            </style>
-            <div style="margin-left: 32px">
-                <div class="div-my-addresses" style="padding-bottom: 1px">
-                    <label class="form-label semi f-16 grey" style="margin-left: 5%; margin-top: 5%;">Мои адреса</label>
-                    <div class="form-check" style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"
-                               style="background-image: none;width: 1.5rem;height: 1.5rem;">
-                        <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 2%">
-                            Дом Основной
+            <div>
+                <label class="form-label semi f-16" style="color:#f9f9fa;">/</label>
+                <div class="div-my-addresses" style="">
+                    <label class="form-label semi f-16 grey">Мои адреса</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <label class="form-check-label" for="flexRadioDefault1">
+                            Дом <label class="semi f-16 grey">Основной</label>
                             <br>
                             Москва, Духовской переулок 22а, подъезд 1, кв. 21. Код домофона: в1212в12в
                             <br>
@@ -184,10 +237,9 @@
                             <a class="" href="#" style="color: #BF4040">Удалить</a>
                         </label>
                     </div>
-                    <div class="form-check" style="margin-left: 5%; margin-right: 5%; margin-bottom: 5%">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                               style="background-image: none;width: 1.5rem;height: 1.5rem;">
-                        <label class="form-check-label" for="flexRadioDefault2" style="margin-left: 2%">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
                             Работа
                             <br>
                             Москва, улица Барклая, 6с5
@@ -201,7 +253,6 @@
         </div>
         <button id="btn_address" disabled class="btn btn-save bold">Сохранить изменения</button>
     </div>
-    </div>
 
 
 
@@ -212,6 +263,4 @@
 {% block script %}
     <script src="{% static 'js/document.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script>
-    </script>
 {% endblock %}

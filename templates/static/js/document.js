@@ -46,4 +46,8 @@ jQuery(function () {
         $('#choose-delivery').hide();
         $('#arrange-delivery').show();
   });
+    $('#pick-up').click(function () {
+        $('#choose-delivery').hide();
+        $('#pick-up-ls').show();
+  });
 });

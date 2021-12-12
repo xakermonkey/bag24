@@ -26,13 +26,13 @@
 
         {#    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#}
         <div id="in-storage">
-            <div align="center" style="">
+            <div align="center">
                 <h2 class="middle" style="color: black;margin-bottom: 1rem;">Здравствуйте, Владислав.<br>
                     У вас на хранении находится 2 вещи</h2>
                 <label class="semi f-16 grey">Выберите необходимые для возврата вещи</label>
             </div>
-            <div class="center" style="display: flex;flex-wrap: wrap;padding: 0 12%;justify-content: center">
-                <div class="div-my-item" style="">
+            <div class="main-my-item">
+                <div class="div-my-item">
                     <div class="row">
                         <label class="semi f-16 grey">Где оставили</label>
                         <label class="semi f-18 black">Шереметьево. Терминал F. Пастомат №1</label>
@@ -185,13 +185,13 @@
             <div class="div-delivery-method">
                 <img src="{% static 'images/ls.svg' %}" width="64px">
                 <label class="semi f-18 black">Забрать из камеры хранения</label>
-                <button id="" class="btn bold">300₽</button>
+                <button id="pick-up" class="btn bold">300₽</button>
             </div>
         </div>
     </div>
 
 
-    {#==================================================    Выбор способа доставки JS  ========================#}
+    {#==================================================    Выбор способа доставки JS ЗА 500  ========================#}
     <div id="arrange-delivery" style="display: none">
         <div align="center" style="margin-top: 0.94%">
             <h2 class="middle" style="color: black;">Оформить доставку вещей</h2>
@@ -254,7 +254,9 @@
                             <a class="" href="#" style="color: #BF4040">Удалить</a>
                         </label>
                     </div>
-                    <button type="button" class="btn btn-address bold" data-toggle="modal" data-target="#exampleModalRight">Добавить адрес в мой список</button>
+                    <button type="button" class="btn btn-address bold" data-toggle="modal"
+                            data-target="#exampleModalRight">Добавить адрес в мой список
+                    </button>
                 </div>
             </div>
             {#================================================== Модальное добавление адреса#}
@@ -268,7 +270,7 @@
                             <h2 class="middle" style="color: black;margin-top: 6%;margin-right:25%">Добавить новый адрес</h2>
                         </div>
                         <form>
-                            <div class="" style="padding-left: 6%; padding-right: 6%">
+                            <div class="" style="padding-left: 6%; padding-right: 6%;margin-top: 7.53%">
                                 <div class="modal-address" style="margin: 0">
                                     <label class="form-label semi f-16 grey">Название адреса</label>
                                     <div class="input-group mb-3">
@@ -313,7 +315,6 @@
             </div>
             {#==============================================================================#}
 
-
             {#==================================================    Прайсы подсчет#}
             <div class="div-price">
                 <div class="div-price-item">
@@ -345,12 +346,76 @@
                     <label class="semi f-18 black">Итоговая стоимость</label>
                     <h2 class="middle" style="color: black;">1 700 ₽</h2>
                 </div>
-                <a id="pay" href="{% url 'deliveryinfo' %}" class="btn bold">Оплатить</a>
+                <a id="pay-arrange-delivery" href="{% url 'deliveryinfo' %}" class="btn bold">Оплатить</a>
             </div>
         </div>
     </div>
 
+    {#==================================================    Выбор способа доставки JS ЗА 300  ========================#}
+    <div id="pick-up-ls" style="display: none">
+        <div align="center" style="margin-top: 0.94%">
+            <h2 class="middle" style="color: black;">Забрать из камеры хранения</h2>
+        </div>
 
+        <div style="display: flex;justify-content: center;margin-top: 2.5%">
+            <div style="display: flex;flex-direction: column;margin-right: 2.5%">
+                {#================================================== Схема==================#}
+                <div align="center" class="div-choice-delivery-company">
+                    <label class="semi f-16 grey" style="margin-bottom: 1.55%">Местоположение</label>
+                    <label class="bold f-16 black" style="margin-bottom: 4.64%">Терминал А, 2 этаж.<br>
+                        Возле стойки информации.</label>
+                    <img src="{% static 'images/scheme.png' %}">
+                </div>
+            </div>
+
+            {#==================================================    Прайсы подсчет ЗА 300#}
+            <div class="div-price">
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Время хранения</label>
+                    <h2 class="middle" style="color: black;">6 суток</h2>
+                </div>
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Стоимость хранения</label>
+                    <h2 class="middle" style="color: black;">1 200 ₽</h2>
+                </div>
+                <div style="margin-bottom: 4.2%;">
+                    <div class="div-price-item" style="margin-bottom: 3.14%;">
+                        <div class="in-item">
+                            <label class="semi f-18 black">Оплатить милями MILEONAIR</label>
+                            <label class="semi f-16 grey">3 600 миль</label>
+                        </div>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="">
+                        </div>
+                    </div>
+                    <div class="miles-input-group input-group">
+                        <img src="{% static 'images/input_miles.svg' %}" class="input-group-text" id="basic-addon1">
+                        <input type="text" class="form-control" placeholder="250" aria-describedby="basic-addon1">
+                        <span class="input-group-text">Минимальное<br>списание 40 миль</span>
+                    </div>
+                </div>
+                <div style="margin-bottom: 4.2%;">
+                    <label class="semi f-16 grey" style="">Код из СМС</label>
+                    <div class="code-input-group input-group" style="">
+                        <input type="text" class="form-control" placeholder="250" aria-describedby="basic-addon1">
+                        <img src="{% static 'images/check_mark.svg' %}" class="input-group-text" id="basic-addon1">
+                    </div>
+                    <a class="" href="#" style="color: #3333FF">Отправить код повторно</a>
+                </div>
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Списание миль</label>
+                    <h2 class="middle" style="color: black;">-250 миль</h2>
+                </div>
+                <div class="line"></div>
+                <div class="div-price-item">
+                    <label class="semi f-18 black">Итоговая стоимость</label>
+                    <h2 class="middle" style="color: black;">1 700 ₽</h2>
+                </div>
+                <a id="pay-pick-up-ls" href="{% url 'deliveryinfo' %}" class="btn bold">Оплатить</a>
+            </div>
+        </div>
+    </div>
+    {#==============================================================================#}
 
     {#    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#}
     <div id="awaiting-delivery" style="display: none;">
@@ -359,7 +424,7 @@
                 Одна вещь ожидает доставки</h2>
         </div>
         <div class="center"
-             style="display: flex;flex-wrap: wrap;padding: 0 12%;justify-content: space-between;margin-top: 5.68%">
+             style="display: flex;flex-wrap: wrap;padding: 0 12%;margin-top: 5.68%">
             <div class="div-my-item" style="">
                 <div class="row">
                     <label class="semi f-16 grey">Где оставили</label>
@@ -481,6 +546,4 @@
 {% block script %}
     <script src="{% static 'js/document.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script>
-    </script>
 {% endblock %}
