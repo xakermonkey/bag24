@@ -4,6 +4,31 @@
 {% block title %}{% endblock %}
 
 {% block content %}
+
+    <style type="text/css">
+
+        .bad_input {
+            border: 4px solid #F9D2D2;
+        }
+
+        .not_phone_main {
+            text-align: center;
+            width: 35%;
+            margin: auto;
+            margin-top: 20%;
+        }
+
+        .no_phone_text {
+            color: #0C0C0D;
+            font-size: 32px;
+            line-height: 42px;
+            font-family: Inter;
+            font-weight: 600;
+
+        }
+
+    </style>
+
     <nav class="nav">
         <div style="display: flex; align-items: center;flex-direction: row">
             <a class="nav-link" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
@@ -11,17 +36,46 @@
                                                                                   style="width: 60px; "></a>
         </div>
     </nav>
-
-    <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #B3E5C4;display: flex;
+    {% csrf_token %}
+    <div id="success_phone" style="display: none">
+        <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #B3E5C4;display: flex;
     justify-content: center;
     align-items: center;bottom: 2.97%;
     right: 1.67%;
     margin: auto;">
-        <label class="semi f-18 black">Телефон успешно привязан</label>
+            <label class="semi f-18 black">Телефон успешно привязан</label>
+        </div>
+    </div>
+    <div id="success_card" style="display: none">
+        <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #B3E5C4;display: flex;
+    justify-content: center;
+    align-items: center;bottom: 2.97%;
+    right: 1.67%;
+    margin: auto;">
+            <label class="semi f-18 black">MILEONEAIR успешно подключён</label>
+        </div>
+    </div>
+    <div id="alert_address" style="display: none">
+        <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #F9D2D2;display: flex;
+    justify-content: center;
+    align-items: center;bottom: 2.97%;
+    right: 1.67%;
+    margin: auto;">
+            <label class="semi f-18 black">Заполнены не все поля!</label>
+        </div>
+    </div>
+    <div id="alert_series" style="display: none">
+        <div style="position:absolute;border-radius: 12px;width: 22.09%;height: 6.49%;background: #F9D2D2;display: flex;
+    justify-content: center;
+    align-items: center;bottom: 2.97%;
+    right: 1.67%;
+    margin: auto;">
+            <label class="semi f-18 black">Неверный формат «серия и номер паспорта»</label>
+        </div>
     </div>
 
     {#==========================Модальное окно номера телефона=============================#}
-    <div class="modal fade modal-right" id="exampleModalRight" tabindex="-1" role="dialog"
+    <div class="modal fade modal-right" id="phone_modal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalRight" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -41,9 +95,18 @@
                     <form class="modal-code" style="margin-top: 11%">
                         <label class="form-label semi f-16 grey">Номер телефона</label>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control text-input">
+                            <input type="text" name="phone" class="form-control text-input">
                         </div>
-                        <button id="btn_doc" disabled class="btn get-code bold">Получить код</button>
+                        <div class="phone_code" style="margin-bottom: 4.2%; display: none">
+                            <label class="form-label semi f-16 grey" style="">Код из СМС</label>
+                            <div class="code-input-group input-group" style="">
+                                <input type="text" name="code_phone" class="form-control" placeholder="3675"
+                                       aria-describedby="basic-addon1">
+                                <span class="input-group-text" id="alert_phone" style="color:#D50029; display: none">Неверный код</span>
+                            </div>
+                            <a class="" href="#" style="color: #3333FF">Отправить код повторно</a>
+                        </div>
+                        <button id="btn_phone" type="button" disabled class="btn get-code bold">Получить код</button>
                     </form>
                 </div>
             </div>
@@ -52,7 +115,7 @@
     {#==========================================================================================#}
 
     {#==========================Модальное окно MILEONAIR=============================#}
-    <div class="modal fade modal-right" id="exampleModalRight2" tabindex="-1" role="dialog"
+    <div class="modal fade modal-right" id="card_modal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalRight2" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -73,19 +136,19 @@
                         <div>
                             <label class="form-label semi f-16 grey">Номер телефона</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control text-input">
+                                <input type="text" name="card" class="form-control text-input">
                             </div>
                         </div>
-                        <div style="margin-bottom: 4.2%;">
+                        <div class="card_code" style="margin-bottom: 4.2%; display: none">
                             <label class="form-label semi f-16 grey" style="">Код из СМС</label>
                             <div class="code-input-group input-group" style="">
-                                <input type="text" class="form-control" placeholder="250"
+                                <input type="text" name="code_card" class="form-control" placeholder="3675"
                                        aria-describedby="basic-addon1">
-                                <span class="input-group-text" style="color:#D50029;">Неверный код</span>
+                                <span class="input-group-text" id="alert_card" style="color:#D50029; display: none">Неверный код</span>
                             </div>
                             <a class="" href="#" style="color: #3333FF">Отправить код повторно</a>
                         </div>
-                        <button id="btn_doc" disabled class="btn get-code bold">Получить код</button>
+                        <button id="btn_card" type="button" disabled class="btn get-code bold">Получить код</button>
                     </form>
                 </div>
             </div>
@@ -94,166 +157,215 @@
     {#==========================================================================================#}
 
 
+    <div id="document">
+        <div align="center" style="margin-top: 0.94%">
+            <h2 class="middle" style="color: black;margin-bottom: 2.75rem;">Заполнить профиль</h2>
+        </div>
 
-    <div align="center" style="margin-top: 0.94%">
-        <h2 class="middle" style="color: black;margin-bottom: 2.75rem;">Заполнить профиль</h2>
-    </div>
+        <div class="btngroup" style="margin: auto; margin-bottom: 40px">
+            <button data-value="#lk" class="btn selected">Личные данные</button>
+            <button data-value="#doc" class="btn">Паспортные данные</button>
+            <button data-value="#address" class="btn">Адреса доставки</button>
+        </div>
 
-    <div class="btngroup" style="margin: auto; margin-bottom: 40px">
-        <button data-value="#lk" class="btn selected">Личные данные</button>
-        <button data-value="#doc" class="btn">Паспортные данные</button>
-        <button data-value="#address" class="btn">Адреса доставки</button>
-    </div>
-
-    <div id="lk" class="divprof" style="">
-        <div class="div-input">
-            <div class=""
-                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
-                <div style="display: flex; flex-direction: column">
-                    <label class="semi f-18 black">Номер телефона</label>
-                    <label class="semi f-16 grey">Не привязан</label></div>
-                <a data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight">Привязать</a>
-            </div>
-        </div>
-        <label class="form-label semi f-16 grey">Логин</label>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control text-input">
-        </div>
-        <label class="form-label semi f-16 grey">Пароль</label>
-        <div class="input-group mb-3">
-            <input type="password" class="form-control text-input">
-        </div>
-        <label class="form-label semi f-16 grey">Электронная почта</label>
-        <div class="input-group mb-3">
-            <input type="email" class="form-control text-input">
-        </div>
-        <div class="div-input">
-            <div class=""
-                 style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
-                <div style="display: flex; flex-direction: column">
-                    <label class="semi f-18 black">MILEONAIR</label>
-                    <label class="semi f-16 grey">Программа лояльности</label></div>
-                <a data-toggle="modal" data-backdrop="static" data-target="#exampleModalRight2">Подключить</a>
-            </div>
-        </div>
-        <button id="btn_lk" disabled class="btn btn-save bold">Сохранить изменения</button>
-    </div>
-    <div id="doc" style="display: none;">
-        <div style="display: flex;  margin: auto; justify-content: center">
-            <div class="divprof" style="margin: 0">
-                <label class="form-label semi f-16 grey">Ваше ФИО</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control text-input">
-                </div>
-                <label class="form-label semi f-16 grey">Серия и номер паспорта</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control text-input">
-                </div>
-                <label class="form-label semi f-16 grey">Дата выдачи</label>
-                <div class="input-group mb-3">
-                    <input type="date" class="form-control text-input">
-                </div>
-                <label class="form-label semi f-16 grey">Кем выдан</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control text-input">
-                </div>
-                <label class="form-label semi f-16 grey">Дата рождения</label>
-                <div class="input-group mb-3">
-                    <input type="date" class="form-control text-input">
+        <div id="lk" class="divprof" style="">
+            <div class="div-input">
+                <div class=""
+                     style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-18 black">{% if request.user.phone %}Номер телефона:
+                            {{ request.user.phone }}{% else %}Номер телефона{% endif %}</label>
+                        <label class="semi f-16 grey">{% if request.user.phone %}Привязан{% else %}Не
+                            привязан{% endif %}</label>
+                    </div>
+                    <a data-toggle="modal" data-backdrop="static" data-target="#phone_modal">{% if request.user.phone %}
+                        Отвязать{% else %}Привязать{% endif %} </a>
                 </div>
             </div>
-
-            <div style="margin-left: 32px">
-                <label class="form-label semi f-16 grey" style="margin-top: 16px">Скан или фото паспорта</label>
-                <form action="/file-upload"
-                      class="dropzone"
-                      id="first_scan"></form>
-                <label class="form-label semi f-16 grey" style="margin-top: 16px">Первый разворорт с ФИО и фото
-                    лица</label>
-                <form action="/file-upload"
-                      class="dropzone"
-                      id="second_scan"></form>
-                <label class="form-label semi f-16 grey" style="margin-top: 16px">Разворот с пропиской</label>
+            <label class="form-label semi f-16 grey">Логин</label>
+            <div class="input-group mb-3">
+                <input type="text" name="username" value="{{ request.user.username }}" class="form-control text-input">
             </div>
-
+            <label class="form-label semi f-16 grey">Пароль</label>
+            <div class="input-group mb-3">
+                <input type="password" name="password" value="1234567890" class="form-control text-input">
+            </div>
+            <label class="form-label semi f-16 grey">Электронная почта</label>
+            <div class="input-group mb-3">
+                <input type="email" name="email" {% if request.user.email %}
+                       value="{{ request.user.email }}" {% endif %}
+                       class="form-control text-input">
+            </div>
+            <div class="div-input">
+                <div class=""
+                     style="display: flex;flex-direction: row;justify-content: space-between;align-items: center">
+                    <div style="display: flex; flex-direction: column">
+                        <label class="semi f-18 black">{% if card %}MILEONAIR по номеру: {{ card.phone }}{% else %}
+                            MILEONAIR{% endif %}</label>
+                        <label class="semi f-16 grey">Программа лояльности</label></div>
+                    <a data-toggle="modal" data-backdrop="static" data-target="#card_modal">{% if card %}
+                        Отключить{% else %}
+                        Подключить{% endif %} </a>
+                </div>
+            </div>
+            <button id="btn_lk" disabled class="btn btn-save bold">Сохранить изменения</button>
         </div>
-        <button id="btn_doc" disabled class="btn btn-save bold">Сохранить изменения</button>
-    </div>
-
-    <div id="address" class="" style="display: none">
-        <div style="display: flex; margin: auto; justify-content: center;align-items: flex-start">
-            <div class="div-add-addresses" style="margin-right: 2.5%;">
-                <label class="form-label semi f-16 grey">Название адреса</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control text-input">
+        <div id="doc" style="display: none;">
+            <div style="display: flex;  margin: auto; justify-content: center">
+                <div class="divprof" style="margin: 0">
+                    <label class="form-label semi f-16 grey">Ваше ФИО</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="fio" class="form-control text-input"
+                               {% if doc.fio %}value="{{ doc.fio }}"{% endif %}>
+                    </div>
+                    <label class="form-label semi f-16 grey">Серия и номер паспорта</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="series" class="form-control text-input"
+                               {% if doc.series_number %}value="{{ doc.series_number }}"{% endif %}>
+                    </div>
+                    <label class="form-label semi f-16 grey">Дата выдачи</label>
+                    <div class="input-group mb-3">
+                        <input type="date" {% if doc.date_get %}value="{{ doc.date_get|date:"Y-m-d" }}"{% endif %} name="date_get"
+                               class="form-control text-input">
+                    </div>
+                    <label class="form-label semi f-16 grey">Кем выдан</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="how_get" {% if doc.how_get %}value="{{ doc.how_get }}"{% endif %}
+                               class="form-control text-input">
+                    </div>
+                    <label class="form-label semi f-16 grey">Дата рождения</label>
+                    <div class="input-group mb-3">
+                        <input type="date" {% if doc.birthday %}value="{{ doc.birthday|date:"Y-m-d" }}"{% endif %} name="birthday"
+                               class="form-control text-input">
+                    </div>
                 </div>
-                <label class="form-label semi f-16 grey">Адрес доставки</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control text-input">
+
+                <div style="margin-left: 32px">
+                    <label class="form-label semi f-16 grey" style="margin-top: 16px">Скан или фото паспорта</label>
+                    {% if doc.first_scan %}
+                        <div style="height: 150px; width: 200px; border-radius: 16px"><img
+                                src="{{ doc.first_scan.url }}"
+                                style="height: 170px; width: 300px; border-radius: 16px"
+                                alt=""></div>
+                    {% else %}
+                        <form action="/file-upload" name="first-scan" method="post"
+                              class="dropzone"
+                              id="firstScan">
+                            {% csrf_token %}
+                        </form>
+                    {% endif %}
+                    <label class="form-label semi f-16 grey" style="margin-top: 16px">Первый разворорт с ФИО и фото
+                        лица</label>
+                    {% if doc.second_scan %}
+                        <div style="height: 150px; width: 200px; border-radius: 16px"><img
+                                src="{{ doc.second_scan.url }}"
+                                style="height: 170px; width: 300px; border-radius: 16px"
+                                alt=""></div>
+                    {% else %}
+                        <form action="/file-upload" method="post" class="dropzone"
+                              id="secondScan">{% csrf_token %}</form>
+                    {% endif %}
+                    <label class="form-label semi f-16 grey" style="margin-top: 16px">Разворот с пропиской</label>
                 </div>
 
-                <div class="row">
-                    <div class="col">
-                        <label class="form-label semi f-16 grey">Подъезд</label>
-                        <div class="input-group mb-3">
-                            <input type="number" class="form-control number-input">
+            </div>
+            <button id="btn_doc" type="button" disabled class="btn btn-save bold">Сохранить изменения</button>
+        </div>
+
+        <div id="address" class="" style="display: none">
+            <div style="display: flex; margin: auto; justify-content: center;align-items: flex-start">
+                <div class="div-add-addresses" style="margin-right: 2.5%;">
+                    <label class="form-label semi f-16 grey">Название адреса</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="name" class="form-control text-input">
+                    </div>
+                    <label class="form-label semi f-16 grey">Адрес доставки</label>
+                    <div class="input-group mb-3">
+                        <input type="text" name="address" class="form-control text-input">
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label semi f-16 grey">Подъезд</label>
+                            <div class="input-group mb-3">
+                                <input type="number" name="entrance" class="form-control number-input">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label semi f-16 grey">Этаж</label>
+                            <div class="input-group mb-3">
+                                <input type="number" name="floor" class="form-control number-input">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label semi f-16 grey">Квартира</label>
+                            <div class="input-group mb-3">
+                                <input type="number" name="apartment" class="form-control number-input">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label class="form-label semi f-16 grey">Код домофона</label>
+                            <div class="input-group mb-3">
+                                <input type="text" name="code" class="form-control number-input">
+                            </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <label class="form-label semi f-16 grey">Этаж</label>
-                        <div class="input-group mb-3">
-                            <input type="number" class="form-control number-input">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <label class="form-label semi f-16 grey">Квартира</label>
-                        <div class="input-group mb-3">
-                            <input type="number" class="form-control number-input">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <label class="form-label semi f-16 grey">Код домофона</label>
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control number-input">
-                        </div>
+                    <div class="center">
+                        <a class="btn btn-address bold" id="add_address" href="#">Добавить адрес в мой список</a>
                     </div>
                 </div>
-                <div class="center">
-                    <a class="btn btn-address bold" href="#">Добавить адрес в мой список</a>
-                </div>
-            </div>
-            <div>
-                <label class="form-label semi f-16" style="color:#f9f9fa;">/</label>
-                <div class="div-my-addresses" style="">
-                    <label class="form-label semi f-16 grey">Мои адреса</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            Дом <label class="semi f-16 grey">Основной</label>
-                            <br>
-                            Москва, Духовской переулок 22а, подъезд 1, кв. 21. Код домофона: в1212в12в
-                            <br>
-                            <a class="" href="#" style="color: #3333FF">Редактировать</a>
-                            <a class="" href="#" style="color: #BF4040">Удалить</a>
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            Работа
-                            <br>
-                            Москва, улица Барклая, 6с5
-                            <br>
-                            <a class="" href="#" style="color: #3333FF">Редактировать</a>
-                            <a class="" href="#" style="color: #BF4040">Удалить</a>
-                        </label>
+                <div>
+                    <label class="form-label semi f-16" style="color:#f9f9fa;">/</label>
+                    <div class="div-my-addresses" style="">
+                        <label class="form-label semi f-16 grey">Мои адреса</label>
+                        {% if list.addresses.all %}
+                            {% for adr in list.addresses.all %}
+                                <div class="form-check" id="address{{ adr.id }}" >
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                           id="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        {{ adr.name }} <label class="semi f-16 grey">Основной</label>
+                                        <br>
+                                        {{ adr.address }}, подъезд {{ adr.entrance }}, {{ adr.floor }} этаж,
+                                        кв. {{ adr.apartment }}. Код домофона: {{ adr.code }}
+                                        <br>
+                                        <a class="reform" data-value="{{ adr.id }}" href="#" style="color: #3333FF">Редактировать</a>
+                                        <a class="remove" data-value="{{ adr.id }}" href="#"
+                                           style="color: #BF4040">Удалить</a>
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="form-check not-address">
+                                <div>У вас еще нет адресов!</div>
+                            </div>
+                        {% endif %}
+                        {#                    <div class="form-check">#}
+                        {#                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">#}
+                        {#                        <label class="form-check-label" for="flexRadioDefault2">#}
+                        {#                            Работа#}
+                        {#                            <br>#}
+                        {#                            Москва, улица Барклая, 6с5#}
+                        {#                            <br>#}
+                        {#                            <a class="" href="#" style="color: #3333FF">Редактировать</a>#}
+                        {#                            <a class="" href="#" style="color: #BF4040">Удалить</a>#}
+                        {#                        </label>#}
+                        {#                    </div>#}
                     </div>
                 </div>
             </div>
+            <button id="btn_address" disabled class="btn btn-save bold">Сохранить изменения</button>
         </div>
-        <button id="btn_address" disabled class="btn btn-save bold">Сохранить изменения</button>
     </div>
-
+    <div id="not_phone" style="display: none">
+        <div class="not_phone_main">
+            <div class="no_phone_text">Привяжите номер телефона,<br>
+                чтобы мы смогли отследить ваши вещи,
+                оставленные в постаматах аэропорта
+            </div>
+            <a id="back_setting" class="btn btn-save" style="margin-top: 5%" href="">Перейти к настройкам</a>
+        </div>
+    </div>
 
 
 {% endblock %}

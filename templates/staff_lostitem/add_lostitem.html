@@ -1,0 +1,446 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Панель администратора{% endblock %}
+
+
+
+{% block content %}
+    <style type="text/css">
+        .nav-right {
+            width: 25%;
+        }
+
+        .nav-info {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .staff-add-item-main {
+            width: 100%;
+            padding: 3%;
+        }
+
+        .staff-header-nav {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 2%;
+        }
+
+        .staff-header-left {
+            width: 70%;
+        }
+
+        .staff-header-text {
+            margin-right: 3%;
+        }
+
+        .staff-refound {
+            display: flex;
+            flex-direction: row;
+            width: 50%;
+            justify-content: flex-end;
+        }
+
+        .btn-otmena {
+            color: #0C0C0D;
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+            background: #DFDFE1;
+            display: flex;
+            box-shadow: inset 0px 8px 32px rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+            margin: auto;
+            margin-right: 0;
+            margin-left: 0;
+            padding: 0 5%;
+        }
+
+        .btn-add {
+            color: white;
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+            background-color: #33f;
+            display: flex;
+            box-sizing: border-box;
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+            border-radius: 16px;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+            margin: auto;
+            padding: 0 5%;
+        }
+
+        .staff-add-item-main-main {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .staff-add-item-left {
+            width: 30%;
+            padding-right: 3%;
+        }
+
+        .staff-add-item-right {
+            width: 70%;
+        }
+
+        .staff-add-item-right-card {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: row;
+            padding: 3%;
+        }
+
+        .thing {
+            background: #FFFFFF;
+            width: 100%;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            padding: 5%;
+        }
+
+        .thing-main {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .thing-info-all {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .thing-photo {
+            width: 32%;
+            height: auto;
+            margin-bottom: 5%;
+        }
+
+        .date-time {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 7%;
+        }
+
+        .date, .time {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .date {
+            width: 60%;
+        }
+
+        .time {
+            width: 40%;
+        }
+
+        .thing-left {
+            width: 100%;
+        }
+
+        .thing-right {
+            width: 100%;
+        }
+
+        .thing-info {
+            display: flex;
+            margin-bottom: 5%;
+        }
+
+        .thing .label {
+            font-size: 16px;
+            color: #0C0C0D7A;
+            font-family: Inter;
+        }
+
+        .thing .value {
+            font-size: 18px;
+            color: #0C0C0D;
+            font-family: Inter;
+        }
+
+        .thing-icon {
+            font-size: 32px;
+            margin-right: 7%;
+        }
+
+        .first-column {
+            width: 50%;
+            padding-right: 2%;
+        }
+
+        .second-column {
+            width: 50%;
+            padding-left: 2%;
+        }
+
+        .label {
+            color: #0C0C0D7A;
+            font-size: 16px;
+            font-weight: 400;
+            font-family: Inter;
+        }
+
+        .myselect {
+            width: 100%;
+            margin-top: 1%;
+            background: rgba(35, 35, 42, 0.08);
+            border-radius: 12px;
+            color: #0C0C0D;
+            padding: 3% 3.5%;
+            border: none;
+            font-size: 18px;
+            font-family: Inter;
+            margin-bottom: 5%;
+        }
+
+        .mytextinput {
+            width: 100%;
+            margin-top: 1%;
+            background: rgba(35, 35, 42, 0.08);
+            border-radius: 12px;
+            color: #0C0C0D;
+            padding: 3%;
+            border: none;
+            font-size: 18px;
+            font-family: Inter;
+            margin-bottom: 5%;
+        }
+
+        .colors {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-top: 3%;
+        }
+
+        .color {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 3%;
+            border: black solid 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .color:hover {
+            cursor: pointer;
+        }
+
+
+    </style>
+
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+        </div>
+        <div class="nav-right">
+            <div class="nav-info">
+                <i class="bi bi-person-circle" style="font-size: 28px; margin-right: 5%"></i>
+                <div class="hi_say">
+                    <span class="f-16 grey">Здравствуйте,</span>
+                    <div class="f-18 black">Валентина Валерьевна</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="staff-add-item-main">
+        <div class="staff-header-nav">
+            <div class="staff-header-left">
+                <div href="" class="f-32 black bold staff-header-text">Принять вещь на склад</div>
+                <div class="f-18 grey">От сотрудника Валентина Валерьевна</div>
+            </div>
+            <div class="staff-refound">
+                <a class="btn btn-add" style="margin-right: 3%">Принять на склад</a>
+                <a class="btn btn-otmena">Отмена</a>
+            </div>
+        </div>
+        <div class="staff-add-item-main-main">
+            <div class="staff-add-item-left">
+                <div class="thing">
+                    {% for photo in photos %}
+                        <img src="{{ photo.photo.url }}" alt="" class="thing-photo">
+                    {% endfor %}
+                    <div class="thing-main">
+                        <div class="thing-info-all">
+                            <div class="thing-left">
+                                <div class="div-title">
+                                    <div class="title value">Вещь найдена</div>
+                                </div>
+                                <div class="date-time">
+                                    <div class="date">
+                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
+                                                                     alt="">
+                                        </div>
+                                        <div class="date-info">
+                                            <div class="label">Дата</div>
+                                            <div class="value">{{ item.date|date:"d F Y" }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="time">
+                                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                                        <div class="time-info">
+                                            <div class="label">Время</div>
+                                            <div class="value">{{ item.date|date:"H:i" }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Найдено сотрудником</div>
+                                        <div class="value">{{ workerinfo.name }}</div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Место обнаружения</div>
+                                        <div class="value">{{ item.pk }}</div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}"
+                                                                 alt="">
+                                    </div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Акт осмотра</div>
+                                        <div class="value">{% if item.act %}Имеется{% else %}Не имеется{% endif %}а</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thing-right">
+                                <div class="div-title value">
+                                    <div class="title">Вещь сдана</div>
+                                </div>
+                                <div class="date-time">
+                                    <div class="date">
+                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
+                                                                     alt="">
+                                        </div>
+                                        <div class="date-info">
+                                            <div class="label">Дата</div>
+                                            <div class="value">{{ now|date:"d F Y" }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="time">
+                                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                                        <div class="time-info">
+                                            <div class="label">Время</div>
+                                            <div class="value">{{ now|date:"H:i" }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Принято сотрудником</div>
+                                        <div class="value">{{ staff.name }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="staff-add-item-right">
+                <div class="staff-add-item-right-card">
+                    <div class="first-column">
+                        <div class="input-form">
+                            <div class="label">Камера хранения</div>
+                            <select name="" id="" class="myselect">
+
+                                <option value="">Шереметьево</option>
+                            </select>
+                        </div>
+                        <div class="input-form">
+                            <div class="label">Номерная бирка</div>
+                            <input class="mytextinput" type="text">
+                        </div>
+                        <div class="input-form">
+                            <div class="label">Класс вещи</div>
+                            <select name="" id="" class="myselect">
+                                <option value="">Одежда</option>
+                            </select>
+                        </div>
+                        <div class="input-form">
+                            <div class="label">Вид вещи</div>
+                            <select name="" id="" class="myselect" style="margin-bottom: 0">
+                                <option value="">Шапка</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="second-column">
+                        <div class="input-form">
+                            <div class="label">Комментарий сотрудника САБ</div>
+                            <textarea class="mytextinput" rows="3"></textarea>
+                        </div>
+                        <div class="input-form">
+                            <div class="label">Комментарий сотрудника КХ</div>
+                            <textarea class="mytextinput" style="margin-bottom: 3.5%" rows="3"></textarea>
+                        </div>
+                        <div class="color-form">
+                            <div class="label">Цвет вещи</div>
+                            <div class="colors">
+                                <div class="color" style="background-color: white"><i class="bi bi-check2 f-32"
+                                                                                      style="display: none"></i></div>
+                                <div class="color" style="background-color: grey"><i class="bi bi-check2 f-32"
+                                                                                     style="display: none"></i></div>
+                                <div class="color" style="background-color: black"><i class="bi bi-check2 f-32"
+                                                                                      style="color: white; display: none"></i>
+                                </div>
+                                <div class="color" style="background-color: greenyellow"><i class="bi bi-check2 f-32"
+                                                                                            style="display: none"></i>
+                                </div>
+                                <div class="color" style="background-color: blue"><i class="bi bi-check2 f-32"
+                                                                                     style="color: white; display: none"></i>
+                                </div>
+                                <div class="color" style="background-color: purple"><i class="bi bi-check2 f-32"
+                                                                                       style="color: white; display: none"></i>
+                                </div>
+                                <div class="color" style="background-color: deeppink"><i class="bi bi-check2 f-32"
+                                                                                         style="display: none"></i>
+                                </div>
+                                <div class="color" style="background-color: red"><i class="bi bi-check2 f-32"
+                                                                                    style="display: none"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block script %}
+    <script src="{% static 'js/add_lostitem.js' %}"></script>
+{% endblock %}

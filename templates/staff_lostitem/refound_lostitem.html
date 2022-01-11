@@ -1,0 +1,474 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block title %}Панель администратора{% endblock %}
+
+
+
+{% block content %}
+    <style type="text/css">
+        .nav-right {
+            width: 25%;
+        }
+
+        .nav-info {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .staff-add-item-main {
+            width: 100%;
+            padding: 3%;
+        }
+
+        .staff-header-nav {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 2%;
+        }
+
+        .staff-header-left {
+            width: 70%;
+        }
+
+        .staff-header-text {
+            margin-right: 3%;
+        }
+
+        .staff-refound {
+            display: flex;
+            flex-direction: row;
+            width: 50%;
+            justify-content: flex-end;
+        }
+
+        .btn-otmena {
+            color: #0C0C0D;
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+            background: #DFDFE1;
+            display: flex;
+            box-shadow: inset 0px 8px 32px rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+            margin: auto;
+            margin-right: 0;
+            margin-left: 0;
+            padding: 0 5%;
+        }
+
+        .btn-add {
+            color: white;
+            font-size: 16px;
+            font-family: Inter;
+            font-weight: 400;
+            background-color: #33f;
+            display: flex;
+            box-sizing: border-box;
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+            border-radius: 16px;
+            align-items: center;
+            justify-content: center;
+            height: 56px;
+            margin: auto;
+            padding: 0 5%;
+        }
+
+        .staff-add-item-main-main {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .staff-add-item-left {
+            width: 30%;
+            padding-right: 3%;
+        }
+
+        .staff-add-item-right {
+            width: 70%;
+        }
+
+        .staff-add-item-right-card {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: row;
+            padding: 3%;
+        }
+
+        .staff-print-docs {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 5%;
+        }
+
+        .staff-docs {
+            width: 49%;
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 2%;
+        }
+
+        .staff-input-docs {
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            padding: 2%;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .thing {
+            background: #FFFFFF;
+            width: 100%;
+            box-shadow: 0px 16px 32px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            padding: 5%;
+        }
+
+        .thing-main {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .thing-info-all {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .thing-photo {
+            width: 32%;
+            height: auto;
+            margin-bottom: 5%;
+        }
+
+        .date-time {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 7%;
+        }
+
+        .date, .time {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .date {
+            width: 60%;
+        }
+
+        .time {
+            width: 40%;
+        }
+
+        .thing-left {
+            width: 100%;
+        }
+
+        .thing-right {
+            width: 100%;
+        }
+
+        .thing-info {
+            display: flex;
+            margin-bottom: 5%;
+        }
+
+        .thing .label {
+            font-size: 16px;
+            color: #0C0C0D7A;
+            font-family: Inter;
+        }
+
+        .thing .value {
+            font-size: 18px;
+            color: #0C0C0D;
+            font-family: Inter;
+        }
+
+        .thing-icon {
+            font-size: 32px;
+            margin-right: 7%;
+        }
+
+        .first-column {
+            width: 50%;
+            padding-right: 2%;
+        }
+
+        .second-column {
+            width: 50%;
+            padding-left: 2%;
+        }
+
+        .label {
+            color: #0C0C0D7A;
+            font-size: 16px;
+            font-weight: 400;
+            font-family: Inter;
+        }
+
+        .mytextinput {
+            width: 100%;
+            margin-top: 1%;
+            background: rgba(35, 35, 42, 0.08);
+            border-radius: 12px;
+            color: #0C0C0D;
+            padding: 3%;
+            border: none;
+            font-size: 18px;
+            font-family: Inter;
+            margin-bottom: 5%;
+        }
+
+        .title-column {
+            color: #0C0C0D;
+            font-size: 18px;
+            font-family: Inter;
+            margin-bottom: 3%;
+        }
+
+        .form-scan {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: space-between;
+            margin-bottom: 3%;
+        }
+
+        .input-scan {
+            width: 48%;
+        }
+
+        .dropzone {
+            width: 100%;
+            height: 150px
+        }
+
+
+    </style>
+
+    <nav class="nav">
+        <div class="nav-left">
+            <a class="" href="#"><img src="{% static 'images/header.svg' %}" style="width: 104px;"></a>
+        </div>
+        <div class="nav-right">
+            <div class="nav-info">
+                <i class="bi bi-person-circle" style="font-size: 28px; margin-right: 5%"></i>
+                <div class="hi_say">
+                    <span class="f-16 grey">Здравствуйте,</span>
+                    <div class="f-18 black">Валентина Валерьевна</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <div class="staff-add-item-main">
+        <div class="staff-header-nav">
+            <div class="staff-header-left">
+                <div href="" class="f-32 black bold staff-header-text">Выдача вещи пассажиру</div>
+                <div class="f-18 grey">От сотрудника Валентина Валерьевна. Дата выдачи 24.11.2021</div>
+            </div>
+            <div class="staff-refound">
+                <a class="btn btn-add" style="margin-right: 3%">Произвести выдачу</a>
+                <a class="btn btn-otmena">Отмена</a>
+            </div>
+        </div>
+        <div class="staff-add-item-main-main">
+            <div class="staff-add-item-left">
+                <div class="thing">
+                    <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
+                    <div class="thing-main">
+                        <div class="thing-info-all">
+                            <div class="thing-left">
+                                <div class="div-title">
+                                    <div class="title value">Вещь найдена</div>
+                                </div>
+                                <div class="date-time">
+                                    <div class="date">
+                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
+                                                                     alt="">
+                                        </div>
+                                        <div class="date-info">
+                                            <div class="label">Дата</div>
+                                            <div class="value">10 декабря 2021</div>
+                                        </div>
+                                    </div>
+                                    <div class="time">
+                                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                                        <div class="time-info">
+                                            <div class="label">Время</div>
+                                            <div class="value">19:00</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Найдено сотрудником</div>
+                                        <div class="value">Александра Сергеевна</div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Место обнаружения</div>
+                                        <div class="value">Шереметьево. Терминал F</div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}"
+                                                                 alt="">
+                                    </div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Акт осмотра</div>
+                                        <div class="value">Имеется</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="thing-right">
+                                <div class="div-title value">
+                                    <div class="title">Вещь сдана</div>
+                                </div>
+                                <div class="date-time">
+                                    <div class="date">
+                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
+                                                                     alt="">
+                                        </div>
+                                        <div class="date-info">
+                                            <div class="label">Дата</div>
+                                            <div class="value">10 декабря 2021</div>
+                                        </div>
+                                    </div>
+                                    <div class="time">
+                                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                                        <div class="time-info">
+                                            <div class="label">Время</div>
+                                            <div class="value">19:00</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Принято сотрудником</div>
+                                        <div class="value">Валентина Валерьевна</div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Камера</div>
+                                        <div class="value">Название камеры</div>
+                                    </div>
+                                </div>
+                                <div class="thing-info">
+                                    <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
+                                    <div class="thing-info-info">
+                                        <div class="label">Описание</div>
+                                        <div class="value">Серая шапка</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="staff-add-item-right">
+                <div class="staff-print-docs">
+                    <div class="staff-docs">
+                        <div class="staff-docs-info">
+                            <div class="value">Заявление на возврат</div>
+                            <div class="label">Бланк</div>
+                        </div>
+                        <a href="" class="btn btn-otmena">Печать</a>
+                    </div>
+                    <div class="staff-docs">
+                        <div class="staff-docs-info">
+                            <div class="value">Расписка за получение</div>
+                            <div class="label">Бланк</div>
+                        </div>
+                        <a href="" class="btn btn-otmena">Печать</a>
+                    </div>
+                </div>
+                <div class="staff-input-docs">
+                    <div class="first-column">
+                        <div class="title-column">Данные клиента</div>
+                        <div class="input-form">
+                            <div class="label">Ваше ФИО</div>
+                            <input class="mytextinput" type="text">
+                        </div>
+                        <div class="input-form">
+                            <div class="label">Серия и номер паспорта</div>
+                            <input class="mytextinput" type="number">
+                        </div>
+                        <div class="input-form">
+                            <div class="label">Дата выдачи</div>
+                            <input class="mytextinput" type="date">
+                        </div>
+                        <div class="input-form">
+                            <div class="label">Кем выдан</div>
+                            <input class="mytextinput" type="text">
+                        </div>
+                        <div class="input-form">
+                            <div class="label">Дата рождения</div>
+                            <input class="mytextinput" type="date">
+                        </div>
+                    </div>
+                    <div class="second-column">
+                        <div class="title-column">Сканы паспорта</div>
+                        <div class="form-scan">{% csrf_token %}
+                            <div class="input-scan">
+                            <form action="" name="first-scan" method="post"
+                                  class="dropzone"
+                                  id="firstScan">
+                            </form>
+                            <label class="form-label semi f-16 grey" style="margin-top: 16px">Первый разворот с ФИО и фото лица</label>
+                                </div>
+                            <div class="input-scan">
+                            <form action="" name="first-scan" method="post"
+                                  class="dropzone"
+                                  id="firstScan">
+                            </form>
+                            <label class="form-label semi f-16 grey" style="margin-top: 16px">Разворот с пропиской</label>
+                            </div>
+                        </div>
+                        <div class="title-column">Саканы заявлений и расписки</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block script %}
+    <script src="{% static 'js/refound_lostitem.js' %}"></script>
+{% endblock %}

@@ -1,7 +1,7 @@
 {% extends 'index.html' %}
 {% load static %}
 
-{% block title %}{% endblock %}
+{% block title %}Авторизация{% endblock %}
 
 {% block content %}
     <nav class="nav" style="display: none">
@@ -14,14 +14,25 @@
         <h2 class="middle" style="color: black">Keeplt клиент</h2>
     </div>
 
-    <div class="center">
+    <div id="alert_pass" class="center" style="display: none">
         <div class="divform_error">
             <div class="center">Неверный пароль</div>
+        </div>
+    </div>
+    <div id="alert_pass_reg" class="center" style="display: none">
+        <div class="divform_error">
+            <div class="center">Пароли не совпадают!</div>
+        </div>
+    </div>
+    <div id="alert_code" class="center" style="display: none">
+        <div class="divform_error">
+            <div class="center">Неверный код</div>
         </div>
     </div>
 
     <div class="center">
         <div class="divform">
+
             <div align="center">
                 <h2 id="title" class="middle f-32" style="color: black">Телефон</h2>
                 <p id="subtext" class="semi f-16 grey">Пришлем на него смс с кодом</p>
@@ -33,7 +44,8 @@
                 </div>
             </div>
             <div align="center">
-                <button class="btn btn-next bold">
+                    {% csrf_token %}
+                <button class="btn btn-next bold star">
                     Дальше
                 </button>
             </div>
