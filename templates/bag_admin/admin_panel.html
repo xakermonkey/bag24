@@ -1,4 +1,5 @@
 {% extends 'index.html' %}
+{% load bag_admin %}
 {% load static %}
 {% block title %}Панель администратора{% endblock %}
 
@@ -39,6 +40,10 @@
         }
 
         .panel-left {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            align-content: flex-start;
             width: 70%;
             padding: 5% 1% 0 5%;
 
@@ -174,6 +179,7 @@
             margin-left: 0;
             cursor: pointer;
         }
+
         .item-refresh:hover {
             color: #0C0C0D;
         }
@@ -184,7 +190,6 @@
             font-size: 32px;
             margin-right: 2%;
         }
-
 
 
     </style>
@@ -211,474 +216,91 @@
 
     <div class="panel-main">
         <div class="panel-left">
-            <div class="row">
+            {% for info in workerinfo %}
                 <div class="card">
                     <div class="row">
                         <div class="icon"><i class="size bi bi-person-circle"></i></div>
                         <div class="info">
                             <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
+                            <div class="value">{{ info.name }}</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
                         <div class="info">
                             <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
+                            <div class="value">{{ info.user.phone }}</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
                         <div class="info">
                             <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
+                            <div class="value">{{ info|get_airport }}</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="icon"><i class="size bi bi-phone-fill"></i></div>
                         <div class="info">
                             <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
+                            <div class="value">
+                                {% if info.access_mobile %}Имеется{% else %}Не имеется{% endif %}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="icon"><i class="size bi bi-bag-fill"></i></div>
                         <div class="info">
                             <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
+                            <div class="value">{{ info|get_things }}</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
                         <div class="info">
                             <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
+                            <div class="value">
+                                {% if info.user.status == "adm" %}Администратор{% else %}Сотрудник{% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-person-circle"></i></div>
-                        <div class="info">
-                            <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-phone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-bag-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-person-circle"></i></div>
-                        <div class="info">
-                            <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-phone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-bag-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card">
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-person-circle"></i></div>
-                        <div class="info">
-                            <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-phone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-bag-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-person-circle"></i></div>
-                        <div class="info">
-                            <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-phone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-bag-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-person-circle"></i></div>
-                        <div class="info">
-                            <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-phone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-bag-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card">
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-person-circle"></i></div>
-                        <div class="info">
-                            <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-phone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-bag-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-person-circle"></i></div>
-                        <div class="info">
-                            <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-phone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-bag-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-person-circle"></i></div>
-                        <div class="info">
-                            <div class="label">Имя сотрудника</div>
-                            <div class="value">Мягков Алексей</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-telephone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Контактный телефон</div>
-                            <div class="value">8 999 999 99 99</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/air.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Аэропорт</div>
-                            <div class="value">Шереметьево, терминал Ф</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-phone-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Доступ к приложению</div>
-                            <div class="value">Имеется</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><i class="size bi bi-bag-fill"></i></div>
-                        <div class="info">
-                            <div class="label">Найденных вещей</div>
-                            <div class="value">4</div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="icon"><img class="size" src="{% static "images/main icon.svg" %}" alt=""></div>
-                        <div class="info">
-                            <div class="label">Права</div>
-                            <div class="value">Сотрудник</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <div class="panel-right">
             <input class="search" placeholder="Поиск..." type="text">
             <div class="selector">
                 <span class="label-selector">Права отрудиников</span>
-                <select class="myselect" name="" id="">
-                    <option value="">Сотрудник</option>
-                    <option value="">Администратор</option>
-                </select>
+                <div class="select" id="status">
+                    <button type="button" class="select__toggle" name="status" value="st"
+                            data-select="toggle"
+                            data-index="1">Сотрудник
+                    </button>
+                    <div class="select__dropdown">
+                        <ul class="select__options">
+                            <li class="select__option" data-select="option" data-value="st"
+                                data-index="1">
+                                Сотрудник
+                            </li>
+                            <li class="select__option" data-select="option" data-value="adm"
+                                data-index="2">
+                                Администратор
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="place">
-                <div class="item">
-                    <div class="iata">SVO</div>
-                    <div class="info">
-                        <div class="value">Шереметьево</div>
-                        <div class="label">16 сотрудников • 16 вещей</div>
-                        <hr class="line-place" />
+                {% for air in airport %}
+                    <div class="item">
+                        <div class="iata">{{ air.iata }}</div>
+                        <div class="info">
+                            <div class="value">{{ air.name }}</div>
+                            <div class="label">{{ air|get_staff }} • {{ air|get_airport_things }} вещей</div>
+                            <hr class="line-place"/>
+                        </div>
                     </div>
-                </div>
-                <div class="item">
-                    <div class="iata">SVO</div>
-                    <div class="info">
-                        <div class="value">Шереметьево</div>
-                        <div class="label">16 сотрудников • 16 вещей</div>
-                        <hr class="line-place" />
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="iata">SVO</div>
-                    <div class="info">
-                        <div class="value">Шереметьево</div>
-                        <div class="label">16 сотрудников • 16 вещей</div>
-                        <hr class="line-place" />
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="iata">SVO</div>
-                    <div class="info">
-                        <div class="value">Шереметьево</div>
-                        <div class="label">16 сотрудников • 16 вещей</div>
-                        <hr class="line-place" />
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="iata">SVO</div>
-                    <div class="info">
-                        <div class="value">Шереметьево</div>
-                        <div class="label">16 сотрудников • 16 вещей</div>
-                        <hr class="line-place" />
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="iata">SVO</div>
-                    <div class="info">
-                        <div class="value">Шереметьево</div>
-                        <div class="label">16 сотрудников • 16 вещей</div>
-                        <hr class="line-place" />
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="iata">SVO</div>
-                    <div class="info">
-                        <div class="value">Шереметьево</div>
-                        <div class="label">16 сотрудников • 16 вещей</div>
-                    </div>
-                </div>
+                {% endfor %}
                 <a class="item item-refresh">
                     <i class="refresh-i bi bi-arrow-repeat"></i>Сбросить
                 </a>
@@ -693,4 +315,5 @@
 
 
 {% block script %}
+    <script src="{% static 'js/panel_admin.js' %}" ></script>
 {% endblock %}

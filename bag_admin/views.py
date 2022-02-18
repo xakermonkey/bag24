@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden
+from lostitems.models import *
+from bag_admin.models import *
 
 
 # Create your views here.
@@ -15,7 +17,13 @@ def AdminLogout(request):
 
 
 def AdminPanel(request):
-    return render(request, 'bag_admin/admin_panel.html')
+    if not request.user.is_authenticated:
+        return redirect('login_admin')
+    if request.user.status != 'adm':
+        return HttpResponseForbidden('<h1>Недостаточно прав</h1>')
+    info = WorkerInfo.objects.all()
+    air = Airport.objects.all()
+    return render(request, 'bag_admin/admin_panel.html', {'workerinfo': info, 'airport': air})
 
 
 def AdminLuggageStorage(request):
@@ -36,7 +44,7 @@ def adminRegister(request):
     user = authenticate(username=username, password=password)
     if not user:
         return JsonResponse({'status': False})
-    if int(user.status) != 2:
+    if user.status != 'adm':
         return JsonResponse({'status': False})
     login(request, user)
     return JsonResponse({'status': True})

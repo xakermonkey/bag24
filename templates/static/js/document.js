@@ -1,7 +1,7 @@
 //=================================================== fill_profile.html
-Dropzone.autoDiscover = false;
-jQuery(function () {
 
+jQuery(function () {
+    Dropzone.autoDiscover = false;
     var data = {'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()};
     var data_doc = {'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()};
     var data_adr = {'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()};
@@ -192,7 +192,8 @@ jQuery(function () {
         data_doc['date_get'] = $('input[name="date_get"]').val();
         data_doc['how_get'] = $('input[name="how_get"]').val();
         data_doc['birthday'] = $('input[name="birthday"]').val();
-
+        firstScan.processQueue();
+        secondScan.processQueue();
 
         $.ajax({
             url: 'save_change_document',
@@ -204,15 +205,101 @@ jQuery(function () {
         });
     });
 
-    $('#firstScan').dropzone({
+
+    $('#firstDoc').click(function () {
+        var data = {'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()};
+        data['scan'] = 'first'
+        $.ajax({
+            url: document.location.origin + '/file-remove',
+            method: "POST",
+            data: data,
+            success: function () {
+                $(this).hide()
+                $('#firstScan').show()
+            },
+            error: function () {
+
+            }
+        });
+    });
+    $('#secondDoc').click(function () {
+        var data = {'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val()};
+        data['scan'] = 'second'
+        $.ajax({
+            url: document.location.origin + '/file-remove',
+            method: "POST",
+            data: data,
+            success: function () {
+                $(this).hide()
+                $('#firstScan').show()
+            },
+            error: function () {
+
+            }
+        });
+    });
+
+    var firstScan = new Dropzone("#firstScan", {
+        url: document.location.origin + '/file-upload',
         paramName: 'first',
         maxFiles: 1,
-        acceptedFiles: '.jpg,.png,.jpeg',
-    });
-    $('#secondScan').dropzone({
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        init: function () {
+            $(this.element).html(this.options.dictDefaultMessage);
+        },
+        sending: function(file, xhr, formData){
+                formData.append('csrfmiddlewaretoken', $('input[name="csrfmiddlewaretoken"]').val())
+                },
+        dictDefaultMessage: '<div class="dz-message" ><img src="static/images/PlusCircle.svg" id="plusFirst" alt=""></div>',
+        acceptedFiles: 'image/*',
+        success: function (file, response) {
+            $('.dz-progress').hide()
+            $('.dz-details').hide()
+            $('.dz-error-message').hide()
+            $('.dz-success-mark').hide()
+            $('.dz-error-mark').hide()
+        },
+        error: function (file, response) {
+            file.previewElement.classList.add("dz-error");
+        },
+    })
+    var secondScan = new Dropzone("#secondScan", {
+        url: document.location.origin + '/file-upload',
         paramName: 'second',
         maxFiles: 1,
-        acceptedFiles: '.jpg,.png,.jpeg'
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        init: function () {
+            $(this.element).html(this.options.dictDefaultMessage);
+        },
+        sending: function(file, xhr, formData){
+                formData.append('csrfmiddlewaretoken', $('input[name="csrfmiddlewaretoken"]').val())
+                },
+        dictDefaultMessage: '<div class="dz-message" ><img src="static/images/PlusCircle.svg" id="plusFirst" alt=""></div>',
+        acceptedFiles: 'image/*',
+        success: function (file, response) {
+            var imgName = response;
+            file.previewElement.classList.add("dz-success");
+            console.log("Successfully uploaded :" + imgName);
+        },
+        error: function (file, response) {
+            file.previewElement.classList.add("dz-error");
+        },
+    })
+
+    firstScan.on("addedfile", function (file) {
+        $('#btn_doc').removeAttr('disabled')
+        file.previewElement.addEventListener("click", function () {
+            firstScan.removeFile(file);
+        });
+    });
+
+    secondScan.on("addedfile", function (file) {
+        $('#btn_doc').removeAttr('disabled')
+        file.previewElement.addEventListener("click", function () {
+            secondScan.removeFile(file);
+        });
     });
 
 

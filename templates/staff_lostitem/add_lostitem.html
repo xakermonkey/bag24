@@ -128,10 +128,15 @@
             width: 100%;
         }
 
+        .gallery::-webkit-scrollbar {
+            width: 0;
+        }
+
         .thing-photo {
             width: 32%;
             height: auto;
             margin-bottom: 5%;
+            margin-right: 5%;
         }
 
         .date-time {
@@ -235,19 +240,8 @@
             margin-top: 3%;
         }
 
-        .color {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 3%;
-            border: black solid 1px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .color:hover {
-            cursor: pointer;
+        .form-check-input[type=radio]:checked {
+            background-image: url({% static "images/check2.svg" %});
         }
 
 
@@ -262,7 +256,7 @@
                 <i class="bi bi-person-circle" style="font-size: 28px; margin-right: 5%"></i>
                 <div class="hi_say">
                     <span class="f-16 grey">Здравствуйте,</span>
-                    <div class="f-18 black">Валентина Валерьевна</div>
+                    <div class="f-18 black">{{ staff.name }}</div>
                 </div>
             </div>
         </div>
@@ -273,19 +267,21 @@
         <div class="staff-header-nav">
             <div class="staff-header-left">
                 <div href="" class="f-32 black bold staff-header-text">Принять вещь на склад</div>
-                <div class="f-18 grey">От сотрудника Валентина Валерьевна</div>
+                <div class="f-18 grey">От сотрудника {{ workerinfo.name }}</div>
             </div>
             <div class="staff-refound">
-                <a class="btn btn-add" style="margin-right: 3%">Принять на склад</a>
-                <a class="btn btn-otmena">Отмена</a>
+                <a class="btn btn-add" id="save_item" style="margin-right: 3%">Принять на склад</a>
+                <a  id="cancel" class="btn btn-otmena">Отмена</a>
             </div>
         </div>
         <div class="staff-add-item-main-main">
             <div class="staff-add-item-left">
-                <div class="thing">
-                    {% for photo in photos %}
-                        <img src="{{ photo.photo.url }}" alt="" class="thing-photo">
-                    {% endfor %}
+                <div class="thing" data-value="{{ item.user.id }}">
+                    <div class="gallery" style="display: flex; flex-direction: row; overflow: auto">
+                        {% for photo in photos %}
+                            <img src="{{ photo.photo.url }}" alt="" class="thing-photo">
+                        {% endfor %}
+                    </div>
                     <div class="thing-main">
                         <div class="thing-info-all">
                             <div class="thing-left">
@@ -321,7 +317,8 @@
                                     <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
                                     <div class="thing-info-info">
                                         <div class="label">Место обнаружения</div>
-                                        <div class="value">{{ item.pk }}</div>
+                                        <div class="value">{{ item.place.airport.name }},
+                                            терминал {{ item.place.terminal }}</div>
                                     </div>
                                 </div>
                                 <div class="thing-info">
@@ -330,7 +327,8 @@
                                     </div>
                                     <div class="thing-info-info">
                                         <div class="label">Акт осмотра</div>
-                                        <div class="value">{% if item.act %}Имеется{% else %}Не имеется{% endif %}а</div>
+                                        <div class="value">{% if item.act %}Имеется{% else %}Не имеется{% endif %}а
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -369,65 +367,89 @@
                 </div>
             </div>
             <div class="staff-add-item-right">
+                {% csrf_token %}
                 <div class="staff-add-item-right-card">
                     <div class="first-column">
                         <div class="input-form">
                             <div class="label">Камера хранения</div>
-                            <select name="" id="" class="myselect">
-
-                                <option value="">Шереметьево</option>
-                            </select>
+                            <div class="select" id="kh">
+                                <button type="button" class="select__toggle" name="kh"
+                                        value="{{ kh.0.1.id }}"
+                                        data-select="toggle"
+                                        data-index="{{ kh.0.0 }}">{{ kh.0.1 }}
+                                </button>
+                                <div style="background: #eeeeee" class="select__dropdown">
+                                    <ul class="select__options">
+                                        {% for k in kh %}
+                                            <li class="select__option" data-select="option"
+                                                data-value="{{ k.1.id }}"
+                                                data-index="{{ k.0 }}">
+                                                {{ k.1 }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="input-form">
                             <div class="label">Номерная бирка</div>
-                            <input class="mytextinput" type="text">
+                            <input name="birka" class="mytextinput" type="text">
                         </div>
                         <div class="input-form">
                             <div class="label">Класс вещи</div>
-                            <select name="" id="" class="myselect">
-                                <option value="">Одежда</option>
-                            </select>
+                            <div class="select" id="category">
+                                <button type="button" class="select__toggle" name="category"
+                                        value="{{ category.0.1.id }}"
+                                        data-select="toggle"
+                                        data-index="{{ category.0.0 }}">{{ category.0.1.name }}
+                                </button>
+                                <div style="background: #eeeeee" class="select__dropdown">
+                                    <ul class="select__options">
+                                        {% for cat in category %}
+                                            <li class="select__option" data-select="option"
+                                                data-value="{{ cat.1.id }}"
+                                                data-index="{{ cat.0 }}">
+                                                {{ cat.1.name }}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                         <div class="input-form">
                             <div class="label">Вид вещи</div>
-                            <select name="" id="" class="myselect" style="margin-bottom: 0">
-                                <option value="">Шапка</option>
-                            </select>
+                            <div class="select" id="kind">
+                                <button type="button" class="select__toggle" name="kind"
+                                        value=""
+                                        data-select="toggle"
+                                        data-index="">
+                                </button>
+                                <div style="background: #eeeeee" class="select__dropdown">
+                                    <ul id="kind_options" class="select__options">
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="second-column">
                         <div class="input-form">
                             <div class="label">Комментарий сотрудника САБ</div>
-                            <textarea class="mytextinput" rows="3"></textarea>
+                            <textarea id="com_sab" class="mytextinput" rows="3">{{ item.comment }}</textarea>
                         </div>
                         <div class="input-form">
                             <div class="label">Комментарий сотрудника КХ</div>
-                            <textarea class="mytextinput" style="margin-bottom: 3.5%" rows="3"></textarea>
+                            <textarea id="com_kh" class="mytextinput" style="margin-bottom: 3.5%" rows="3"></textarea>
                         </div>
                         <div class="color-form">
                             <div class="label">Цвет вещи</div>
                             <div class="colors">
-                                <div class="color" style="background-color: white"><i class="bi bi-check2 f-32"
-                                                                                      style="display: none"></i></div>
-                                <div class="color" style="background-color: grey"><i class="bi bi-check2 f-32"
-                                                                                     style="display: none"></i></div>
-                                <div class="color" style="background-color: black"><i class="bi bi-check2 f-32"
-                                                                                      style="color: white; display: none"></i>
-                                </div>
-                                <div class="color" style="background-color: greenyellow"><i class="bi bi-check2 f-32"
-                                                                                            style="display: none"></i>
-                                </div>
-                                <div class="color" style="background-color: blue"><i class="bi bi-check2 f-32"
-                                                                                     style="color: white; display: none"></i>
-                                </div>
-                                <div class="color" style="background-color: purple"><i class="bi bi-check2 f-32"
-                                                                                       style="color: white; display: none"></i>
-                                </div>
-                                <div class="color" style="background-color: deeppink"><i class="bi bi-check2 f-32"
-                                                                                         style="display: none"></i>
-                                </div>
-                                <div class="color" style="background-color: red"><i class="bi bi-check2 f-32"
-                                                                                    style="display: none"></i></div>
+                                {% for color in colors %}
+                                    <input class="form-check-input"
+                                           style="width:2rem; height:2rem; margin-right:3%; background-color: {{ color.color }}"
+                                           type="radio" name="color" id="inlineRadio1" value="{{ color.id }}">
+                                    {#                                    <div class="color" style="background-color: {{ color.color }}"><i class="bi bi-check2 f-32"#}
+                                    {#                                                                                      style="display: none"></i></div>#}
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

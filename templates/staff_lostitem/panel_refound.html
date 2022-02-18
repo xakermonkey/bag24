@@ -1,6 +1,7 @@
 {% extends 'index.html' %}
+{% load staff_lost_item %}
 {% load static %}
-{% block title %}Панель администратора{% endblock %}
+{% block title %}Панель выданных вещей{% endblock %}
 
 
 
@@ -81,9 +82,9 @@
         }
 
         .thing-photo {
-            width: 14%;
-            height: 25%;
-            margin-right: 3%;
+            width: 100%;
+            height: auto;
+            margin-bottom: 3%;
         }
 
         .date-time {
@@ -158,6 +159,11 @@
         .btn-refound:hover {
             color: #0C0C0D;
         }
+        .search-form {
+            position: relative;
+            width: 100%;
+            flex-direction: row;
+        }
 
         .staff-search {
             width: 100%;
@@ -168,6 +174,9 @@
             font-size: 18px;
             padding: 3% 3.5%;
             margin-bottom: 10%;
+        }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            background-image: url({% static "/images/calendar.svg" %});
         }
 
         .label-selector {
@@ -269,7 +278,22 @@
             cursor: pointer;
         }
 
+        .gallery {
+            width: 14%;
+            height: 550px;
+            margin-right: 3%;
+            overflow: auto;
+        }
 
+        .gallery::-webkit-scrollbar {
+            width: 0;
+        }
+    .form-check-input[type=radio]:checked {
+            background-image: url({% static "images/check2.svg" %});
+        }
+    .form-check-input[type=radio]:hover{
+        cursor: pointer;
+    }
     </style>
 
 
@@ -282,7 +306,7 @@
                 <i class="bi bi-person-circle" style="font-size: 28px; margin-right: 5%"></i>
                 <div class="hi_say">
                     <span class="f-16 grey">Здравствуйте,</span>
-                    <div class="f-18 black">Валентина Валерьевна</div>
+                    <div class="f-18 black">{{ info.name }}</div>
                 </div>
             </div>
         </div>
@@ -294,246 +318,164 @@
             <div class="staff-header-left">
                 <a href="{% url "staff_panel" %}" class="f-32 grey bold staff-header-text">История приёмок</a>
                 <a href="" class="f-32 black bold staff-header-text">Выданные вещи</a>
-                <a href="{% url "staff_panel_refound_sab" %}" class="f-32 grey bold staff-header-text">Невостребованные</a>
+                <a href="{% url "staff_panel_refound_sab" %}"
+                   class="f-32 grey bold staff-header-text">Невостребованные</a>
             </div>
-{#            <div class="staff-refound">#}
-{#                <button href="" class="btn btn-save" disabled>Произвести выдачу пассажиру</button>#}
-{#            </div>#}
+            {#            <div class="staff-refound">#}
+            {#                <button href="" class="btn btn-save" disabled>Произвести выдачу пассажиру</button>#}
+            {#            </div>#}
         </div>
         <div class="staff-main-main">
             <div class="staff-main-items">
-                <div class="thing">
-                    <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
-                    <div class="thing-main">
-                        <div class="thing-info-all">
-                            <div class="thing-left">
-                                <div class="div-title">
-                                    <div class="title">Вещь найдена</div>
-                                </div>
-                                <div class="date-time">
-                                    <div class="date">
-                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
-                                                                     alt="">
-                                        </div>
-                                        <div class="date-info">
-                                            <div class="label">Дата</div>
-                                            <div class="value">10 декабря 2021</div>
-                                        </div>
-                                    </div>
-                                    <div class="time">
-                                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
-                                        <div class="time-info">
-                                            <div class="label">Время</div>
-                                            <div class="value">19:00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Найдено сотрудником</div>
-                                        <div class="value">Александра Сергеевна</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Место обнаружения</div>
-                                        <div class="value">Шереметьево. Терминал F</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}"
-                                                                 alt="">
-                                    </div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Акт осмотра</div>
-                                        <div class="value">Имеется</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-file-text-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Класс вещи</div>
-                                        <div class="value">Одежда</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-exclamation-circle-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Вид вещи</div>
-                                        <div class="value">Шапка</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="thing-right">
-                                <div class="div-title">
-                                    <div class="title">Вещь сдана</div>
-                                </div>
-                                <div class="date-time">
-                                    <div class="date">
-                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
-                                                                     alt="">
-                                        </div>
-                                        <div class="date-info">
-                                            <div class="label">Дата</div>
-                                            <div class="value">10 декабря 2021</div>
-                                        </div>
-                                    </div>
-                                    <div class="time">
-                                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
-                                        <div class="time-info">
-                                            <div class="label">Время</div>
-                                            <div class="value">19:00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Принято сотрудником</div>
-                                        <div class="value">Валентина Валерьевна</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Камера</div>
-                                        <div class="value">Название камеры</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Описание</div>
-                                        <div class="value">Серая шапка</div>
-                                    </div>
-                                </div>
-                            </div>
+                {% for ref in refund %}
+                    <div class="thing" data-color="{{ ref.lost_item.color.id }}">
+                        <div class="gallery">
+                            {% for photo in ref.lost_item.sab_item.photo.all %}
+                                <img src="{{ photo.photo.url }}" alt="" class="thing-photo">
+                            {% endfor %}
                         </div>
-                        <a class="btn btn-refound" href="">Выдал сотрудник: Александра Сергеевна / Дата выдачи: 22.11.2021</a>
-                    </div>
-                </div>
-                <div class="thing">
-                    <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
-                    <div class="thing-main">
-                        <div class="thing-info-all">
-                            <div class="thing-left">
-                                <div class="div-title">
-                                    <div class="title">Вещь найдена</div>
-                                </div>
-                                <div class="date-time">
-                                    <div class="date">
-                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
+                        <div class="thing-main">
+                            <div class="thing-info-all">
+                                <div class="thing-left">
+                                    <div class="div-title">
+                                        <div class="title">Вещь найдена</div>
+                                    </div>
+                                    <div id="date-find" date-value="{{ ref.lost_item.sab_item.date|date:"Y-m-dTH:i" }}" class="date-time">
+                                        <div class="date">
+                                            <div class="thing-icon"><img class="size"
+                                                                         src="{% static "images/date.svg" %}"
+                                                                         alt="">
+                                            </div>
+                                            <div class="date-info">
+                                                <div class="label">Дата</div>
+                                                <div class="value">{{ ref.lost_item.sab_item.date|date:"d F Y" }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="time">
+                                            <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                                            <div class="time-info">
+                                                <div class="label">Время</div>
+                                                <div class="value">{{ ref.lost_item.sab_item.date|date:"H:i" }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="thing-info">
+                                        <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                                        <div class="thing-info-info">
+                                            <div class="label">Найдено сотрудником</div>
+                                            <div data-value="{{ ref.lost_item.sab_item.user.id }}" class="value staff-sab">{{ ref.lost_item.sab_item|get_worker_name }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="thing-info">
+                                        <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                                        <div class="thing-info-info">
+                                            <div class="label">Место обнаружения</div>
+                                            <div class="value">{{ ref.lost_item.sab_item.place.airport }}.
+                                                Терминал {{ ref.lost_item.sab_item.place.terminal }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="thing-info">
+                                        <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}"
                                                                      alt="">
                                         </div>
-                                        <div class="date-info">
-                                            <div class="label">Дата</div>
-                                            <div class="value">10 декабря 2021</div>
+                                        <div class="thing-info-info">
+                                            <div class="label">Акт осмотра</div>
+                                            <div class="value">{% if ref.lost_item.sab_item.act %}Имеется{% else %}Не
+                                                имеется{% endif %}</div>
                                         </div>
                                     </div>
-                                    <div class="time">
-                                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
-                                        <div class="time-info">
-                                            <div class="label">Время</div>
-                                            <div class="value">19:00</div>
+                                    <div class="thing-info">
+                                        <div class="thing-icon"><i class="bi bi-file-text-fill"></i></div>
+                                        <div class="thing-info-info">
+                                            <div class="label">Класс вещи</div>
+                                            <div class="value">{{ ref.lost_item.category.name }}</div>
+                                        </div>
+                                    </div>
+                                    <div class="thing-info">
+                                        <div class="thing-icon"><i class="bi bi-exclamation-circle-fill"></i></div>
+                                        <div class="thing-info-info">
+                                            <div class="label">Вид вещи</div>
+                                            <div class="value">{{ ref.lost_item.kind.name }}</div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Найдено сотрудником</div>
-                                        <div class="value">Александра Сергеевна</div>
+                                <div class="thing-right">
+                                    <div class="div-title">
+                                        <div class="title">Вещь сдана</div>
                                     </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Место обнаружения</div>
-                                        <div class="value">Шереметьево. Терминал F</div>
+                                    <div class="date-time">
+                                        <div class="date">
+                                            <div class="thing-icon"><img class="size"
+                                                                         src="{% static "images/date.svg" %}"
+                                                                         alt="">
+                                            </div>
+                                            <div class="date-info">
+                                                <div class="label">Дата</div>
+                                                <div class="value">{{ ref.lost_item.date|date:"d F Y" }}</div>
+                                            </div>
+                                        </div>
+                                        <div class="time">
+                                            <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
+                                            <div class="time-info">
+                                                <div class="label">Время</div>
+                                                <div class="value">{{ ref.lost_item.date|date:'H:i' }}</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><img class="size" src="{% static "images/act.png" %}"
-                                                                 alt="">
+                                    <div class="thing-info">
+                                        <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
+                                        <div class="thing-info-info">
+                                            <div class="label">Принято сотрудником</div>
+                                            <div data-value="{{ ref.lost_item.user.id }}" class="value staff-kh">{{ ref.lost_item|get_worker_name }}</div>
+                                        </div>
                                     </div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Акт осмотра</div>
-                                        <div class="value">Имеется</div>
+                                    <div class="thing-info">
+                                        <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
+                                        <div class="thing-info-info">
+                                            <div class="label">Камера</div>
+                                            <div data-value="{{ ref.lost_item.kh.airport.iata }}" class="value airport">{{ ref.lost_item.kh.airport }}.
+                                                Терминал {{ ref.lost_item.kh.terminal }}</div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-file-text-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Класс вещи</div>
-                                        <div class="value">Одежда</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-exclamation-circle-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Вид вещи</div>
-                                        <div class="value">Шапка</div>
+                                    <div class="thing-info">
+                                        <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
+                                        <div class="thing-info-info">
+                                            <div class="label">Описание</div>
+                                            <div class="value comment">{{ ref.lost_item.comment }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="thing-right">
-                                <div class="div-title">
-                                    <div class="title">Вещь сдана</div>
-                                </div>
-                                <div class="date-time">
-                                    <div class="date">
-                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
-                                                                     alt="">
-                                        </div>
-                                        <div class="date-info">
-                                            <div class="label">Дата</div>
-                                            <div class="value">10 декабря 2021</div>
-                                        </div>
-                                    </div>
-                                    <div class="time">
-                                        <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
-                                        <div class="time-info">
-                                            <div class="label">Время</div>
-                                            <div class="value">19:00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Принято сотрудником</div>
-                                        <div class="value">Валентина Валерьевна</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Камера</div>
-                                        <div class="value">Название камеры</div>
-                                    </div>
-                                </div>
-                                <div class="thing-info">
-                                    <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
-                                    <div class="thing-info-info">
-                                        <div class="label">Описание</div>
-                                        <div class="value">Серая шапка</div>
-                                    </div>
-                                </div>
-                            </div>
+                            <a class="btn btn-refound" href="">Выдал сотрудник: {{ ref|get_worker_name }} / Дата
+                                выдачи: {{ ref.refund_date|date:"d.m.Y" }}</a>
                         </div>
-                        <a class="btn btn-refound" href="">Выдал сотрудник: Александра Сергеевна / Дата выдачи: 22.11.2021</a>
                     </div>
-                </div>
+                {% endfor %}
             </div>
             <div class="staff-list-filter">
-                <input class="staff-search" placeholder="Поиск..." type="text">
+                <div class="search-form">
+                    <input class="staff-search" id="search" placeholder="Поиск..." style="padding-right: 15%"
+                           type="text"><i
+                        class="bi bi-search search"></i>
+                </div>
                 <div class="select-airport">
                     <label class="label-selector" for="">Аэропорт</label>
-                    <select class="myselect" name="" id="">
-                        <option value="1">Шереметьево</option>
-                    </select>
+                    <div class="select" id="select-1">
+                        <button type="button" class="select__toggle" name="airport" value="{{ airport.0.1.iata }}"
+                                data-select="toggle"
+                                data-index="{{ airport.0.0 }}">{{ airport.0.1.name }}
+                        </button>
+                        <div class="select__dropdown">
+                            <ul class="select__options">
+                                {% for air in airport %}
+                                    <li class="select__option" data-select="option" data-value="{{ air.1.iata }}"
+                                        data-index="{{ air.0 }}">
+                                        {{ air.1.name }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-check form-switch form-switch-order">
                     <label class="switch-label" for="flexSwitchCheckDefault">Сортировать по периоду</label>
@@ -542,36 +484,59 @@
                 <div class="form-data-space">
                     <div class="form-data">
                         <label for="" class="data-label">Начало периода</label>
-                        <input class="data-input text-input" type="date">
+                        <input id="from_date" class="data-input text-input" type="date">
                     </div>
                     <div class="form-data" style="margin-right: 0">
                         <label for="" class="data-label">Конец периода</label>
-                        <input class="data-input text-input" type="date">
+                        <input id="to_date" class="data-input text-input" type="date">
                     </div>
                 </div>
                 <div class="select-airport">
                     <label class="label-selector" for="">Сотрудник КХ</label>
-                    <select class="myselect" name="" id="">
-                        <option value="1">Выбрать</option>
-                    </select>
+                    <div class="select" id="staff-kh">
+                        <button type="button" class="select__toggle" name="staff_kh" value="0"
+                                data-select="toggle"
+                                data-index="0">Выбрать
+                        </button>
+                        <div class="select__dropdown">
+                            <ul class="select__options">
+                                {% for work in workers %}
+                                    <li class="select__option" data-select="option" data-value="{{ work.1.id }}"
+                                        data-index="{{ work.0 }}">
+                                        {{ work.1|get_worker_name_from_user }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="select-airport">
                     <label class="label-selector" for="">Сотрудник САБ</label>
-                    <select class="myselect" name="" id="">
-                        <option value="1">Выбрать</option>
-                    </select>
+                    <div class="select" id="staff-sab">
+                       <button type="button" class="select__toggle" name="staff_kh" value="0"
+                                data-select="toggle"
+                                data-index="0">Выбрать
+                        </button>
+                        <div class="select__dropdown">
+                            <ul class="select__options">
+                                {% for work in workers %}
+                                    <li class="select__option" data-select="option" data-value="{{ work.1.id }}"
+                                        data-index="{{ work.0 }}">
+                                        {{ work.1|get_worker_name_from_user }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-color">
                     <label class="color-label" for="">Цвет вещи</label>
                     <div class="colors">
-                        <div class="color" style="background-color: white"></div>
-                        <div class="color" style="background-color: grey"></div>
-                        <div class="color" style="background-color: black"></div>
-                        <div class="color" style="background-color: greenyellow"></div>
-                        <div class="color" style="background-color: blue"></div>
-                        <div class="color" style="background-color: purple"></div>
-                        <div class="color" style="background-color: deeppink"></div>
-                        <div class="color" style="background-color: red"></div>
+                        {% for color in colors %}
+                            <input class="form-check-input"
+                                   style="width:2rem; height:2rem; margin-right:2%; background-color: {{ color.color }}"
+                                   type="radio" name="color" id="inlineRadio1" value="{{ color.id }}">
+                        {% endfor %}
                     </div>
                 </div>
             </div>

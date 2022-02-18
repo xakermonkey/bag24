@@ -24,5 +24,6 @@ urlpatterns = [
     path('add_address', addAddress, name='add_address'),
     path('save_change_user', changeLK, name='save_change_user'),
     path('save_change_document', changeDoc, name='save_change_document'),
-    path('file-upload', fileUpload, name="file-upload")
+    path('file-upload', fileUpload, name="file-upload"),
+    path('file-remove', fileRemove, name="file-remove"),
 ]

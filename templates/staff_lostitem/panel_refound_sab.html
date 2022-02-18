@@ -282,7 +282,7 @@
                 <i class="bi bi-person-circle" style="font-size: 28px; margin-right: 5%"></i>
                 <div class="hi_say">
                     <span class="f-16 grey">Здравствуйте,</span>
-                    <div class="f-18 black">Валентина Валерьевна</div>
+                    <div class="f-18 black">{{ info.name }}</div>
                 </div>
             </div>
         </div>
@@ -564,14 +564,9 @@
                 <div class="form-color">
                     <label class="color-label" for="">Цвет вещи</label>
                     <div class="colors">
-                        <div class="color" style="background-color: white"></div>
-                        <div class="color" style="background-color: grey"></div>
-                        <div class="color" style="background-color: black"></div>
-                        <div class="color" style="background-color: greenyellow"></div>
-                        <div class="color" style="background-color: blue"></div>
-                        <div class="color" style="background-color: purple"></div>
-                        <div class="color" style="background-color: deeppink"></div>
-                        <div class="color" style="background-color: red"></div>
+                        {% for color in colors %}
+                            <div class="color" style="background-color: {{ color.color }}"></div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

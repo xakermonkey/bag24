@@ -256,7 +256,18 @@ def fileUpload(request):
     else:
         doc.second_scan = request.FILES['second']
         doc.save()
+    return JsonResponse(status=200)
 
+
+def fileRemove(request):
+    doc = Document.objects.get(user=request.user)
+    if request.POST.get('scan') == 'first':
+        doc.first_scan.delete()
+        doc.save()
+    else:
+        doc.second_scan.delete()
+        doc.save()
+    return JsonResponse(status=200, data={'status': True})
 
 
 def removeAddress(request):

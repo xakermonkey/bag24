@@ -1,4 +1,5 @@
 {% extends 'index.html' %}
+{% load staff_lost_item %}
 {% load static %}
 {% block title %}Панель администратора{% endblock %}
 
@@ -158,9 +159,9 @@
         }
 
         .thing-photo {
-            width: 32%;
-            height: auto;
-            margin-bottom: 5%;
+            width: auto;
+            height: 100%;
+            margin-right: 3%;
         }
 
         .date-time {
@@ -263,9 +264,36 @@
             width: 48%;
         }
 
-        .dropzone {
+        .gallery {
+            display: flex;
+            flex-direction: row;
+            height: 200px;
+            overflow: auto;
+        }
+
+        .gallery::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .dz-preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100%;
-            height: 150px
+            height: 100%;
+        }
+
+        .dz-images {
+            width: 100%;
+            height: 100%;
+        }
+
+        .dz-message {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
         }
 
 
@@ -280,28 +308,32 @@
                 <i class="bi bi-person-circle" style="font-size: 28px; margin-right: 5%"></i>
                 <div class="hi_say">
                     <span class="f-16 grey">Здравствуйте,</span>
-                    <div class="f-18 black">Валентина Валерьевна</div>
+                    <div class="f-18 black">{{ info.name }}</div>
                 </div>
             </div>
         </div>
     </nav>
 
-
     <div class="staff-add-item-main">
         <div class="staff-header-nav">
             <div class="staff-header-left">
                 <div href="" class="f-32 black bold staff-header-text">Выдача вещи пассажиру</div>
-                <div class="f-18 grey">От сотрудника Валентина Валерьевна. Дата выдачи 24.11.2021</div>
+                <div class="f-18 grey">От сотрудника {{ info.name }}. Дата выдачи {{ today|date:"d.m.Y" }}</div>
             </div>
             <div class="staff-refound">
-                <a class="btn btn-add" style="margin-right: 3%">Произвести выдачу</a>
-                <a class="btn btn-otmena">Отмена</a>
+                <a class="btn btn-add" id="save_refund" style="margin-right: 3%">Произвести выдачу</a>
+                <a href="{% url "staff_panel_refound" %}" class="btn btn-otmena">Отмена</a>
             </div>
         </div>
         <div class="staff-add-item-main-main">
+            {% csrf_token %}
             <div class="staff-add-item-left">
                 <div class="thing">
-                    <img src="{% static 'images/photo.png' %}" alt="" class="thing-photo">
+                    <div class="gallery">
+                        {% for photo in lost.sab_item.photo.all %}
+                            <img src="{{ photo.photo.url }}" alt="" class="thing-photo">
+                        {% endfor %}
+                    </div>
                     <div class="thing-main">
                         <div class="thing-info-all">
                             <div class="thing-left">
@@ -310,19 +342,20 @@
                                 </div>
                                 <div class="date-time">
                                     <div class="date">
-                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
+                                        <div class="thing-icon"><img class="size"
+                                                                     src="{% static "images/date.svg" %}"
                                                                      alt="">
                                         </div>
                                         <div class="date-info">
                                             <div class="label">Дата</div>
-                                            <div class="value">10 декабря 2021</div>
+                                            <div class="value">{{ lost.sab_item.date|date:"d F Y" }}</div>
                                         </div>
                                     </div>
                                     <div class="time">
                                         <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
                                         <div class="time-info">
                                             <div class="label">Время</div>
-                                            <div class="value">19:00</div>
+                                            <div class="value">{{ lost.sab_item.date|date:"H:i" }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -330,14 +363,15 @@
                                     <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
                                     <div class="thing-info-info">
                                         <div class="label">Найдено сотрудником</div>
-                                        <div class="value">Александра Сергеевна</div>
+                                        <div class="value">{{ lost.sab_item|get_worker_name }}</div>
                                     </div>
                                 </div>
                                 <div class="thing-info">
                                     <div class="thing-icon"><i class="bi bi-geo-alt-fill"></i></div>
                                     <div class="thing-info-info">
                                         <div class="label">Место обнаружения</div>
-                                        <div class="value">Шереметьево. Терминал F</div>
+                                        <div class="value">{{ lost.sab_item.place.airport }},
+                                            терминал {{ lost.sab_item.place.terminal }}</div>
                                     </div>
                                 </div>
                                 <div class="thing-info">
@@ -346,7 +380,8 @@
                                     </div>
                                     <div class="thing-info-info">
                                         <div class="label">Акт осмотра</div>
-                                        <div class="value">Имеется</div>
+                                        <div class="value">{% if lost.sab_item.act %}Имеется{% else %}Не
+                                            имеется{% endif %} </div>
                                     </div>
                                 </div>
                             </div>
@@ -356,19 +391,20 @@
                                 </div>
                                 <div class="date-time">
                                     <div class="date">
-                                        <div class="thing-icon"><img class="size" src="{% static "images/date.svg" %}"
+                                        <div class="thing-icon"><img class="size"
+                                                                     src="{% static "images/date.svg" %}"
                                                                      alt="">
                                         </div>
                                         <div class="date-info">
                                             <div class="label">Дата</div>
-                                            <div class="value">10 декабря 2021</div>
+                                            <div class="value">{{ lost.date|date:"d F Y" }}</div>
                                         </div>
                                     </div>
                                     <div class="time">
                                         <div class="thing-icon"><i class="bi bi-clock-fill"></i></div>
                                         <div class="time-info">
                                             <div class="label">Время</div>
-                                            <div class="value">19:00</div>
+                                            <div class="value">{{ lost.date|date:"H:i" }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -376,21 +412,22 @@
                                     <div class="thing-icon"><i class="bi bi-person-circle"></i></div>
                                     <div class="thing-info-info">
                                         <div class="label">Принято сотрудником</div>
-                                        <div class="value">Валентина Валерьевна</div>
+                                        <div class="value">{{ lost|get_worker_name }}</div>
                                     </div>
                                 </div>
                                 <div class="thing-info">
                                     <div class="thing-icon"><i class="size bi bi-bag-fill"></i></div>
                                     <div class="thing-info-info">
                                         <div class="label">Камера</div>
-                                        <div class="value">Название камеры</div>
+                                        <div class="value">{{ lost.kh.airport }},
+                                            терминал {{ lost.kh.terminal }}</div>
                                     </div>
                                 </div>
                                 <div class="thing-info">
                                     <div class="thing-icon"><i class="bi bi-chat-square-text-fill"></i></div>
                                     <div class="thing-info-info">
                                         <div class="label">Описание</div>
-                                        <div class="value">Серая шапка</div>
+                                        <div class="value">{{ lost.comment }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -399,6 +436,7 @@
                 </div>
             </div>
             <div class="staff-add-item-right">
+                {% csrf_token %}
                 <div class="staff-print-docs">
                     <div class="staff-docs">
                         <div class="staff-docs-info">
@@ -420,44 +458,50 @@
                         <div class="title-column">Данные клиента</div>
                         <div class="input-form">
                             <div class="label">Ваше ФИО</div>
-                            <input class="mytextinput" type="text">
+                            <input name="fio" id="fio" class="mytextinput" type="text">
                         </div>
                         <div class="input-form">
                             <div class="label">Серия и номер паспорта</div>
-                            <input class="mytextinput" type="number">
+                            <input name="series_number" id="series_number" class="mytextinput" type="number">
                         </div>
                         <div class="input-form">
                             <div class="label">Дата выдачи</div>
-                            <input class="mytextinput" type="date">
+                            <input name="date_get" id="date_get" class="mytextinput" type="date">
                         </div>
                         <div class="input-form">
                             <div class="label">Кем выдан</div>
-                            <input class="mytextinput" type="text">
+                            <input name="how_get" id="how_get" class="mytextinput" type="text">
                         </div>
                         <div class="input-form">
                             <div class="label">Дата рождения</div>
-                            <input class="mytextinput" type="date">
+                            <input name="birthday" id="birthday" class="mytextinput" type="date">
                         </div>
                     </div>
                     <div class="second-column">
                         <div class="title-column">Сканы паспорта</div>
-                        <div class="form-scan">{% csrf_token %}
+                        <div class="form-scan">
                             <div class="input-scan">
-                            <form action="" name="first-scan" method="post"
-                                  class="dropzone"
-                                  id="firstScan">
-                            </form>
-                            <label class="form-label semi f-16 grey" style="margin-top: 16px">Первый разворот с ФИО и фото лица</label>
-                                </div>
+                                <div class="my-dropzone" id="firstScan"></div>
+                                <label class="form-label semi f-16 grey" style="margin-top: 16px">Первый разворот с
+                                    ФИО
+                                    и фото лица</label>
+                            </div>
                             <div class="input-scan">
-                            <form action="" name="first-scan" method="post"
-                                  class="dropzone"
-                                  id="firstScan">
-                            </form>
-                            <label class="form-label semi f-16 grey" style="margin-top: 16px">Разворот с пропиской</label>
+                                <div class="my-dropzone" id="secondScan"></div>
+                                <label class="form-label semi f-16 grey" style="margin-top: 16px">Разворот с
+                                    пропиской</label>
                             </div>
                         </div>
                         <div class="title-column">Саканы заявлений и расписки</div>
+                        <div class="form-scan" style="width: 66%">
+                            <div class="input-scan">
+                                <div class="my-dropzone" id="firstDoc"></div>
+                            </div>
+                            <div class="input-scan">
+                                <div class="my-dropzone" id="secondDoc"></div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

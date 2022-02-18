@@ -9,7 +9,7 @@ class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = User
-    list_display = ('username', 'status')
+    list_display = ('id', 'username', 'status')
     list_filter = ('username', 'status')
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
@@ -18,8 +18,8 @@ class CustomUserAdmin(UserAdmin):
     )
     add_fieldsets = (
         (None, {
-            'fields': ('username', 'password1', 'password2', 'phone', 'email', 'status',  'is_staff', 'is_active')}
-        ),
+            'fields': ('username', 'password1', 'password2', 'phone', 'email', 'status', 'is_staff', 'is_active')}
+         ),
     )
 
 
@@ -29,4 +29,3 @@ admin.site.register(VerifyCode)
 admin.site.register(AddressList)
 admin.site.register(Address)
 admin.site.register(MileOneAir)
-

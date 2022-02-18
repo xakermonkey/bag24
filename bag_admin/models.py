@@ -16,6 +16,19 @@ class City(models.Model):
         verbose_name_plural = "Города"
 
 
+class TimeForUnclaimed(models.Model):
+    airport = models.ForeignKey('Airport', on_delete=models.CASCADE, related_name='time')
+    delta_time = models.IntegerField(verbose_name="Срок хранения вещи")
+    date_create = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Срок хранениея вещи в {self.airport.name} составляет {self.delta_time} суток"
+
+    class Meta:
+        verbose_name = "Время хранения вещи"
+        verbose_name_plural = "Время хранения вещей"
+
+
 class Airport(models.Model):
     iata = models.CharField(max_length=10, primary_key=True, unique=True, verbose_name="IATA")
     name = models.CharField(max_length=255, verbose_name="Название аэропорта")
@@ -63,7 +76,7 @@ class U_LS(models.Model):
     date = models.DateField(verbose_name="Дата связи")
 
     def __str__(self):
-        return f"Сотрудник {self.user} закреплен на {self.ls}"
+        return f"Сотрудник {self.user} закреплен за {self.ls}"
 
     class Meta:
         verbose_name = "Таблица связи сотрудника и камеры хранения"
@@ -89,8 +102,8 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Каметогия"
-        verbose_name_plural = "Каметогии"
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
 
 
 class Kind(models.Model):
@@ -147,7 +160,7 @@ class LostItem(models.Model):
     demanded = models.BooleanField(default=False, verbose_name="Востребована")
 
     def __str__(self):
-        return f"Вещи {self.sab_item} переданные в {self.kind}"
+        return f"Вещи {self.sab_item} переданные в {self.kh}"
 
     class Meta:
         verbose_name = "Вещь переданная САБ в камеру хранения"
@@ -156,14 +169,19 @@ class LostItem(models.Model):
 
 class RefundItem(models.Model):
     lost_item = models.ForeignKey(LostItem, on_delete=models.CASCADE, verbose_name="Потерянная вещь")
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name="Выдана сотрудником", null=True)
     fio = models.CharField(max_length=300, verbose_name="ФИО")
     series_number = models.CharField(max_length=100, verbose_name="Серия и номер")
     date_get = models.DateField(verbose_name="Дата получения")
     how_get = models.CharField(max_length=255, verbose_name="Кем выдан")
     birthday = models.DateField(verbose_name="Дата рождения")
-    first_scan = models.ImageField(verbose_name="Певый скан", upload_to=f"documents/lostitem")
-    second_scan = models.ImageField(verbose_name="Второй скан", upload_to=f"documents/lostitem")
-    refund_date = models.DateField(verbose_name="Дата возврата вещи")
+    first_scan = models.ImageField(verbose_name="Певый скан", null=True, blank=True, upload_to=f"documents/lostitem")
+    second_scan = models.ImageField(verbose_name="Второй скан", null=True, blank=True, upload_to=f"documents/lostitem")
+    scan_refund = models.ImageField(verbose_name="Заявление на возврат", null=True, blank=True,
+                                    upload_to=f"documents/lostitem")
+    scan_receipt = models.ImageField(verbose_name="Расписка за получение", null=True, blank=True,
+                                     upload_to=f"documents/lostitem")
+    refund_date = models.DateTimeField(verbose_name="Дата возврата вещи")
 
     def __str__(self):
         return f"Возвращенне {self.lost_item}"
@@ -175,6 +193,7 @@ class RefundItem(models.Model):
 
 class RefundSAB(models.Model):
     lost_item = models.ForeignKey(LostItem, on_delete=models.CASCADE, verbose_name="Потерянная вещь")
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name="Выдана сотрудником", null=True)
     close_date = models.DateField()
     broadcast_date = models.DateField()
 

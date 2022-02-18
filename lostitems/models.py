@@ -2,7 +2,11 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 
 # Create your models here.
@@ -10,12 +14,7 @@ from django.utils.translation import gettext_lazy as _
 
 class NewUserManager(BaseUserManager):
 
-    def create_user(self, username, password=None, status=0, is_staff=False, is_admin=False, email=None, phone=None):
-        STATUS_CHOISE = {
-            0: "Пользователь",
-            1: "Сотрудник",
-            2: "Администратор",
-        }
+    def create_user(self, username, password=None, status="us", is_staff=False, is_admin=False, email=None, phone=None):
         if not username:
             raise ValueError(_('The Login must be set'))
         if password == None:
@@ -30,26 +29,26 @@ class NewUserManager(BaseUserManager):
         """
         Create and save a SuperUser with the given email and password.
         """
-        return self.create_user(username, password, status=2, is_staff=True, is_superuser=True, email=email, phone=phone)
+        return self.create_user(username, password, status="adm", is_staff=True, is_admin=True, email=email, phone=phone)
 
     def create_staff(self, username, password, email=None, phone=None):
         """
         Create and save a SuperUser with the given email and password.
         """
-        return self.create_user(username, password, status=1, is_staff=True, is_superuser=False, email=email, phone=phone)
+        return self.create_user(username, password, status="st", is_staff=True, is_admin=False, email=email, phone=phone)
 
     def create_administrator(self, username, password, email=None, phone=None):
         """
         Create and save a SuperUser with the given email and password.
         """
-        return self.create_user(username, password, status=2, is_staff=True, is_superuser=False, email=email, phone=phone)
+        return self.create_user(username, password, status="adm", is_staff=True, is_admin=False, email=email, phone=phone)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
     STATUS_CHOISE = (
-        (0, "Пользователь"),
-        (1, "Сотрудник"),
-        (2, "Администратор"),
+        ("us", "Пользователь"),
+        ("st", "Сотрудник"),
+        ("adm", "Администратор"),
     )
 
     phone = models.CharField(max_length=20, verbose_name="Номер телефона", null=True, blank=True)
@@ -152,3 +151,8 @@ class MileOneAir(models.Model):
     class Meta:
         verbose_name = "Карта лояльности"
         verbose_name_plural = "Карты лояльности"
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
