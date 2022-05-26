@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'bag_admin',
     'keepit_admin',
     'staff_lostitem',
-    'sab_api'
+    'sab_api',
+    "kh_mobile"
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -159,3 +160,11 @@ REST_FRAMEWORK = {
     ],
     'DATETIME_FORMAT': "%d.%m.%Y %H:%M",
 }
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'blukky021000@gmail.com' # откуда
+EMAIL_HOST_PASSWORD = '123A098abc' # пароль
+SUPPORT_EMAIL = 'ya.gud@mail.ru' # куда
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True

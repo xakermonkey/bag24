@@ -10,7 +10,7 @@ class LGSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=LuggageStorage
-        fields = ('id','terminal', 'floor', 'airport')
+        fields = "__all__"
 
 class SABItemSerializer(serializers.ModelSerializer):
     class Meta:

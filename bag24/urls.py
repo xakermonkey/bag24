@@ -25,7 +25,8 @@ urlpatterns = [
     path('bag_admin/', include('bag_admin.urls')),
     path('keepit_admin/', include('keepit_admin.urls')),
     path('staff/', include('staff_lostitem.urls')),
-    path('sab/', include('sab_api.urls'))
+    path('sab/', include('sab_api.urls')),
+    path('mobile/', include('kh_mobile.urls'))
     # path('api/', include('lostitems.urls'))
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

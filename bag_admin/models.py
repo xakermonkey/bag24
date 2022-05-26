@@ -57,6 +57,34 @@ class LuggageStorage(models.Model):
         verbose_name_plural = "Камеры хранения"
 
 
+class PlaceLuggageStorage(models.Model):
+    ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения", related_name="place")
+
+
+    def __str__(self):
+        return f"Место в камере хранения {self.ls}"
+
+    class Meta:
+        verbose_name = "Место в камере хранения"
+        verbose_name_plural = "Места в камере хранения"
+
+
+
+
+class LuggageStorageInfo(models.Model):
+    ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения", related_name="info")
+    location = models.CharField(max_length=255, verbose_name="Местоположение")
+    work_time = models.CharField(max_length=255, verbose_name="Время работы")
+    conditions = models.CharField(max_length=255, verbose_name="Условия")
+
+    def __str__(self):
+        return f"Информация о {self.ls}"
+
+    class Meta:
+        verbose_name = "Информация о камере хранения"
+        verbose_name_plural = "Информация о камерах хранения"
+
+
 class WorkerInfo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Данные сотрудника')
     name = models.CharField(max_length=255, verbose_name="Имя и фамилия сотрудника")

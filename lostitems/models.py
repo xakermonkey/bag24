@@ -59,7 +59,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)
     first_join = models.BooleanField(default=True)
+    verify_email = models.BooleanField(default=True)
     status = models.CharField(max_length=255, choices=STATUS_CHOISE, default=0, verbose_name="Статус")
+
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
@@ -77,14 +79,16 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class Document(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    fio = models.CharField(max_length=500, verbose_name='ФИО', null=True, blank=True)
+    last_name = models.CharField(max_length=500, verbose_name='Фамилия', null=True, blank=True)
+    first_name = models.CharField(max_length=500, verbose_name='Имя', null=True, blank=True)
+    patronymic = models.CharField(max_length=500, verbose_name='Отчество', null=True, blank=True)
     series_number = models.CharField(max_length=100, verbose_name='Серия и номер', null=True, blank=True)
     date_get = models.DateField(verbose_name='Дата выдачи', null=True, blank=True)
     how_get = models.CharField(max_length=255, verbose_name='Кем выдан', null=True, blank=True)
     birthday = models.DateField(verbose_name='День рождения', null=True, blank=True)
     first_scan = models.ImageField(verbose_name="Певый скан", upload_to=f"documents", null=True, blank=True)
     second_scan = models.ImageField(verbose_name="Второй скан", upload_to=f"documents", null=True, blank=True)
-
+    type_doc = models.CharField(max_length=255, verbose_name="Тип документа", null=True, blank=True)
     def __str__(self):
         return "Личные данные " + self.user.username
 

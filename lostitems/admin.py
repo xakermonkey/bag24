@@ -14,7 +14,7 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         ('Данные пользователя', {'fields': ('email', 'phone')}),
-        ('Дополнительные данные', {'fields': ('status', 'is_staff', 'is_active', 'first_join')}),
+        ('Дополнительные данные', {'fields': ('status', 'is_staff', 'is_active', 'first_join', 'verify_email')}),
     )
     add_fieldsets = (
         (None, {

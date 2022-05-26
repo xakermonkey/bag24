@@ -7,6 +7,7 @@ from .models import *
 admin.site.register(City)
 admin.site.register(Airport)
 admin.site.register(LuggageStorage)
+admin.site.register(LuggageStorageInfo)
 admin.site.register(WorkerInfo)
 admin.site.register(U_LS)
 admin.site.register(Color)
