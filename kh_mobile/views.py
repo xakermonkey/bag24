@@ -96,7 +96,7 @@ class createDocument(APIView):
         if "photo" in request.FILES:
             document.first_scan = request.FILES.get("photo")
         document.save()
-        return Response(status=200, data={"ok": "ok", "avatar": document.first_scan.url})
+        return Response(status=200, data={"ok": "ok"})
 
 
 class getAirport(APIView):
@@ -188,13 +188,13 @@ class takeLuggage(APIView):
         return Response(status=200, data={"status": True})
 
 
+
 class sendEmail(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         hash = request.user.password.replace(r"[^A-Za-z]", "").split('$')[2]
-        mail = EmailMessage("Подтверждение почты",
-                            f"Для подтверждения почты в приложении Bag24 перейдите по ссылке ниже:\nhttp://{request.get_host()}/mobile/verify_email/{request.user.id}_{hash}",
+        mail = EmailMessage("Подтверждение почты", f"Для подтверждения почты в приложении Bag24 перейдите по ссылке ниже:\nhttp://{request.get_host()}/mobile/verify_email/{request.user.id}_{hash}",
                             settings.EMAIL_HOST_USER, [request.data.get("email")])
         mail.send()
         request.user.email = request.data.get("email")
@@ -204,6 +204,8 @@ class sendEmail(APIView):
 
 class verifyEmail(APIView):
 
+
+
     def get(self, request, hash):
         id = hash.split("_")[0]
         user = User.objects.get(id=id)
@@ -211,9 +213,10 @@ class verifyEmail(APIView):
         user.save()
         return Response(status=200)
 
-
 class getProfile(APIView):
+
     permission_classes = [IsAuthenticated]
+
 
     def get(self, request):
         userSer = UserSerializers(request.user).data

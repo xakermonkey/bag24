@@ -45,14 +45,12 @@ class KindLuggage(models.Model):
 
 
 class Luggage(models.Model):
-
-
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
     ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения")
     kind_luggage = models.ForeignKey(KindLuggage, on_delete=models.SET_NULL, null=True, verbose_name="Вид вещи")
     sale_storage = models.IntegerField(verbose_name="Количество списанных баллов mileonair за сдачу багажа")
     sale_day_storage = models.IntegerField(verbose_name="Количество списанных баллов mileonair за хранение багажа",
-                                           null=True, blank=True )
+                                           null=True, blank=True)
     price_storage = models.IntegerField(verbose_name="Стоимость сдачи")
     price_per_day = models.IntegerField(verbose_name="Стоимость 1 дня хранения")
     price_day_storage = models.IntegerField(verbose_name="Стоимость хранения", null=True, blank=True)
@@ -61,9 +59,9 @@ class Luggage(models.Model):
     date_send = models.DateTimeField(null=True, blank=True, verbose_name="Дата сдачи багажа")
     date_take = models.DateTimeField(null=True, blank=True, verbose_name="Дата получения багажа")
     issued_staff = models.BooleanField(default=False, verbose_name="Оформлено сотрудником")
-    day_storage = models.IntegerField(verbose_name="Время хранения багажа", null=True, blank=True)
-
-
+    day_storage = models.IntegerField(verbose_name="Время хранения багажа", default=0)
+    place_ls = models.ForeignKey(PlaceLuggageStorage, on_delete=models.SET_NULL, null=True, blank=True,
+                                 verbose_name="Местоположение в камере хранения")
 
     class Meta:
         verbose_name = "Багаж"
