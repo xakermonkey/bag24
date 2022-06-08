@@ -10,6 +10,7 @@ class CodeCity(models.Model):
     city = models.CharField(max_length=255, verbose_name="Страна")
     code = models.CharField(max_length=10, verbose_name="Код страны")
     flag = models.ImageField(upload_to="flags", verbose_name="Флаг страны")
+    # iso3 = models.CharField(max_length=5, null=True, blank=True)
 
     class Meta:
         verbose_name = "Код страны"

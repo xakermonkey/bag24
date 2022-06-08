@@ -62,6 +62,26 @@ class verifyCode(APIView):
 class getCodeCity(APIView):
 
     def get(self, request):
+        # import json
+        # import requests as r
+        # import pycountry
+        # import gettext
+        # import io
+        # from django.core.files.images import ImageFile
+        # ru = gettext.translation('iso3166', pycountry.LOCALES_DIR,
+        #                          languages=['ru'])
+        # ru.install()
+        # code = list()
+        # with open("countries.json") as f:
+        #     data = json.load(f)
+        # for county in data["data"]["countries"]:
+        #     response = r.get(county["flag_url"], stream=True)
+        #     c = pycountry.countries.get(alpha_3=county["iso3"])
+        #     if not c is None and not county["phone_mask"].replace("-", "") in code:
+        #         code.append(county["phone_mask"].replace("-", ""))
+        #         image = ImageFile(io.BytesIO(response.content), name=f'{ru.gettext(c.name)}.jpg')
+        #         CodeCity.objects.create(city=ru.gettext(c.name), code=county["phone_mask"].replace("-", ""), flag=image)
+        # print("End!!!")
         code = CityCodeSerializers(CodeCity.objects.all(), many=True)
         return Response(status=200, data=code.data)
 
@@ -103,7 +123,31 @@ class getAirport(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        air = AirportSerializers(Airport.objects.all(), many=True)
+        # import json
+        # import pandas as pd
+        # import numpy as np
+        # import io
+        # import requests as r
+        # from django.core.files.images import ImageFile
+        # df = pd.read_excel("аэропорты.xls")
+        # with open("airports.json") as f:
+        #     data = json.load(f)
+        # freq = dict()
+        # for i in data["data"]["airports"]:
+        #     arr = np.array(df[df["Код"] == i["code_iata"]])
+        #     if arr.shape == (1, 3) and not Airport.objects.filter(iata=i["code_iata"]):
+        #         response = r.get(i["photo_path"])
+        #         city = City.objects.filter(name=arr[0][2]).first()
+        #         image = ImageFile(io.BytesIO(response.content), name=f'{arr[0][0]}.jpg')
+        #         Airport.objects.create(iata=arr[0][1],
+        #                                name=arr[0][0],
+        #                                image=image,
+        #                                city=city,
+        #                                lat=i["latitude"],
+        #                                lon=i["longitude"]
+        #                                )
+        # print("End!!!")
+        air = AirportSerializers(Airport.objects.all().order_by("name"), many=True)
         return Response(status=200, data=air.data)
 
 
@@ -188,13 +232,13 @@ class takeLuggage(APIView):
         return Response(status=200, data={"status": True})
 
 
-
 class sendEmail(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         hash = request.user.password.replace(r"[^A-Za-z]", "").split('$')[2]
-        mail = EmailMessage("Подтверждение почты", f"Для подтверждения почты в приложении Bag24 перейдите по ссылке ниже:\nhttp://{request.get_host()}/mobile/verify_email/{request.user.id}_{hash}",
+        mail = EmailMessage("Подтверждение почты",
+                            f"Для подтверждения почты в приложении Bag24 перейдите по ссылке ниже:\nhttp://{request.get_host()}/mobile/verify_email/{request.user.id}_{hash}",
                             settings.EMAIL_HOST_USER, [request.data.get("email")])
         mail.send()
         request.user.email = request.data.get("email")
@@ -204,8 +248,6 @@ class sendEmail(APIView):
 
 class verifyEmail(APIView):
 
-
-
     def get(self, request, hash):
         id = hash.split("_")[0]
         user = User.objects.get(id=id)
@@ -213,10 +255,9 @@ class verifyEmail(APIView):
         user.save()
         return Response(status=200)
 
+
 class getProfile(APIView):
-
     permission_classes = [IsAuthenticated]
-
 
     def get(self, request):
         userSer = UserSerializers(request.user).data

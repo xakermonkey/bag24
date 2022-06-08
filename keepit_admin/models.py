@@ -1,6 +1,6 @@
 from django.db import models
 from lostitems.models import User, Address
-
+from bag_admin.models import *
 
 # Create your models here.
 
@@ -118,7 +118,7 @@ class Partner(models.Model):
 
 class UR_A(models.Model):
     automat = models.ForeignKey(Automat, on_delete=models.CASCADE, verbose_name="Постамат")
-    ur = models.ForeignKey(Partner, on_delete=models.CASCADE, verbose_name="Партнер")
+    partner = models.ForeignKey(Partner, on_delete=models.CASCADE, verbose_name="Партнер")
     date = models.DateField(verbose_name="Дата связи")
 
     def __str__(self):
@@ -128,6 +128,13 @@ class UR_A(models.Model):
         verbose_name = "Таблица связи партнера и постамата"
         verbose_name_plural = "Таблицы связи партнеров и постаматов"
 
+
+class LSSettings(models.Model):
+    partner = models.ForeignKey(Partner, on_delete=models.CASCADE, verbose_name="Юридическое лицо")
+    ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения")
+    token = models.CharField(max_length=255, verbose_name="Токен")
+    token_cash_register = models.CharField(max_length=255, verbose_name="Токен кассы")
+    date = models.DateTimeField(auto_now=True)
 
 class Company(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название компании дотавки")

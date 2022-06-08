@@ -32,7 +32,10 @@ class TimeForUnclaimed(models.Model):
 class Airport(models.Model):
     iata = models.CharField(max_length=10, primary_key=True, unique=True, verbose_name="IATA")
     name = models.CharField(max_length=255, verbose_name="Название аэропорта")
+    image = models.ImageField(upload_to="airport", null=True, blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name="Город, в котором находится аэропорт")
+    lat = models.DecimalField(decimal_places=15, max_digits=18, verbose_name="Широта", default=0)
+    lon = models.DecimalField(decimal_places=15, max_digits=18, verbose_name="Долгота", default=0)
 
     def __str__(self):
         return self.name
@@ -48,6 +51,7 @@ class LuggageStorage(models.Model):
     floor = models.IntegerField(verbose_name="Этаж")
     default = models.BooleanField(default=False, verbose_name="По умолчанию")
     image = models.ImageField(upload_to='LS', verbose_name="Схема расположения камеры хранения")
+    photo = models.ImageField(upload_to='LS_photo', verbose_name="Фотография камеры хранения", null=True, blank=True)
 
     def __str__(self):
         return f"{self.airport}, Терминал {self.terminal}, Этаж {self.floor}"
@@ -57,22 +61,9 @@ class LuggageStorage(models.Model):
         verbose_name_plural = "Камеры хранения"
 
 
-class PlaceLuggageStorage(models.Model):
-    ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения", related_name="place")
-
-
-    def __str__(self):
-        return f"Место в камере хранения {self.ls}"
-
-    class Meta:
-        verbose_name = "Место в камере хранения"
-        verbose_name_plural = "Места в камере хранения"
-
-
-
-
 class LuggageStorageInfo(models.Model):
-    ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения", related_name="info")
+    ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения",
+                           related_name="info")
     location = models.CharField(max_length=255, verbose_name="Местоположение")
     work_time = models.CharField(max_length=255, verbose_name="Время работы")
     conditions = models.CharField(max_length=255, verbose_name="Условия")
@@ -83,6 +74,19 @@ class LuggageStorageInfo(models.Model):
     class Meta:
         verbose_name = "Информация о камере хранения"
         verbose_name_plural = "Информация о камерах хранения"
+
+
+class PlaceLuggageStorage(models.Model):
+    ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения",
+                           related_name="place")
+    place = models.CharField(max_length=255, verbose_name="Местоположение в камере хранения")
+
+    def __str__(self):
+        return f"{self.place} в камере хранения {self.ls}"
+
+    class Meta:
+        verbose_name = "Место в камере хранения"
+        verbose_name_plural = "Места в камере хранения"
 
 
 class WorkerInfo(models.Model):
