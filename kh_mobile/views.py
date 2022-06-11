@@ -44,7 +44,7 @@ class ApiLogin(APIView):
             return Response(status=200, data={"status": True})
 
 
-class VerifyCode(APIView):
+class VerifyCodeView(APIView):
     def post(self, request):
         ver_code = VerifyCode.objects.filter(phone=request.data.get("number")).first()
         if not ver_code:

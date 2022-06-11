@@ -156,6 +156,19 @@ class MileOneAir(models.Model):
         verbose_name = "Карта лояльности"
         verbose_name_plural = "Карты лояльности"
 
+# class CreditCard(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="card", verbose_name="Пользователь")
+#     number = models.CharField(max_length=255, verbose_name="Номер карты")
+#     card_holder = models.CharField(max_length=255, verbose_name="Держатель карты")
+#     valid_until = models.CharField(max_length=255, verbose_name="Срок действия")
+#
+#     def __str__(self):
+#         return "Карта" + self.user.username
+#
+#     class Meta:
+#         verbose_name = "Карта"
+#         verbose_name_plural = "Карты"
+
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:

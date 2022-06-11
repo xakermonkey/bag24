@@ -69,7 +69,13 @@ class DocumentSerializers(serializers.ModelSerializer):
         model = Document
         fields = "__all__"
 
+# class CreditCardSerializers(serializers.ModelSerializer):
+#     class Meta:
+#         model=CreditCard
+#         fields="__all__"
+
+
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
-        model=User
-        fields=("id", "username", "verify_email", "email", "phone")
+        model = User
+        fields = ("id", "username", "verify_email", "email", "phone")
