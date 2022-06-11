@@ -33,7 +33,7 @@ def create_password():
     return result_str
 
 
-class apiLogin(APIView):
+class ApiLogin(APIView):
     def post(self, request):
         if 'number' in request.data:
             user = User.objects.filter(phone=request.data.get('number')).first()
@@ -44,7 +44,7 @@ class apiLogin(APIView):
             return Response(status=200, data={"status": True})
 
 
-class verifyCode(APIView):
+class VerifyCode(APIView):
     def post(self, request):
         ver_code = VerifyCode.objects.filter(phone=request.data.get("number")).first()
         if not ver_code:
@@ -59,7 +59,7 @@ class verifyCode(APIView):
             return Response(status=200, data={"status": True, "token": token.key, "doc": docSer})
 
 
-class getCodeCity(APIView):
+class GetCodeCity(APIView):
 
     def get(self, request):
         # import json
@@ -86,7 +86,7 @@ class getCodeCity(APIView):
         return Response(status=200, data=code.data)
 
 
-class createDocument(APIView):
+class CreateDocument(APIView):
     permission_classes = [IsAuthenticated]
     parser_classes = (MultiPartParser, FormParser)
 
@@ -119,7 +119,7 @@ class createDocument(APIView):
         return Response(status=200, data={"ok": "ok"})
 
 
-class getAirport(APIView):
+class GetAirport(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -151,7 +151,7 @@ class getAirport(APIView):
         return Response(status=200, data=air.data)
 
 
-class getTerminals(APIView):
+class GetTerminals(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -165,7 +165,21 @@ class getTerminals(APIView):
         return Response(status=200, data=term)
 
 
-class getTerminal(APIView):
+class GetClosedTerminals(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        ls = LuggageStorage.objects.filter(airport__iata=request.GET.get("iata"))
+        term = LGSerializer(ls, many=True).data
+        for i in term:
+            i.update(LSInfoSerializers(LuggageStorageInfo.objects.get(ls_id=i.get("id"))).data)
+            i.update([("luggage",
+                       Luggage.objects.filter(user=request.user, date_send__isnull=False, date_take__isnull=False,
+                                              ls_id=i.get("id")).count())])
+        return Response(status=200, data=term)
+
+
+class GetTerminal(APIView):
 
     def get(self, request, pk):
         ls = LGSerializer(LuggageStorage.objects.get(id=pk), many=False).data
@@ -173,7 +187,7 @@ class getTerminal(APIView):
         return Response(status=200, data=ls)
 
 
-class addLuggage(APIView):
+class AddLuggage(APIView):
     permission_classes = [IsAuthenticated]
 
     parser_classes = (FormParser, MultiPartParser)
@@ -202,7 +216,7 @@ class addLuggage(APIView):
         return Response(status=200, data={"status": True, "id": luggage.id})
 
 
-class getOrders(APIView):
+class GetOrders(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
@@ -211,7 +225,16 @@ class getOrders(APIView):
         return Response(status=200, data=orders)
 
 
-class sendLuggage(APIView):
+class GetCloseOrders(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        luggage = Luggage.objects.filter(ls_id=pk, user=request.user, date_send__isnull=False, date_take__isnull=False)
+        orders = LuggageSerializers(luggage, many=True).data
+        return Response(status=200, data=orders)
+
+
+class SendLuggage(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
@@ -221,18 +244,39 @@ class sendLuggage(APIView):
         return Response(status=200, data={"status": True})
 
 
-class takeLuggage(APIView):
+
+class Card(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        for i in request.GET.get("luggage[]"):
-            luggage = Luggage.objects.get(id=int(i))
-            luggage.date_take = datetime.now()
-            luggage.save()
+        pass
+
+
+    def post(self, request):
+        pass
+
+
+class TakeLuggage(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        luggage = Luggage.objects.get(id=pk)
+        luggage.date_take = datetime.now()
+        luggage.save()
         return Response(status=200, data={"status": True})
 
+    def post(self, request, pk):
+        print(request.data)
+        luggage = Luggage.objects.get(id=pk)
+        luggage.day_storage = int(request.data.get("day_len"))
+        luggage.price_day_storage = int(request.data.get("price_for_storage"))
+        luggage.sale_day_storage = int(request.data.get("sale_day_storage"))
+        luggage.total_price += int(request.data.get("price_for_storage")) - int(request.data.get("sale_day_storage"))
+        luggage.save()
+        return Response(status=200, data={"ok": "ok"})
 
-class sendEmail(APIView):
+
+class SendEmail(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -246,7 +290,7 @@ class sendEmail(APIView):
         return Response(status=200, data={"status": True})
 
 
-class verifyEmail(APIView):
+class VerifyEmail(APIView):
 
     def get(self, request, hash):
         id = hash.split("_")[0]
@@ -256,7 +300,7 @@ class verifyEmail(APIView):
         return Response(status=200)
 
 
-class getProfile(APIView):
+class GetProfile(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
