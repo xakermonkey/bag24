@@ -193,7 +193,10 @@ class AddLuggage(APIView):
     parser_classes = (FormParser, MultiPartParser)
 
     def get(self, request):
-        airport = Airport.objects.get(iata=request.GET.get("iata"))
+        if "iata" in request.GET.keys():
+            airport = Airport.objects.get(iata=request.GET.get("iata"))
+        else:
+            airport = Airport.objects.get(name=request.GET.get("airport"))
         term = LGSerializer(LuggageStorage.objects.filter(airport=airport), many=True).data
         kind = KindLuggageSerializers(KindLuggage.objects.all(), many=True).data
         for i in term:
@@ -244,13 +247,11 @@ class SendLuggage(APIView):
         return Response(status=200, data={"status": True})
 
 
-
 class Card(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
         pass
-
 
     def post(self, request):
         pass
