@@ -29,19 +29,22 @@ class NewUserManager(BaseUserManager):
         """
         Create and save a SuperUser with the given email and password.
         """
-        return self.create_user(username, password, status="adm", is_staff=True, is_admin=True, email=email, phone=phone)
+        return self.create_user(username, password, status="adm", is_staff=True, is_admin=True, email=email,
+                                phone=phone)
 
     def create_staff(self, username, password, email=None, phone=None):
         """
         Create and save a SuperUser with the given email and password.
         """
-        return self.create_user(username, password, status="st", is_staff=True, is_admin=False, email=email, phone=phone)
+        return self.create_user(username, password, status="st", is_staff=True, is_admin=False, email=email,
+                                phone=phone)
 
     def create_administrator(self, username, password, email=None, phone=None):
         """
         Create and save a SuperUser with the given email and password.
         """
-        return self.create_user(username, password, status="adm", is_staff=True, is_admin=False, email=email, phone=phone)
+        return self.create_user(username, password, status="adm", is_staff=True, is_admin=False, email=email,
+                                phone=phone)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -62,7 +65,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     verify_email = models.BooleanField(default=True)
     status = models.CharField(max_length=255, choices=STATUS_CHOISE, default=0, verbose_name="Статус")
 
-
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
@@ -71,10 +73,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
-
     class Meta:
-        verbose_name="Пользователь"
-        verbose_name_plural="Пользователи"
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"
 
 
 class Document(models.Model):
@@ -89,15 +90,13 @@ class Document(models.Model):
     first_scan = models.ImageField(verbose_name="Певый скан", upload_to=f"documents", null=True, blank=True)
     second_scan = models.ImageField(verbose_name="Второй скан", upload_to=f"documents", null=True, blank=True)
     type_doc = models.CharField(max_length=255, verbose_name="Тип документа", null=True, blank=True)
+
     def __str__(self):
         return "Личные данные " + self.user.username
 
     class Meta:
         verbose_name = "Личные данные"
         verbose_name_plural = "Личные данные"
-
-
-
 
 
 class Address(models.Model):
@@ -108,7 +107,6 @@ class Address(models.Model):
     apartment = models.IntegerField(verbose_name="Кватрира")
     code = models.CharField(max_length=100, verbose_name="Код домофона", null=True, blank=True)
 
-
     def __str__(self):
         return f"{self.name} адрес пользхователя {self.list_user.user.username}"
 
@@ -117,11 +115,9 @@ class Address(models.Model):
         verbose_name_plural = "Адреса"
 
 
-
 class AddressList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='list_user')
     addresses = models.ManyToManyField(Address)
-
 
     def __str__(self):
         return "Список адресов" + self.user.username
@@ -135,7 +131,6 @@ class VerifyCode(models.Model):
     phone = models.CharField(max_length=20, verbose_name="Номер телефона")
     code = models.IntegerField(verbose_name="Код", null=True, blank=True)
 
-
     def __str__(self):
         return "Код верификации для " + self.phone
 
@@ -146,15 +141,15 @@ class VerifyCode(models.Model):
 
 class MileOneAir(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=100, verbose_name="Номер телефона")
-
+    qr = models.CharField(max_length=255, verbose_name="QR код", null=True, blank=True)
 
     def __str__(self):
-        return "Карта MileOneAir" + self.phone
+        return "Карта MileOneAir" + self.user.phone
 
     class Meta:
         verbose_name = "Карта лояльности"
         verbose_name_plural = "Карты лояльности"
+
 
 # class CreditCard(models.Model):
 #     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="card", verbose_name="Пользователь")

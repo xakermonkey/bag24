@@ -19,5 +19,7 @@ urlpatterns = [
     path("verify_email/<str:hash>", VerifyEmail.as_view()),
     path("get_profile", GetProfile.as_view()),
     path("cards", Card.as_view()),
+    path("add_mile_on_air", AddMileOnAir.as_view()),
+    path("remove_mile_on_air", RemoveMileOnAir.as_view()),
 
 ]

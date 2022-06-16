@@ -14,6 +14,7 @@ from .serializers import *
 from datetime import datetime, timezone
 import random
 from django.core.mail import EmailMessage, send_mail
+import requests as r
 
 
 # Create your views here.
@@ -22,7 +23,15 @@ from django.core.mail import EmailMessage, send_mail
 def send_code(number):
     var_code, _ = VerifyCode.objects.get_or_create(phone=number)
     code = random.randint(999, 9999)
-    var_code.code = code
+    # r.post("https://dev.callback.mileonair.com:8222/api/v1/send/sms",
+    #        data={
+    #            "phone": number,
+    #            "text_sms": f"Ваш код для авторизации в приложении BAG24: {code}. Никому не передавайте его.",
+    #            "text_comment": f"BAG24: {number} - {code}"
+    #        },
+    #        headers={"Authorization": "Bearer k6mCoqbKFDA2mCweY6AaekmwV5tozZdgzqQJZlQGG4TY2YPZtTG0f63jnf3HkfcB"}
+    # )
+    var_code.code = 2222
     var_code.save()
 
 
@@ -56,7 +65,9 @@ class VerifyCodeView(APIView):
             token = Token.objects.get(user=User.objects.get(phone=request.data.get("number")))
             doc, _ = Document.objects.get_or_create(user=User.objects.get(phone=request.data.get("number")))
             docSer = DocumentSerializers(doc).data
-            return Response(status=200, data={"status": True, "token": token.key, "doc": docSer})
+            qr, _ = MileOneAir.objects.get_or_create(user=User.objects.get(phone=request.data.get("number")))
+            qrCode = QRSerializers(qr).data
+            return Response(status=200, data={"status": True, "token": token.key, "doc": docSer, "qr": qrCode})
 
 
 class GetCodeCity(APIView):
@@ -155,7 +166,7 @@ class GetTerminals(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        ls = LuggageStorage.objects.filter(airport__iata=request.GET.get("iata"))
+        ls = LuggageStorage.objects.filter(airport__iata=request.GET.get("iata"), active=True)
         term = LGSerializer(ls, many=True).data
         for i in term:
             i.update(LSInfoSerializers(LuggageStorageInfo.objects.get(ls_id=i.get("id"))).data)
@@ -169,7 +180,7 @@ class GetClosedTerminals(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        ls = LuggageStorage.objects.filter(airport__iata=request.GET.get("iata"))
+        ls = LuggageStorage.objects.filter(airport__iata=request.GET.get("iata"), active=True)
         term = LGSerializer(ls, many=True).data
         for i in term:
             i.update(LSInfoSerializers(LuggageStorageInfo.objects.get(ls_id=i.get("id"))).data)
@@ -197,7 +208,7 @@ class AddLuggage(APIView):
             airport = Airport.objects.get(iata=request.GET.get("iata"))
         else:
             airport = Airport.objects.get(name=request.GET.get("airport"))
-        term = LGSerializer(LuggageStorage.objects.filter(airport=airport), many=True).data
+        term = LGSerializer(LuggageStorage.objects.filter(airport=airport, active=True), many=True).data
         kind = KindLuggageSerializers(KindLuggage.objects.all(), many=True).data
         for i in term:
             i.update(LSInfoSerializers(LuggageStorageInfo.objects.get(ls_id=i.get("id"))).data)
@@ -271,8 +282,13 @@ class TakeLuggage(APIView):
         luggage = Luggage.objects.get(id=pk)
         luggage.day_storage = int(request.data.get("day_len"))
         luggage.price_day_storage = int(request.data.get("price_for_storage"))
-        luggage.sale_day_storage = int(request.data.get("sale_day_storage"))
-        luggage.total_price += int(request.data.get("price_for_storage")) - int(request.data.get("sale_day_storage"))
+        if not request.data.get("sale_day_storage") is None:
+            luggage.sale_day_storage = int(request.data.get("sale_day_storage"))
+            luggage.total_price += int(request.data.get("price_for_storage")) - int(
+                request.data.get("sale_day_storage"))
+        else:
+            luggage.sale_day_storage = 0
+            luggage.total_price += int(request.data.get("price_for_storage"))
         luggage.save()
         return Response(status=200, data={"ok": "ok"})
 
@@ -307,3 +323,23 @@ class GetProfile(APIView):
     def get(self, request):
         userSer = UserSerializers(request.user).data
         return Response(status=200, data=userSer)
+
+
+class AddMileOnAir(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        qr, _ = MileOneAir.objects.get_or_create(user=request.user)
+        qr.qr = request.data.get("qr")
+        qr.save()
+        return Response(status=200, data={"ok": "ok"})
+
+
+class RemoveMileOnAir(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        qr, _ = MileOneAir.objects.get_or_create(user=request.user)
+        qr.qr = None
+        qr.save()
+        return Response(status=200, data={"ok": "ok"})

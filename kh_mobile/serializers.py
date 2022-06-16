@@ -18,6 +18,12 @@ class AirportSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class QRSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = MileOneAir
+        fields = "__all__"
+
+
 class LuggageStorageSerializers(serializers.ModelSerializer):
     class Meta:
         model = LuggageStorage,

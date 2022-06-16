@@ -52,6 +52,7 @@ class LuggageStorage(models.Model):
     default = models.BooleanField(default=False, verbose_name="По умолчанию")
     image = models.ImageField(upload_to='LS', verbose_name="Схема расположения камеры хранения")
     photo = models.ImageField(upload_to='LS_photo', verbose_name="Фотография камеры хранения", null=True, blank=True)
+    active = models.BooleanField(default=True, verbose_name="Активна?")
 
     def __str__(self):
         return f"{self.airport}, Терминал {self.terminal}, Этаж {self.floor}"
