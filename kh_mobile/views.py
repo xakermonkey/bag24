@@ -227,7 +227,11 @@ class AddLuggage(APIView):
                                          total_price=price_list.price_storage - int(request.POST.get("sale")))
         for i in request.FILES:
             PhotoLuggage.objects.create(luggage=luggage, photo=request.FILES[i])
-        return Response(status=200, data={"status": True, "id": luggage.id})
+        partner = ParthnerSerializers(
+            LSSettings.objects.filter(ls_id=request.POST.get("ls")).order_by("date").last().partner).data
+        luggage = LuggageSerializers(luggage).data
+        ls = LGSerializer(LuggageStorage.objects.get(id=request.POST.get("ls"))).data
+        return Response(status=200, data={"status": True, "lg": luggage, "partner": partner, "ls": ls})
 
 
 class GetOrders(APIView):

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from lostitems.models import *
 from bag_admin.models import *
+from keepit_admin.models import *
 from .models import *
 from datetime import datetime, timezone
 import pytz
@@ -26,7 +27,7 @@ class QRSerializers(serializers.ModelSerializer):
 
 class LuggageStorageSerializers(serializers.ModelSerializer):
     class Meta:
-        model = LuggageStorage,
+        model = LuggageStorage
         fields = "__all__"
 
 
@@ -54,6 +55,12 @@ class PhotoLuggageSerializers(serializers.ModelSerializer):
         fields = ("photo",)
 
 
+class ParthnerSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = Partner
+        fields = "__all__"
+
+
 class LuggageSerializers(serializers.ModelSerializer):
     photo = PhotoLuggageSerializers(many=True, read_only=True)
     kind_luggage = serializers.SlugRelatedField(slug_field="name", read_only=True)
@@ -64,16 +71,21 @@ class LuggageSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
     def get_len_day(self, obj):
-        local_time = obj.date_send.replace(tzinfo=timezone.utc).astimezone(tz=pytz.timezone("Europe/Moscow"))
-        now = datetime.now(tz=pytz.timezone("Europe/Moscow"))
-        length = now - local_time
-        return length.days
+        if not obj.date_send is None:
+            local_time = obj.date_send.replace(tzinfo=timezone.utc).astimezone(
+                tz=pytz.timezone("Europe/Moscow"))
+            now = datetime.now(tz=pytz.timezone("Europe/Moscow"))
+            length = now - local_time
+            return length.days
+        else:
+            return 0
 
 
 class DocumentSerializers(serializers.ModelSerializer):
     class Meta:
         model = Document
         fields = "__all__"
+
 
 # class CreditCardSerializers(serializers.ModelSerializer):
 #     class Meta:

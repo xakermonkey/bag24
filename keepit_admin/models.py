@@ -122,7 +122,7 @@ class UR_A(models.Model):
     date = models.DateField(verbose_name="Дата связи")
 
     def __str__(self):
-        return f"Партнер {self.ur} прикреплен к {self.automat.name}"
+        return f"Партнер {self.partner} прикреплен к {self.automat.name}"
 
     class Meta:
         verbose_name = "Таблица связи партнера и постамата"

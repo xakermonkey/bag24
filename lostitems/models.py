@@ -144,7 +144,7 @@ class MileOneAir(models.Model):
     qr = models.CharField(max_length=255, verbose_name="QR код", null=True, blank=True)
 
     def __str__(self):
-        return "Карта MileOneAir" + self.user.phone
+        return "Карта MileOneAir " + self.user.phone
 
     class Meta:
         verbose_name = "Карта лояльности"
