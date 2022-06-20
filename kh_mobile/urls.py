@@ -11,6 +11,8 @@ urlpatterns = [
     path("get_closed_termianls", GetClosedTerminals.as_view()),
     path("get_terminal/<int:pk>", GetTerminal.as_view()),
     path("add_luggage", AddLuggage.as_view()),
+    path("get_luggage", GetLuggage.as_view()),
+    path("change_luggage", ChangeStatusLuggage.as_view()),
     path("get_orders/<int:pk>", GetOrders.as_view()),
     path("get_close_orders/<int:pk>", GetCloseOrders.as_view()),
     path("send_luggage/<int:pk>", SendLuggage.as_view()),

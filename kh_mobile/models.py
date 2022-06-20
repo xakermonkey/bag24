@@ -46,6 +46,17 @@ class KindLuggage(models.Model):
 
 
 class Luggage(models.Model):
+
+    STATUS = (
+        ("Создан в мобильном приложении", "Создан в мобильном приложении"),
+        ("Оплачен в мобильном приложении", "Оплачен в мобильном приложении"),
+        ("Создан в КХ", "Создан в КХ"),
+        ("Принят на хранение в КХ", "Принят на хранение в КХ"),
+        ("Оплачено доп хранение на мобильном приложении", "Оплачено доп хранение на мобильном приложении"),
+        ("Выдан из КХ", "Выдан из КХ"),
+    )
+
+
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
     ls = models.ForeignKey(LuggageStorage, on_delete=models.CASCADE, verbose_name="Камера хранения")
     kind_luggage = models.ForeignKey(KindLuggage, on_delete=models.SET_NULL, null=True, verbose_name="Вид вещи")
@@ -63,6 +74,7 @@ class Luggage(models.Model):
     day_storage = models.IntegerField(verbose_name="Время хранения багажа", default=0)
     place_ls = models.ForeignKey(PlaceLuggageStorage, on_delete=models.SET_NULL, null=True, blank=True,
                                  verbose_name="Местоположение в камере хранения")
+    status = models.CharField(max_length=255, verbose_name="Статус", choices=STATUS, default="Создан на мобильном приложении")
 
     class Meta:
         verbose_name = "Багаж"

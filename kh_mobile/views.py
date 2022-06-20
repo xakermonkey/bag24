@@ -24,13 +24,13 @@ def send_code(number):
     var_code, _ = VerifyCode.objects.get_or_create(phone=number)
     code = random.randint(999, 9999)
     # r.post("https://dev.callback.mileonair.com:8222/api/v1/send/sms",
-    #        data={
+    #        json={
     #            "phone": number,
     #            "text_sms": f"Ваш код для авторизации в приложении BAG24: {code}. Никому не передавайте его.",
     #            "text_comment": f"BAG24: {number} - {code}"
     #        },
     #        headers={"Authorization": "Bearer k6mCoqbKFDA2mCweY6AaekmwV5tozZdgzqQJZlQGG4TY2YPZtTG0f63jnf3HkfcB"}
-    # )
+    #        )
     var_code.code = 2222
     var_code.save()
 
@@ -216,6 +216,7 @@ class AddLuggage(APIView):
         return Response(status=200, data={"kind": kind, "ls": term})
 
     def post(self, request):
+        in_kh = "issued_staff" in request.POST.keys()
         price_list = LSPrice.objects.filter(ls_id=request.POST.get("ls")).order_by("date").last()
         luggage = Luggage.objects.create(user=request.user,
                                          ls_id=request.POST.get("ls"),
@@ -224,6 +225,9 @@ class AddLuggage(APIView):
                                          price_per_day=price_list.extension_storage,
                                          sale_storage=int(request.POST.get("sale")),
                                          date_create=datetime.now(),
+                                         date_send=datetime.now() if in_kh else None,
+                                         issued_staff=in_kh,
+                                         status="Принят на хранение в КХ" if in_kh else "Создан в мобильном приложении",
                                          total_price=price_list.price_storage - int(request.POST.get("sale")))
         for i in request.FILES:
             PhotoLuggage.objects.create(luggage=luggage, photo=request.FILES[i])
@@ -252,14 +256,36 @@ class GetCloseOrders(APIView):
         return Response(status=200, data=orders)
 
 
+class GetLuggage(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        if "pk" in request.GET.keys():
+            luggage = LuggageSerializers(Luggage.objects.get(id=request.GET.get("pk"))).data
+        else:
+            luggage = LuggageSerializers(Luggage.objects.all(), many=True).data
+        return Response(data=luggage, status=200)
+
+
+class ChangeStatusLuggage(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        luggage = Luggage.objects.get(id=request.data.get("id"))
+        luggage.status = request.data.get("status")
+        luggage.save()
+        return Response(data=LuggageSerializers(luggage).data, status=200)
+
+
 class SendLuggage(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, pk):
         luggage = Luggage.objects.get(id=pk)
         luggage.date_send = datetime.now()
+        luggage.status = "Принят в КХ"
         luggage.save()
-        return Response(status=200, data={"status": True})
+        return Response(status=200, data=LuggageSerializers(luggage).data)
 
 
 class Card(APIView):
@@ -278,11 +304,11 @@ class TakeLuggage(APIView):
     def get(self, request, pk):
         luggage = Luggage.objects.get(id=pk)
         luggage.date_take = datetime.now()
+        luggage.status = "Выдан"
         luggage.save()
-        return Response(status=200, data={"status": True})
+        return Response(status=200, data=LuggageSerializers(luggage).data)
 
     def post(self, request, pk):
-        print(request.data)
         luggage = Luggage.objects.get(id=pk)
         luggage.day_storage = int(request.data.get("day_len"))
         luggage.price_day_storage = int(request.data.get("price_for_storage"))
