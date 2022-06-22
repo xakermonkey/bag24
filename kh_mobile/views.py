@@ -262,6 +262,12 @@ class GetLuggage(APIView):
     def get(self, request):
         if "pk" in request.GET.keys():
             luggage = LuggageSerializers(Luggage.objects.get(id=request.GET.get("pk"))).data
+            if "full" in request.GET.keys():
+                return Response(status=200,
+                                data={"lg": luggage, "ls": LGSerializer(LuggageStorage.objects.get(id=luggage.get("ls"))).data,
+                                      "partner": ParthnerSerializers(
+                                          LSSettings.objects.filter(ls_id=luggage.get("ls")).order_by(
+                                              "date").last().partner).data})
         else:
             luggage = LuggageSerializers(Luggage.objects.all(), many=True).data
         return Response(data=luggage, status=200)
@@ -283,7 +289,7 @@ class SendLuggage(APIView):
     def get(self, request, pk):
         luggage = Luggage.objects.get(id=pk)
         luggage.date_send = datetime.now()
-        luggage.status = "Принят в КХ"
+        luggage.status = "Принят на хранение в КХ"
         luggage.save()
         return Response(status=200, data=LuggageSerializers(luggage).data)
 
@@ -304,7 +310,7 @@ class TakeLuggage(APIView):
     def get(self, request, pk):
         luggage = Luggage.objects.get(id=pk)
         luggage.date_take = datetime.now()
-        luggage.status = "Выдан"
+        luggage.status = "Выдан из КХ"
         luggage.save()
         return Response(status=200, data=LuggageSerializers(luggage).data)
 
@@ -319,8 +325,13 @@ class TakeLuggage(APIView):
         else:
             luggage.sale_day_storage = 0
             luggage.total_price += int(request.data.get("price_for_storage"))
+        luggage.status = "Оплачено доп хранение на мобильном приложении"
         luggage.save()
-        return Response(status=200, data={"ok": "ok"})
+
+        return Response(status=200, data={"lg": LuggageSerializers(luggage).data, "ls": LGSerializer(luggage.ls).data,
+                                          "partner": ParthnerSerializers(
+                                              LSSettings.objects.filter(ls=luggage.ls).order_by(
+                                                  "date").last().partner).data})
 
 
 class SendEmail(APIView):
